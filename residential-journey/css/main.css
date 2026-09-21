@@ -1911,6 +1911,8 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 .kyc-renewal-impairement-block .blue-btn.inactive-btn {color: #666666;}
 .differently-abled {color: #0095d9 !important; font-weight: bold !important;}
 
+
+
 @media(max-width: 767px) {
   .stpper-cancel-btn-block {margin-top: 15px;}
   .impairement-field.col-md-4 {max-width: 100% !important; width: 100% !important; margin-bottom: 15px;}
@@ -1931,6 +1933,7 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 .ckyc-journey-wrap .mb-7 {margin-bottom: 7px !important;}
 .ckyc-journey-wrap .mb-13 {margin-bottom: 13px !important;}
 .ckyc-journey-wrap .mb-26 {margin-bottom: 26px !important;}
+.ckyc-journey-wrap .ckyc-text-sm {font-size: 11px !important;}
 .p-none {pointer-events: none;}
 .ckyc-journey-wrap p {font-size: 13px;}
 .ckyc-registered-address-title-block {padding-bottom: 12px; margin-bottom: 27px; border-bottom: 1px solid #E5E5E5;}
@@ -1940,6 +1943,7 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 .ckyc-journey-wrap .address-block {padding: 18px 27px;}
 .ckyc-journey-wrap .address-block div {margin-bottom: 11px; font-size: 13px; font-weight: bold; color: #666666;}
 .ckyc-journey-wrap .address-block div:nth-last-of-type(1) {margin-bottom: 0;}
+.card-summary.inner.sbi-primeamex {background: url(../img/default-card-prime.jpg) left top no-repeat;}
 
 .checkbox-block label {
   margin: 0 0 26px;
@@ -1949,7 +1953,7 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 .checkbox-block input[type=checkbox], 
 .checkbox-block input[type=radio] {
   margin: 4px 0 0;
-  margin-top: 1px\9;
+  margin-top: 1px;
   line-height: normal;
   box-sizing: border-box;
   padding: 0;
@@ -2014,6 +2018,7 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 .ckyc-popup-open .resend-timer-block {font-size: 12px;}
 .ckyc-journey-wrap .sbi-input-checkbox .checkmark {top: -2px;}
 .ckyc-journey-wrap .impairement-block .select-items div, .impairement-block .select-selected {display: flex; align-items: center;}
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -2025,6 +2030,862 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
     white-space: nowrap;
     border: 0;
 }
+
+/* CKYC ADDRESS SELECTION */
+
+/* Address Selection */
+.ckyc-address-type-wrapper {
+  width: 100%;
+}
+
+.ckyc-registered-address-wrap {
+  margin-bottom: 32px;
+}
+
+.ckyc-registered-address-wrap h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-left: 28px;
+}
+
+.ckyc-address-radio-text-wrapper {
+  width: 100%;
+}
+
+.ckyc-address-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Radio */
+.ckyc-address-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.ckyc-radio {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #666666;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.ckyc-address-option input[type="radio"]:checked + .ckyc-radio {
+  border-color: #0077af;
+}
+
+.ckyc-address-option input[type="radio"]:checked + .ckyc-radio::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #0077af;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ckyc-address-option input[type="radio"]:focus-visible + .ckyc-radio {
+  outline: 2px solid #0095d9;
+  outline-offset: 2px;
+}
+
+/* Address Card */
+.ckyc-address-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 10px;
+  min-height: 140px;
+  background: #f1f1f1;
+  border: 1px solid #bbbbbb;
+  padding: 16px 26px;
+  box-sizing: border-box;
+  line-height: 1.4;
+  color: #666666;
+}
+
+/* Selected Address Card */
+.ckyc-address-option input[type="radio"]:checked ~ .ckyc-address-card {
+  border: 2px solid #0077af;
+  background: #ebf8fe;
+  box-shadow: 0px 0px 23px 0px #00000042;
+}
+
+.ckyc-address-card span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* CKYC CONSENT CHECKBOX */
+
+.ckyc-method-consent .ckyc-consent-label {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  margin: 0 0 20px;
+  cursor: pointer;
+}
+
+.ckyc-journey-custom-styles .ckyc-consent-label input[type="checkbox"] {
+  position: absolute;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.ckyc-journey-custom-styles .ckyc-consent-label .check {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid #999999;
+  background: #ffffff;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ckyc-journey-custom-styles
+  .ckyc-consent-label
+  input[type="checkbox"]:checked
+  + .check {
+  background-color: #0095d9;
+  border-color: #0095d9;
+}
+
+.ckyc-journey-custom-styles
+  .ckyc-consent-label
+  input[type="checkbox"]:checked
+  + .check::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ckyc-journey-custom-styles
+  .ckyc-consent-label
+  input[type="checkbox"]:focus-visible
+  + .check {
+  outline: 2px solid #0095d9;
+  outline-offset: 3px;
+}
+
+.ckyc-journey-custom-styles .ckyc-consent-text {
+  display: block;
+  width: calc(100% - 22px);
+  padding-left: 10px;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* CKYC ACTION BUTTONS */
+.ckyc-address-button-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.ckyc-address-button-block .ckyc-confirm-btn,
+.ckyc-address-button-block .ckyc-modify-btn {
+  width: 212px;
+  min-width: 212px;
+  height: 44px;
+  margin: 0;
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Confirm Button */
+.ckyc-address-button-block .ckyc-confirm-btn:not(.p-none):not(:disabled) {
+  background: #0077af !important;
+  color: #ffffff !important;
+  border: 1px solid #0077af;
+  cursor: pointer;
+}
+
+.ckyc-address-button-block .ckyc-confirm-btn:not(.p-none):not(:disabled):hover {
+  background: #006895 !important;
+  color: #ffffff !important;
+}
+
+.ckyc-address-button-block .ckyc-confirm-btn:focus-visible {
+  outline: 2px solid #0077af;
+  outline-offset: 2px;
+}
+
+/* Modify Button */
+.ckyc-address-button-block
+  .ckyc-modify-btn.ckyc-secondary-btn:not(.p-none):not(:disabled) {
+  background: #fff !important;
+  color: #0077af !important;
+  border: 1px solid #0077af;
+  cursor: pointer;
+}
+
+.ckyc-address-button-block
+  .ckyc-modify-btn.ckyc-secondary-btn:not(.p-none):not(:disabled):hover {
+  background: #f5f5f5 !important;
+}
+
+.ckyc-address-button-block .ckyc-modify-btn.ckyc-secondary-btn:focus-visible {
+  outline: 2px solid #0077af;
+  outline-offset: 2px;
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+  .ckyc-address-button-block {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .ckyc-address-button-block .ckyc-confirm-btn,
+  .ckyc-address-button-block .ckyc-modify-btn {
+    width: calc(50% - 5px);
+    min-width: 0;
+    height: 44px;
+  }
+}
+
+/* Prevent enabled-state color transition */
+.ckyc-address-button-block .ckyc-confirm-btn,
+.ckyc-address-button-block .ckyc-modify-btn {
+  transition: none !important;
+}
+
+/* CKYC METHOD SELECTION */
+
+.ckyc-method-selection {
+  width: 100%;
+}
+
+.ckyc-method-selection-content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ckyc-method-title {
+  margin: 0;
+  padding: 0 5px 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #111111;
+}
+
+.ckyc-method-divider {
+  width: 100%;
+  height: 1px;
+  margin-bottom: 30px;
+  background: #dddddd;
+}
+
+/* KYC OPTIONS */
+
+.ckyc-method-options {
+  width: 100%;
+}
+
+.ckyc-method-option {
+  margin-bottom: 30px;
+}
+
+.ckyc-method-upload-option {
+  margin-bottom: 32px;
+}
+
+
+/* CKYC METHOD RADIO */
+.ckyc-method-option,
+.ckyc-method-upload-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+/* eKYC CARD */
+.ckyc-method-card {
+  display: block;
+  width: 345px;
+  min-height: 108px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 2px solid #0095d9;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f9fdff 0%, #e9f8ff 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Recommended badge */
+.ckyc-recommended {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #3e790d;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Card header */
+.ckyc-method-card-content {
+  display: flex;
+  align-items: center;
+  min-height: 62px;
+  padding: 12px 18px 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c8e7f3;
+}
+
+/* eKYC text logo */
+.ckyc-ekyc-logo {
+  margin-right: 14px;
+  width: 85px;
+}
+
+.ckyc-ekyc-logo img {
+  width: 100%;
+}
+
+/* Card heading */
+.ckyc-ekyc-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #007f3b;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Benefits */
+.ckyc-method-benefits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 8px;
+  padding: 10px 18px 12px;
+  box-sizing: border-box;
+  color: #333333;
+}
+
+.ckyc-method-benefits > span {
+  display: flex;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ckyc-benefit-icon {
+  margin-right: 4px;
+  color: #4c9b31;
+  font-weight: 700;
+  width: 12px;
+  height: 12px;
+}
+
+.ckyc-benefit-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Upload option */
+.ckyc-upload-text {
+  color: #222222;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* CONSENT */
+.ckyc-method-consent {
+  width: 100%;
+  padding-top: 28px;
+  border-top: 1px solid #dddddd;
+}
+
+/* Reuse same checkbox structure */
+.ckyc-method-consent .ckyc-consent-label {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  margin: 0 0 20px;
+  cursor: pointer;
+}
+
+/* Native checkbox */
+.ckyc-method-consent .ckyc-consent-label input[type="checkbox"] {
+  position: absolute;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Custom checkbox */
+.ckyc-method-consent .ckyc-consent-label .check {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+}
+
+/* Checked checkbox */
+.ckyc-method-consent
+  .ckyc-consent-label
+  input[type="checkbox"]:checked
+  + .check {
+  border-color: #0095d9;
+  background-color: #0095d9;
+}
+
+/* Checkmark */
+.ckyc-method-consent
+  .ckyc-consent-label
+  input[type="checkbox"]:checked
+  + .check::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Checkbox focus */
+.ckyc-method-consent
+  .ckyc-consent-label
+  input[type="checkbox"]:focus-visible
+  + .check {
+  outline: 2px solid #0095d9;
+  outline-offset: 3px;
+}
+
+/* Consent text */
+.ckyc-method-consent .ckyc-consent-text {
+  display: block;
+  width: calc(100% - 20px);
+  padding-left: 8px;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Disability text */
+.ckyc-method-consent .ckyc-disability-text {
+  color: #008ccc;
+}
+
+/* Hidden disability block */
+.ckyc-method-selection .impairement-block.hidden {
+  display: none;
+}
+
+/* PROCEED */
+
+.ckyc-method-button-block {
+  margin-top: 8px;
+}
+
+.ckyc-method-proceed-btn {
+  width: 147px;
+  min-width: 147px;
+  height: 36px;
+  margin: 0;
+  padding: 0 15px;
+  border: 0;
+  box-sizing: border-box;
+  background: #0095d9;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Disabled Proceed */
+.ckyc-method-proceed-btn:disabled,
+.ckyc-method-proceed-btn.p-none {
+  background: #dddddd !important;
+  color: #666666 !important;
+  cursor: default;
+}
+
+/* Focus */
+.ckyc-method-proceed-btn:focus-visible {
+  outline: 2px solid #0095d9;
+  outline-offset: 2px;
+}
+
+.ckyc-method-proceed-btn:focus-visible {
+  outline: 2px solid #0095d9;
+  outline-offset: 2px;
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+  .ckyc-method-title {
+    font-size: 16px;
+  }
+
+  .ckyc-method-card {
+    width: calc(100vw - 70px);
+    max-width: 296px;
+  }
+
+  .ckyc-method-benefits {
+    font-size: 8px;
+  }
+
+  .ckyc-method-proceed-btn {
+    width: 100%;
+    max-width: 147px;
+  }
+}
+
+/* STEP 2 - UPLOAD DOCUMENTS */
+.ckyc-upload-card {
+  display: block;
+
+  width: 390px;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+/* Upload Title - DEFAULT */
+
+.ckyc-upload-title {
+  display: block;
+
+  padding: 0;
+
+  color: #222222;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Upload Bottom Text - DEFAULT */
+.ckyc-upload-bottom {
+  display: none;
+}
+
+/* STEP 2 - SELECTED */
+.ckyc-method-upload-option input[type="radio"]:checked ~ .ckyc-upload-card {
+  box-sizing: border-box;
+  overflow: hidden;
+
+  border: 2px solid #0095d9;
+  border-radius: 6px;
+
+  background: linear-gradient(180deg, #f9fdff 0%, #e9f8ff 100%);
+
+  box-shadow: 0px 0px 18px 0px #00000040;
+}
+
+/* Selected Upload Title */
+.ckyc-method-upload-option
+  input[type="radio"]:checked
+  ~ .ckyc-upload-card
+  .ckyc-upload-title {
+  display: flex;
+  align-items: center;
+
+  padding: 12px 18px 12px;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid #c8e7f3;
+
+  color: #008b3d;
+
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Selected Upload Bottom */
+.ckyc-method-upload-option
+  input[type="radio"]:checked
+  ~ .ckyc-upload-card
+  .ckyc-upload-bottom {
+  display: block;
+
+  padding: 12px 18px 12px;
+
+  box-sizing: border-box;
+
+  color: #333333;
+
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Click Here */
+.ckyc-upload-bottom a {
+  color: #0095d9;
+  font-weight: 700;
+}
+
+/* =========================================================
+   WHEN STEP 2 IS SELECTED
+   MAKE STEP 1 CARD UNSELECTED
+   ========================================================= */
+
+.ckyc-method-options:has(.ckyc-method-upload-option input[type="radio"]:checked)
+  .ckyc-method-option
+  .ckyc-method-card {
+  border: 1px solid #c3dde8;
+
+  box-shadow: none;
+}
+
+/* =========================================================
+   MOBILE - STEP 2
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .ckyc-upload-card {
+    width: calc(100vw - 70px);
+    max-width: 390px;
+  }
+
+  .ckyc-method-upload-option input[type="radio"]:checked ~ .ckyc-upload-card {
+    width: calc(100vw - 70px);
+    max-width: 390px;
+  }
+}
+
+/* =========================================================
+   CKYC K-LOCKER MODAL
+   ========================================================= */
+
+.ckyc-klocker-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+/* Hidden */
+.ckyc-klocker-modal[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   BACKGROUND
+   --------------------------------------------------------- */
+
+.ckyc-klocker-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  /*
+     * Visual blur only.
+     * It does NOT replace the dark overlay.
+     */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ---------------------------------------------------------
+   DIALOG
+   --------------------------------------------------------- */
+
+.ckyc-klocker-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 575px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  box-shadow: 0px 0px 84px 0px #00000040;
+}
+
+article.ckyc-upload-documents .custom-flex-upload {
+  padding-bottom: 8px;
+}
+
+article.ckyc-upload-documents .card-view-holder {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: white;
+}
+
+article.ckyc-upload-documents .ckyc-method-consent {
+  border-top: none;
+  padding-top: 10px;
+}
+
+
+/* =========================================================
+   UPLOAD DOCUMENTS - ACTION BUTTONS
+   ========================================================= */
+
+.ckyc-upload-documents .tick-buttons-block {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ckyc-upload-documents .tick-buttons-block button {
+  width: 175px;
+  min-width: 175px;
+  height: 44px;
+  margin: 0;
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  transition: none !important;
+}
+
+/* -------------------------
+   Submit - Primary
+   ------------------------- */
+
+.ckyc-upload-documents
+  .ckyc-upload-submit-btn:not(.p-none):not(:disabled) {
+  background: #0077af !important;
+  color: #ffffff !important;
+  border: 1px solid #0077af;
+  cursor: pointer;
+}
+
+.ckyc-upload-documents
+  .ckyc-upload-submit-btn:not(.p-none):not(:disabled):hover {
+  background: #006895 !important;
+}
+
+/* -------------------------
+   Cancel - Secondary
+   ------------------------- */
+
+.ckyc-upload-documents
+  .ckyc-upload-secondary-btn:not(.p-none):not(:disabled) {
+  background: #ffffff !important;
+  color: #0077af !important;
+  border: 1px solid #0077af !important;
+  cursor: pointer;
+}
+
+.ckyc-upload-documents
+  .ckyc-upload-secondary-btn:not(.p-none):not(:disabled):hover {
+  background: #f5f5f5 !important;
+}
+
+/* -------------------------
+   Keyboard focus
+   ------------------------- */
+
+.ckyc-upload-documents
+  .ckyc-upload-submit-btn:focus-visible,
+.ckyc-upload-documents
+  .ckyc-upload-secondary-btn:focus-visible {
+  outline: 2px solid #0077af;
+  outline-offset: 2px;
+}
+
+/* -------------------------
+   Mobile
+   ------------------------- */
+
+@media (max-width: 767px) {
+  .ckyc-upload-documents .tick-buttons-block {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .ckyc-upload-documents .tick-buttons-block button {
+    width: calc(50% - 5px);
+    min-width: 0;
+  }
+}
+
+/* Sachin Address CSS Ends */
+
+
 
 
 
