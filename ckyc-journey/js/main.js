@@ -1135,3 +1135,19 @@ $(function () {
         }
     });
 });
+
+
+$(function () {
+    var $radio = $('#ckyc_journey_checkbox');
+    var $proceed = $('#ckyc_journey_proceed');
+
+    if (!$radio.length || !$proceed.length) {
+        return;
+    }
+
+    $radio.on('change', function () {
+        if ($(this).is(':checked')) {
+            $proceed.removeClass('gray-btn p-none');
+        }
+    });
+});
