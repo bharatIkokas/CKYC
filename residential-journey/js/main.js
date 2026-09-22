@@ -551,6 +551,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const kycMethodSection = document.getElementById("ckyc-method-selection");
 
+  const kycMethodSectionError = document.getElementById("ckyc-method-selection-error");
+
   const proceedBtn = document.getElementById("ckyc_primary_proceed_btn");
 
   const primaryConsent = document.getElementById("ckyc_primary_consent");
@@ -582,6 +584,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dialog = modal ? modal.querySelector(".ckyc-klocker-dialog") : null;
 
   let previousFocusedElement = null;
+  
 
   /* ==============================
      INITIAL SCREEN
@@ -598,6 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (uploadDocumentsSection) {
     uploadDocumentsSection.style.display = "none";
   }
+  
 
   /* ==============================
      UPDATE PROCEED BUTTON
@@ -644,10 +648,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function openUploadDocuments() {
     if (kycMethodSection) {
       kycMethodSection.style.display = "none";
+      
     }
 
     if (uploadDocumentsSection) {
       uploadDocumentsSection.style.display = "block";
+      kycMethodSectionError.style.display= "none";
     }
   }
 

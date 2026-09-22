@@ -1953,7 +1953,7 @@
                                         <span class="field-value-heading">(Please proceed with CKYC verification below)</span>
                                     </h3>
                                 </header>
-                                <div class="section-gray-title-block mb-26">To initiate KYC renewal please proceed with CKYC verification:</div>
+                                <div class="section-gray-title-block mb-26 mt-30">To initiate KYC renewal please proceed with CKYC verification:</div>
                                 <div class="ckyc-label-wrap flex items-center">
                                     <div class="ckyc-label-img-block">
                                         <img src="../img/ckyc.png" alt="">
@@ -1963,10 +1963,25 @@
                                         <div class="ckyc-label-title">CKYC/KIN Number</div>
                                     </div>
                                 </div>
-                                <label class="sbi-input-checkbox w-100 differently-abled">
+                                <!-- <label class="sbi-input-checkbox w-100 differently-abled">
                                         Do you identify as a person with Disability?
                                         <input type="checkbox" class="differently-abled-checkbox">
                                         <span class="checkmark"></span>
+                                    </label> -->
+                                    <label class="ckyc-consent-label differently-abled">
+
+                                        <input
+                                            type="checkbox"
+                                            id="ckyc_primary_consent_2"
+                                            class="differently-abled-checkbox"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            Do you identify as a person with Disability?
+                                        </span>
+
                                     </label>
                                                                     <div class="impairement-block hidden lg">
                                                                         
@@ -2104,7 +2119,7 @@
 
                                         <div class="popup-checkbox-block letter-checbox" style="display: block;">
 
-                                            <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                            <!-- <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
                                                 id="kin_checkbox_1"
                                                 style="display: block;">
 
@@ -2119,7 +2134,23 @@
 
                                                 <span class="checkmark check-toggl"></span>
 
-                                            </label>
+                                            </label> -->
+
+                                            <label class="ckyc-consent-label" id="kin_checkbox_1">
+
+                                        <input
+                                            type="checkbox"
+                                            id="kin_check_box_1"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                        </span>
+
+                                    </label>
 
                                             
 

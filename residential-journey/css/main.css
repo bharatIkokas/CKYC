@@ -1445,6 +1445,7 @@
 }
 
 .error-help-block {display: block; width: 100%; color: red; font-size: 12px;}
+
    
    
    
@@ -1920,7 +1921,8 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 
 
 /* //////////////////////////////16 Sep, 2026///////////////////////////////////// */
-.ckyc-journey-wrap .blue-btn {
+.ckyc-journey-wrap .blue-btn,
+.ckyc-popup-open .button-blue {
   background-color: #0077af;
 }
 
@@ -1929,9 +1931,11 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 }
 
 .ckyc-journey-wrap .mt-53 {margin-top: 53px !important;}
+.ckyc-journey-wrap .mt-30 {margin-top: 30px !important;}
 
 .ckyc-journey-wrap .mb-7 {margin-bottom: 7px !important;}
 .ckyc-journey-wrap .mb-13 {margin-bottom: 13px !important;}
+.ckyc-journey-wrap .mb-20 {margin-bottom: 20px !important;}
 .ckyc-journey-wrap .mb-26 {margin-bottom: 26px !important;}
 .ckyc-journey-wrap .ckyc-text-sm {font-size: 11px !important;}
 .p-none {pointer-events: none;}
@@ -1999,7 +2003,7 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
 
 
 .ckyc-journey-wrap p {display: block; width: 100%;}
-.section-gray-title-block {font-size: 16px; font-weight: normal;  color: #212121;}
+.section-gray-title-block {font-size: 16px; font-weight: normal;  color: #212121;;}
 .flex {display: flex;}
 .items-center {align-items: center;}
 .ckyc-label-wrap {background-color: #E8F5FE; border: 1px solid #B4D3E8; border-radius: 10px; padding: 12px 20px; margin-bottom: 100px;}
@@ -2018,6 +2022,14 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 .ckyc-popup-open .resend-timer-block {font-size: 12px;}
 .ckyc-journey-wrap .sbi-input-checkbox .checkmark {top: -2px;}
 .ckyc-journey-wrap .impairement-block .select-items div, .impairement-block .select-selected {display: flex; align-items: center;}
+.ckyc-error-block {background-color: #FFF8F8; border: 1px solid #EA4335; padding: 14px 19px; margin-bottom: 30px;}
+.ckyc-error-content-block {font-size: 12px; font-weight: 600; color: #222222; margin-left: 15px;}
+.ckyc-journey-wrap .select-selected:focus-within {border: 1px solid #0077af;}
+
+.ckyc-journey-wrap input:focus-within,
+body.ckyc-popup-open input:focus-within {
+  border: 1px solid #0077af !important;
+}
 
 .sr-only {
     position: absolute;
@@ -2260,8 +2272,9 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
   background: #f5f5f5 !important;
 }
 
-.ckyc-address-button-block .ckyc-modify-btn.ckyc-secondary-btn:focus-visible {
-  outline: 2px solid #0077af;
+.ckyc-address-button-block .ckyc-modify-btn.ckyc-secondary-btn:focus-visible,
+body.ckyc-popup-open .close-popup:focus-within {
+  outline: 2px solid #0077af !important;
   outline-offset: 2px;
 }
 
@@ -2275,10 +2288,10 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 
   .ckyc-address-button-block .ckyc-confirm-btn,
   .ckyc-address-button-block .ckyc-modify-btn {
-    width: calc(50% - 5px);
-    min-width: 0;
-    height: 44px;
+    width: calc(100%);
   }
+
+  .ckyc-address-button-block {flex-wrap: wrap;}
 }
 
 /* Prevent enabled-state color transition */
@@ -2443,7 +2456,8 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 }
 
 /* Reuse same checkbox structure */
-.ckyc-method-consent .ckyc-consent-label {
+.ckyc-journey-wrap .ckyc-consent-label,
+.ckyc-popup-open .ckyc-consent-label {
   display: flex;
   align-items: flex-start;
   position: relative;
@@ -2452,7 +2466,8 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 }
 
 /* Native checkbox */
-.ckyc-method-consent .ckyc-consent-label input[type="checkbox"] {
+.ckyc-journey-wrap .ckyc-consent-label input[type="checkbox"],
+.ckyc-popup-open .ckyc-consent-label input[type="checkbox"] {
   position: absolute;
   width: 20px !important;
   height: 20px !important;
@@ -2463,7 +2478,7 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 }
 
 /* Custom checkbox */
-.ckyc-method-consent .ckyc-consent-label .check {
+.ckyc-journey-wrap .ckyc-consent-label .check {
   flex: 0 0 20px;
   width: 20px;
   height: 20px;
@@ -2474,8 +2489,24 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
   background: #ffffff;
 }
 
+.ckyc-popup-open .ckyc-consent-label .check {
+    flex: 0 0 15px;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    background: #ffffff;
+    margin-top: 2px;
+}
+
 /* Checked checkbox */
-.ckyc-method-consent
+.ckyc-journey-wrap
+  .ckyc-consent-label
+  input[type="checkbox"]:checked
+  + .check,
+  .ckyc-popup-open
   .ckyc-consent-label
   input[type="checkbox"]:checked
   + .check {
@@ -2484,14 +2515,14 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 }
 
 /* Checkmark */
-.ckyc-method-consent
+.ckyc-journey-wrap
   .ckyc-consent-label
   input[type="checkbox"]:checked
   + .check::after {
   content: "";
   position: absolute;
-  left: 5px;
-  top: 1px;
+  left: 6px;
+  top: 2px;
   width: 5px;
   height: 10px;
   border: solid #ffffff;
@@ -2499,8 +2530,24 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
   transform: rotate(45deg);
 }
 
+ .ckyc-popup-open .ckyc-consent-label input[type="checkbox"]:checked + .check::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
 /* Checkbox focus */
-.ckyc-method-consent
+.ckyc-journey-wrap
+  .ckyc-consent-label
+  input[type="checkbox"]:focus-visible
+  + .check,
+  .ckyc-popup-open
   .ckyc-consent-label
   input[type="checkbox"]:focus-visible
   + .check {
@@ -2508,8 +2555,16 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
   outline-offset: 3px;
 }
 
+.ckyc-journey-wrap .blue-btn:focus-visible,
+.ckyc-popup-open .button-blue:focus-visible
+.ckyc-journey-wrap .blue-btn:focus,
+.ckyc-popup-open .button-blue:focus {
+  outline: 2px solid #0095d9 !important;
+  outline-offset: 3px;
+}
+
 /* Consent text */
-.ckyc-method-consent .ckyc-consent-text {
+.ckyc-journey-wrap .ckyc-consent-text {
   display: block;
   width: calc(100% - 20px);
   padding-left: 8px;
@@ -2519,8 +2574,18 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
   line-height: 1.45;
 }
 
+.ckyc-popup-open .ckyc-consent-text {
+  display: block;
+  width: calc(100% - 20px);
+  padding-left: 8px;
+  color: #666666;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.45;
+}
+
 /* Disability text */
-.ckyc-method-consent .ckyc-disability-text {
+.ckyc-journey-wrap .ckyc-disability-text {
   color: #008ccc;
 }
 
@@ -2687,6 +2752,12 @@ body.ckyc-popup-open {overflow: hidden; height: 100vh;}
 .ckyc-upload-bottom a {
   color: #0095d9;
   font-weight: 700;
+}
+
+
+.differently-abled .ckyc-consent-text {
+    color: #0095d9 !important;
+    font-weight: bold !important;
 }
 
 /* =========================================================

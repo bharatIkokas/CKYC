@@ -1944,260 +1944,44 @@
                          
                         
                         
-                        <!-- Address type Selection -->
+                                
                         <article class="tab-content hide-editable ckyc-journey-wrap">
-                            <div class="ckyc-journey-custom-styles">
-
-                                <div class="ckyc-registered-address-title-block">
-                                    <h3 class="mb-7">Select The Address Below</h3>
-                                    <p id="ckyc-address-help">
-                                        Please choose between your permanent address or current address.
-                                    </p>
-                                </div>
-
-                                <div class="ckyc-address-type-wrapper">
-
-                                    <!-- Permanent Address -->
-                                    <div class="ckyc-registered-address-wrap">
-                                        <h4>Permanent Address</h4>
-
-                                        <div class="ckyc-address-radio-text-wrapper">
-                                            <label class="ckyc-address-option">
-
-                                                <input
-                                                    type="radio"
-                                                    name="addressType"
-                                                    value="permanent"
-                                                    aria-describedby="ckyc-address-help"
-                                                >
-
-                                                <span class="ckyc-radio" aria-hidden="true"></span>
-
-                                                <span class="ckyc-address-card">
-                                                    <span>B10 509, ZAILDAR KOTHI, HARIPUR ROAD</span>
-                                                    <span>DASHMESH NAGAR, JALANDHAR GAZIPUR</span>
-                                                    <span>JALANDHAR</span>
-                                                    <span>Punjab</span>
-                                                    <span>144102</span>
-                                                </span>
-
-                                            </label>
-                                        </div>
+                            <div class="vpa-block">
+                                <header class="tab-header">
+                                    <h3>
+                                        CKYC Verification			
+                                        <span class="field-value-heading">(Please proceed with CKYC verification below)</span>
+                                    </h3>
+                                </header>
+                                <div class="section-gray-title-block mb-26 mt-30">To initiate KYC renewal please proceed with CKYC verification:</div>
+                                <div class="ckyc-label-wrap flex items-center">
+                                    <div class="ckyc-label-img-block">
+                                        <img src="../img/ckyc.png" alt="">
                                     </div>
-
-
-                                    <!-- Current Address -->
-                                    <div class="ckyc-registered-address-wrap">
-                                        <h4>Current Address</h4>
-
-                                        <div class="ckyc-address-radio-text-wrapper">
-                                            <label class="ckyc-address-option">
-
-                                                <input
-                                                    type="radio"
-                                                    name="addressType"
-                                                    value="current"
-                                                    aria-describedby="ckyc-address-help"
-                                                >
-
-                                                <span class="ckyc-radio" aria-hidden="true"></span>
-
-                                                <span class="ckyc-address-card">
-                                                    <span>B10 509, ZAILDAR KOTHI, HARIPUR ROAD</span>
-                                                    <span>DASHMESH NAGAR, JALANDHAR GAZIPUR</span>
-                                                    <span>JALANDHAR</span>
-                                                    <span>Punjab</span>
-                                                    <span>144102</span>
-                                                </span>
-
-                                            </label>
-                                        </div>
+                                    <div class="ckyc-labelcontent-block">
+                                        <div class="ckyc-label-subtitle">VERIFY USING</div>
+                                        <div class="ckyc-label-title">CKYC/KIN Number</div>
                                     </div>
-
                                 </div>
-
-                                <!-- CKYC Consent -->
-                                <div class="checkbox-block">
-
-                                    <label class="ckyc-consent-label">
+                                <!-- <label class="sbi-input-checkbox w-100 differently-abled">
+                                        Do you identify as a person with Disability?
+                                        <input type="checkbox" class="differently-abled-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label> -->
+                                    <label class="ckyc-consent-label differently-abled">
 
                                         <input
                                             type="checkbox"
-                                            id="ckyc_address_consent"
-                                            name="ckyc_address_consent"
-                                        >
-
-                                        <span
-                                            class="check"
-                                            aria-hidden="true"
-                                        ></span>
-
-                                        <span class="ckyc-consent-text">
-                                            I hereby give my consent to SBI Card to download the details
-                                            basis CKYC number for updating my KYC details on CKYCR
-                                            (Central KYC registry)
-                                        </span>
-
-                                    </label>
-
-                                </div>
-
-                                <!-- Buttons -->
-                                <div class="ckyc-address-button-block">
-
-                                    <button
-                                        type="button"
-                                        id="ckyc_address_confirm_btn"
-                                        class="blue-btn ckyc-confirm-btn p-none gray-btn"
-                                        disabled
-                                        aria-disabled="true"
-                                        data-popup-target="#ckyc_otp_popup"
-                                    >
-                                        Confirm
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        id="ckyc_address_modify_btn"
-                                        class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn"
-                                        disabled
-                                        aria-disabled="true"
-                                    >
-                                        Modify
-                                    </button>
-
-                                </div>
-                            </div>     
-                        </article>
-
-                        <!-- CKYC Method Selection -->
-                        <article class="tab-content ckyc-method-selection ckyc-journey-wrap" id="ckyc-method-selection">
-
-                            <div class="ckyc-method-selection-content">
-
-                                <h3>
-                                    Verify your KYC now
-                                </h3>
-
-                                <div class="ckyc-method-divider"></div>
-
-                                <!-- KYC Options -->
-                                <div class="ckyc-method-options">
-
-                                    <!-- eKYC - Informational Only -->
-                                    <div class="ckyc-method-option">
-
-                                        <div class="ckyc-method-card">
-
-                                            <span class="ckyc-recommended">Recommended</span>
-
-                                            <div class="ckyc-method-card-content">
-
-                                                <span class="ckyc-ekyc-logo">
-                                                    <img
-                                                        src="../img/ekyc-coloured-icon.png"
-                                                        alt="eKYC Logo"
-                                                    />
-                                                </span>
-
-                                                <span class="ckyc-ekyc-title">
-                                                    <strong>Verify KYC Digitally</strong>
-                                                    <strong>Using Aadhaar</strong>
-                                                </span>
-
-                                            </div>
-
-                                            <div class="ckyc-method-benefits">
-
-                                                <span>
-                                                    <span class="ckyc-benefit-icon">
-                                                        <img
-                                                            src="../img/svg/simple-step.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Simple 3 Steps Process
-                                                </span>
-
-                                                <span>
-                                                    <span class="ckyc-benefit-icon">
-                                                        <img
-                                                            src="../img/svg/completely-digital.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Completely Digital
-                                                </span>
-
-                                                <span>
-                                                    <span class="ckyc-benefit-icon">
-                                                        <img
-                                                            src="../img/svg/secure.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Secure &amp; Authentic
-                                                </span>
-
-                                                <span>
-                                                    <span class="ckyc-benefit-icon">
-                                                        <img
-                                                            src="../img/svg/faster.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Faster &amp; Convenient
-                                                </span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <!-- Upload Documents -->
-                                    <div
-                                        class="ckyc-method-upload-option"
-                                        role="button"
-                                        tabindex="0"
-                                        aria-label="Upload documents instead"
-                                    >
-                                        <div class="ckyc-upload-card">
-                                            <span class="ckyc-upload-text">
-                                                To upload documents instead, please
-                                                <a href="#" class="ckyc-upload-link" aria-label="Click here to upload documents">click here</a>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                                <!-- Consent -->
-                                <div class="ckyc-method-consent">
-
-                                    <label class="ckyc-consent-label">
-
-                                        <input
-                                            type="checkbox"
-                                            id="ckyc_primary_consent"
+                                            id="ckyc_primary_consent_2"
+                                            class="differently-abled-checkbox"
                                         >
 
                                         <span class="check" aria-hidden="true"></span>
 
                                         <span class="ckyc-consent-text">
-                                            I hereby give my consent to SBI Card to proceed with
-                                            eKYC details or upload documents for authentication.
+                                            Do you identify as a person with Disability?
                                         </span>
 
-                                    </label>
-
-
-                                    <label class="sbi-input-checkbox w-100 differently-abled">
-                                        Do you identify as a person with Disability?
-                                        <input type="checkbox" class="differently-abled-checkbox">
-                                        <span class="checkmark"></span>
                                     </label>
                                                                     <div class="impairement-block hidden lg">
                                                                         
@@ -2308,394 +2092,147 @@
 </div>
 
                                                                     </div>
-
-                                </div>
-
-
-                                <!-- Proceed -->
-                                <div class="ckyc-address-button-block">
-
-                                    <button
-                                        type="button"
-                                        id="ckyc_primary_proceed_btn"
-                                        class="blue-btn ckyc-confirm-btn p-none gray-btn"
-                                        disabled
-                                        aria-disabled="true"
-                                    >
-                                        Proceed
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </article>
-
-                        <!-- CKYC K-LOCKER MODAL -->
-                        <div
-                            id="ckyc-klocker-modal"
-                            class="ckyc-klocker-modal"
-                            role="dialog"
-                            aria-modal="true"
-                            aria-labelledby="ckyc-klocker-title"
-                            aria-describedby="ckyc-klocker-description"
-                            hidden
-                        >
-                            <div class="ckyc-klocker-modal-overlay"></div>
-
-                            <div class="ckyc-klocker-dialog" tabindex="-1">
-
-                                <!-- e-KYC Sample img -->
-                                <img src="../img/e-kyc-sample-modal-image.png" alt="e-KYC Sample" />
-
-                            </div>
+                        <div class="input-block tick-buttons-block">
+                            <button type="button" class="blue-btn mt-0" data-popup-target="#ckyc_small_popup">Proceed</button>
                         </div>
+                            </div>
                         
-                        <!-- Upload Documents Screen Step 3 -->
-                        <article 
-                            class="tab-content ckyc-upload-documents ckyc-journey-wrap"
-                            id="ckyc-upload-documents"
-                            style="display: none;"
-                            >
-                            <form id="nominee_form">
-                                <div class="border-block-y pb-0 border-top-0">
-                                <h3 class="ckyc-method-title">
-                                    Upload Documents For The Proof of Identity & Address
-                                </h3>
+                            
+                        </article>
+                        
 
-                                <div class="ckyc-method-divider"></div>
-                                    <div class="block-title"></div>
-                                    <div class="conatct-block upload-block" id="div_to_add">
-                                        <div
-                                            class="custom-flex-upload flex-block row email-block border-bottom-0 mb-0 align-items-start">
-                                            <div class="label-block pt-10"></div>
-                                            <div class="lable-contact-block text-left">
-                                             <div class="card-view-holder message-seccess-view mt-15">
-                                                <p class="m-0 ckyc-text-sm">To know the list of acceptable documents, <a href="#">click here</a> </p>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="flex-block row email-block border-bottom-0 mb-0 align-items-start">
-                                            <div class="label-block pt-10">Select document</div>
-                                            <div class="lable-contact-block text-left">
-                                                <!-- <div class="input-field custom-select-common custom-select" onclick="kycSubmit2();">
-                                                    <select class="form-control w-100" name="cs_1" required>
-                                                        <option value="">Select</option>
-                                                        <option value="0">Pan Card</option>
-                                                        <option value="1">Aadhaar Card</option>
-                                                        <option value="2">Driving Licence</option>
-                                                    </select>
-                                                </div> -->
-                                                <div class="custom-select" id="add-type-wrapper">
+                                <!-- ////////////// Small Popup /////////////////// -->
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select</option>
-                <option value="Option1">Pan Card</option>
-                <option value="Option2">Aadhaar Card</option>
-                <option value="Option3">Driving Licence</option>
-            </select>
+                                <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup"
+                                    id="ckyc_small_popup"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    aria-labelledby="ckyc_small_popup_title"
+                                    aria-describedby="ckyc_small_popup_description"
+                                    aria-hidden="true">
 
-            <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
-            >
-                Select
-            </div>
+                                    <div class="popup-inner" tabindex="-1">
+                                        <h2 id="ckyc_small_popup_title" class="sr-only">CKYC authorization</h2>
+                                        <p id="ckyc_small_popup_description" class="sr-only">
+                                            Please provide authorization to fetch and download your KYC information from CKYCR.
+                                        </p>
 
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Pan Card
-                </div>
+                                        <div class="popup-checkbox-block letter-checbox" style="display: block;">
 
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Aadhaar Card
-                </div>
+                                            <!-- <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                                id="kin_checkbox_1"
+                                                style="display: block;">
 
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Driving Licence
-                </div>
+                                                <span class="auth-msg-kin">
+                                                    I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                                </span>
 
-                
-            </div>
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="kin_check_box_1">
 
-        </div>
-                                                <div class="d-show" id="a_card">
-                                                    <div class="d-show-cnt-block">
-                                                        <div class="d-cntent">
-                                                            <p>Please mask/black-out the first <br>
-                                                                8-digits of your Aadhaar Number.</p>
-                                                            <p>Only the last 4 digits should
-                                                                be readable.</p>
-                                                        </div>
-                                                        <div class="d-image-block">
-                                                            <img src="../img/aadhar.PNG" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="if-addhar">
-                                            <div
-                                            class="flex-block row email-block border-bottom-0 align-items-start">
-                                            <div class="label-block pt-10">Upload Front of Aadhaar Card
-                                            </div>
-                                            <div class="lable-contact-block position-relative">
-                                                <div class="form-upload" onclick="kycSubmit();">
-                                                    <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
-                                                            name="file_1" required>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
+                                                <span class="checkmark check-toggl"></span>
 
-                                        </div>
-                                        <div
-                                            class="flex-block row email-block border-bottom-0 align-items-start">
-                                            <div class="label-block pt-10">Upload Back of Aadhaar Card
-                                            </div>
-                                            <div class="lable-contact-block position-relative">
-                                                <div class="form-upload" onclick="kycSubmit();">
-                                                    <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
-                                                            name="file_2" required>
-                                                    </div>
-                                                    <div class="text-sm">File should be in .pdf, .jpg, .tiff or .png format & upload size
-                                                        should not exceed 5 MB each
-                                                        </div>
-                                                </div>
-                                                
-                                            </div>
+                                            </label> -->
 
-                                        </div>
-                                        </div>
-                                        <div class="if-pan">
-                                            <div
-                                            class="flex-block row email-block border-bottom-0 align-items-start">
-                                            <div class="label-block pt-10">Upload Document
-                                            </div>
-                                            <div class="lable-contact-block position-relative">
-                                                <div class="form-upload" onclick="kycSubmit();">
-                                                    <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
-                                                            name="pan_file_1" required>
-                                                    </div>
-                                                   
-                                                </div>
-                                                <div class="text-sm">File should be in .pdf, .jpg, .tiff or .png format & upload size
-                                                    should not exceed 5 MB
-                                                    </div>
-                                                
-                                            </div>
+                                            <label class="ckyc-consent-label" id="kin_checkbox_1">
 
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Consent -->
-                                <div class="ckyc-method-consent">
-
-                                    <label class="ckyc-consent-label">
                                         <input
                                             type="checkbox"
-                                            id="ckyc_upload_consent"
+                                            id="kin_check_box_1"
                                         >
 
                                         <span class="check" aria-hidden="true"></span>
 
                                         <span class="ckyc-consent-text">
-                                            I hereby give my consent to SBI Card to proceed with upload documents for authentication.
+                                            I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
                                         </span>
 
                                     </label>
 
+                                            
 
-                                    <!-- Differently Abled -->
-                                    <label class="sbi-input-checkbox w-100 differently-abled">
-                                        Do you identify as a person with Disability?
-                                        <input type="checkbox" class="differently-abled-checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                            <div class="popup-button-block d-flex justify-content-center mt-22 text-center">
+
+                                                <button type="button"
+                                                    id="kinPan_popup_proceed_btn"
+                                                    class="popup-button button-blue gray-btn" disabled data-popup-target="#ckyc_otp_popup">
+                                                    Proceed
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button"
+                                            class="close close-popup"
+                                            id="kinpan_otp_close" aria-label="close popup">
+                                            </button>
 
 
-                                                                    <div class="impairement-block hidden lg">
-                                                                        
-<div class="d-flex form-group justify-between">
+                                        <!-- OTP Content inside Small Popup -->
+                                        <div class="ckyc-kinpan-consent-otpbox-popup"
+                                            id="ckyc_small_popup_otp_content"
+                                            style="display: none;">
 
-    <div class="impairement-field col-md-4">
-        <label for="add-type">Type of Impairment</label>
+                                            <div class="popup-otp-title text-center">
+                                                Enter OTP
+                                            </div>
 
-        <div class="custom-select" id="add-type-wrapper">
+                                            <div class="popup-otp-text text-center">
+                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            </div>
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select Impairment</option>
-                <option value="Option1">Option 1</option>
-                <option value="Option2">Option 2</option>
-                <option value="Option3">Option 3</option>
-                <option value="Option4">Option 4</option>
-            </select>
+                                            <div class="popup-input-field">
 
-            <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
-            >
-                Select Impairment
-            </div>
+                                                <input type="password"
+                                                    placeholder="Enter OTP Here"
+                                                    maxlength="6"
+                                                    id="ckyc_small_popup_otp_input">
 
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Option 1
-                </div>
+                                                <div class="resend-block">
 
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Option 2
-                </div>
+                                                    <div class="resend-timer-block">
+                                                        <span>Resend OTP </span>
+                                                        <span id="ckyc_small_popup_resend_timer">00:87</span>
+                                                    </div>
 
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Option 3
-                </div>
+                                                    <a href="javascript:void(0);"
+                                                        id="ckyc_small_popup_resend_button"
+                                                        class="resend-button-block hidden">
+                                                        Resend OTP
+                                                    </a>
 
-                <div
-                    id="add-type-option-4"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option4"
-                >
-                    Option 4
-                </div>
-            </div>
+                                                </div>
 
-        </div>
-    </div>
+                                            </div>
 
-    <div class="impairement-field col-md-4">
-        <label for="impairment-percentage">Percentage of Impairment</label>
-        <input
-            type="text"
-            id="impairment-percentage"
-            name="impairment-percentage"
-            placeholder="Enter Percentage"
-        >
-    </div>
+                                            <div class="popup-button-block d-flex justify-content-center mt-22">
 
-    <div class="impairement-field col-md-4">
-        <label for="udid-number">UDID Number</label>
-        <input
-            type="text"
-            id="udid-number"
-            name="udid-number"
-            placeholder="Enter UDID Number"
-        >
-    </div>
+                                                <a href="javascript:void(0);"
+                                                    id="ckyc_small_popup_proceed"
+                                                    class="popup-button button-blue gray-btn disable-input-fileds">
+                                                    Proceed
+                                                </a>
 
-</div>
+                                            </div>
 
-                                                                    </div>
+                                            <a href="javascript:void(0);"
+                                                class="close close-popup">
+                                            </a>
 
-                                </div>
-                            
-                                <div class="bottom-btn-block border-top-0 mt-0 pt-0">
-                                    <div class="ckyc-address-button-block">
-
-                                        <button
-                                            type="button"
-                                            id="ckyc_upload_submit_btn"
-                                            class="blue-btn ckyc-confirm-btn p-none gray-btn"
-                                            disabled
-                                            aria-disabled="true"
-                                            data-popup-target="#ckyc_otp_popup"
-                                        >
-                                            Submit
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            id="ckyc_upload_cancel_btn"
-                                            class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn"
-                                            disabled
-                                            aria-disabled="true"
-                                        >
-                                            Cancel
-                                        </button>
+                                        </div>
 
                                     </div>
+
+                                    <div class="overlay"></div>
+
                                 </div>
-                            </form>
-                        </article>
-                        
-                        <!-- ////////////// OTP Popup /////////////////// -->
+
+
+                                <!-- ////////////// OTP Popup /////////////////// -->
 
                                 <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup ckyc-otp-popup"
                                     id="ckyc_otp_popup"
@@ -2805,11 +2342,13 @@
 
                                             <div class="popup-button-block d-flex justify-content-center mt-22">
 
-                                                <button type="button"
-                                                    id="ckycProceedFormSubmission_success_screen"
-                                                    class="popup-button button-blue gray-btn close-popup" disabled>
-                                                    Proceed
-                                                </button>
+                                                <button
+    type="button"
+    id="ckycProceedFormSubmission_KYCRenewal"
+    class="popup-button button-blue gray-btn"
+    disabled>
+    Proceed
+</button>
 
                                             </div>
 
@@ -2824,14 +2363,6 @@
                                     <div class="overlay"></div>
 
                                 </div>
-                        
-
-
-                                
-
-
-
-
                         
                         <script>
                         var newCustomerResAddressCity = "";
@@ -4120,6 +3651,12 @@ $(document).on("click", ".toggle", function(){
             // /* If the user clicks anywhere outside the select box,
             //  then close all select boxes: */
             // document.addEventListener("click", closeAllSelect);
+
+
+
+           
+
+
         </script>
         <script>
             $(document).ready(function () {
