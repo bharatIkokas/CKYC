@@ -1852,20 +1852,165 @@
                             <div>144102</div>
                         </div>
                         
-                        <div class="checkbox-block mt-53">
-                            <label>
+                        <div class="mt-53">
+                            <!-- <label>
                                 <input type="checkbox" id="rigester_checkbox" class="focus">
                                 <span class="check"></span>
                                 <span>
                                     I hereby give my consent to SBI Card to download the details basis CKYC number for updating my KYC details on CKYCR (Central KYC registry) 
                                 </span>
-                            </label>
+                            </label> -->
+                            <label class="ckyc-consent-label mt-53">
+
+                                        <input
+                                            type="checkbox"
+                                            id="rigester_checkbox_1"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            By clicking on confirm, you authorize SBI Card to use your above address across all your associated card(s).
+                                        </span>
+
+                                    </label>
                         </div>
                         <div class="input-block tick-buttons-block">
-                            <a href="javascript:void(0);" class="blue-btn mt-0 gray-btn p-none" id="rigester_cofirm_btn">Confirm</a>
-                            <a href="javascript:void(0);" class="blue-btn gray-btn mt-0" id="rigester_modify_btn">Modify</a>
+                            <button type="button" class="blue-btn register-confirm-btn p-none gray-btn" id="rigester_cofirm_btn" data-popup-target="#ckyc_otp_popup">Confirm</button>
+                            <a href="modify-address.html" class="blue-btn register-modify-btn ckyc-secondary-btn p-none gray-btn" id="rigester_modify_btn">Modify</a>
                         </div>
                     </section>
+
+                    <!-- ////////////// OTP Popup /////////////////// -->
+
+                                <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup ckyc-otp-popup"
+                                    id="ckyc_otp_popup"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    aria-labelledby="ckyc_otp_popup_title"
+                                    aria-describedby="ckyc_otp_popup_description"
+                                    aria-hidden="true">
+
+                                    <div class="popup-inner" tabindex="-1">
+                                        <h2 id="ckyc_otp_popup_title" class="sr-only">
+                                            Enter OTP
+                                        </h2>
+
+                                        <p id="ckyc_otp_popup_description" class="sr-only">
+                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                        </p>
+
+                                        <div class="popup-checkbox-block letter-checbox" style="display: none;">
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                                id="ckyc_otp_kin_checkbox"
+                                                style="display: block;">
+
+                                                <span class="auth-msg-kin">
+                                                    I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                                </span>
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_kin_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-PAN"
+                                                id="ckyc_otp_pan_checkbox"
+                                                style="display: none;">
+
+                                                I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my PAN updated in SBI Card records.
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_pan_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22 text-center">
+
+                                                <a href="javascript:void(0);"
+                                                    id="ckyc_otp_kinPan_popup_proceed_btn"
+                                                    class="popup-button button-blue letter-popup-proceed close-popup">
+                                                    Proceed
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button"
+                                        class="close close-popup"
+                                         id="ckyc_otp_kinpan_close"
+                                        aria-label="Close CKYC OTP popup">
+                                        </button>
+
+
+                                        <!-- OTP Content -->
+                                        <div class="ckyc-kinpan-consent-otpbox-popup"
+                                            id="ckyc_otp_content"
+                                            style="display: block;">
+
+                                            <div class="popup-otp-title text-center">
+                                                Enter OTP
+                                            </div>
+
+                                            <div class="popup-otp-text text-center">
+                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            </div>
+
+                                            <div class="popup-input-field">
+
+                                                <input type="password"
+                                                    placeholder="Enter OTP Here"
+                                                    maxlength="6"
+                                                    id="ckyc_otp_input">
+
+                                                <div class="resend-block">
+
+                                                    <div class="resend-timer-block">
+                                                        <span>Resend OTP </span>
+                                                        <span id="ckyc_otp_resend_timer">00:84</span>
+                                                    </div>
+
+                                                    <a href="javascript:void(0);"
+                                                        id="ckyc_otp_resend_button"
+                                                        class="resend-button-block hidden">
+                                                        Resend OTP
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22">
+
+                                                <a href="success-screen.html"
+    id="ckycProceedFormSubmission_KYCRenewal"
+    class="popup-button button-blue gray-btn"
+    disabled>
+    Proceed
+</a>
+
+                                            </div>
+
+                                            <button type="button"
+                                                class="close close-popup" aria-label="Close CKYC OTP popup">
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="overlay"></div>
+
+                                </div>
 
                     <section class="otp-section-block view-edit">
                         <hr>

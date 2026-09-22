@@ -1836,20 +1836,413 @@
 
                 </div>
                 <section class="multicard-process ckyc-journey-wrap">
-                    <section class="main-wrap my-profile active pt-3">
-                            <div>
-                            <div class="card-view-holder message-seccess-view mt-sm-0 mt-0">
-                                <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                    <h2 class="trans-style d-inline-block m-0 mr-5">Thank you!
-                                    </h2>
-                                    <p>We have received your request for KYC renewal.</p>
-                                    <p class="black">Your Service Request Number is 28379708900.</p>
-                                    <p>Your request will be processed in next 10 working days post validation of the KYC document(s).<br> In case of a name mismatch, your name will be updated in our records basis KYC documents provided by you.</p>
-                                    <p><a href="#">Click here</a> to track the status of your request.</p>
+                    <section class="main-wrap my-profile">
+                        <div class="section-gray-title-block mb-26 mt-30">To initiate KYC renewal please proceed with CKYC verification:</div>
+                                <div class="ckyc-label-wrap flex items-center">
+                                    <div class="ckyc-label-img-block">
+                                        <img src="../img/ckyc.png" alt="">
+                                    </div>
+                                    <div class="ckyc-labelcontent-block">
+                                        <div class="ckyc-label-subtitle">VERIFY USING</div>
+                                        <div class="ckyc-label-title">CKYC/KIN Number</div>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                        </section>
+                                <!-- <label class="sbi-input-checkbox w-100 differently-abled">
+                                        Do you identify as a person with Disability?
+                                        <input type="checkbox" class="differently-abled-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label> -->
+                                    <label class="ckyc-consent-label differently-abled">
+
+                                        <input
+                                            type="checkbox"
+                                            id="ckyc_primary_consent_2"
+                                            class="differently-abled-checkbox"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            Do you identify as a person with Disability?
+                                        </span>
+
+                                    </label>
+                                                                    <div class="impairement-block hidden lg">
+                                                                        
+<div class="d-flex form-group justify-between">
+
+    <div class="impairement-field col-md-4">
+        <label for="add-type">Type of Impairment</label>
+
+        <div class="custom-select" id="add-type-wrapper">
+
+            <select
+                id="add-type"
+                name="add-type"
+                class="form-control"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                <option value="" selected>Select Impairment</option>
+                <option value="Option1">Option 1</option>
+                <option value="Option2">Option 2</option>
+                <option value="Option3">Option 3</option>
+                <option value="Option4">Option 4</option>
+            </select>
+
+            <div
+                class="select-selected"
+                id="add-type-combobox"
+                role="combobox"
+                tabindex="0"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-controls="add-type-listbox"
+                aria-activedescendant=""
+            >
+                Select Impairment
+            </div>
+
+            <div
+                class="select-items select-hide"
+                id="add-type-listbox"
+                role="listbox"
+                aria-labelledby="add-type-combobox"
+            >
+                <div
+                    id="add-type-option-1"
+                    role="option"
+                    tabindex="-1"
+                    aria-selected="false"
+                    data-value="Option1"
+                >
+                    Option 1
+                </div>
+
+                <div
+                    id="add-type-option-2"
+                    role="option"
+                    tabindex="-1"
+                    aria-selected="false"
+                    data-value="Option2"
+                >
+                    Option 2
+                </div>
+
+                <div
+                    id="add-type-option-3"
+                    role="option"
+                    tabindex="-1"
+                    aria-selected="false"
+                    data-value="Option3"
+                >
+                    Option 3
+                </div>
+
+                <div
+                    id="add-type-option-4"
+                    role="option"
+                    tabindex="-1"
+                    aria-selected="false"
+                    data-value="Option4"
+                >
+                    Option 4
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="impairement-field col-md-4">
+        <label for="impairment-percentage">Percentage of Impairment</label>
+        <input
+            type="text"
+            id="impairment-percentage"
+            name="impairment-percentage"
+            placeholder="Enter Percentage"
+        >
+    </div>
+
+    <div class="impairement-field col-md-4">
+        <label for="udid-number">UDID Number</label>
+        <input
+            type="text"
+            id="udid-number"
+            name="udid-number"
+            placeholder="Enter UDID Number"
+        >
+    </div>
+
+</div>
+
+                                                                    </div>
+                        <div class="input-block tick-buttons-block">
+                            <button type="button" class="blue-btn mt-0" data-popup-target="#ckyc_small_popup">Proceed</button>
+                        </div>
+                    </section>
+
+                    <!-- ////////////// Small Popup /////////////////// -->
+
+                                <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup"
+                                    id="ckyc_small_popup"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    aria-labelledby="ckyc_small_popup_title"
+                                    aria-describedby="ckyc_small_popup_description"
+                                    aria-hidden="true">
+
+                                    <div class="popup-inner" tabindex="-1">
+                                        <h2 id="ckyc_small_popup_title" class="sr-only">CKYC authorization</h2>
+                                        <p id="ckyc_small_popup_description" class="sr-only">
+                                            Please provide authorization to fetch and download your KYC information from CKYCR.
+                                        </p>
+
+                                        <div class="popup-checkbox-block letter-checbox" style="display: block;">
+
+                                            <!-- <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                                id="kin_checkbox_1"
+                                                style="display: block;">
+
+                                                <span class="auth-msg-kin">
+                                                    I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                                </span>
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="kin_check_box_1">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label> -->
+
+                                            <label class="ckyc-consent-label" id="kin_checkbox_1">
+
+                                        <input
+                                            type="checkbox"
+                                            id="kin_check_box_1"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                        </span>
+
+                                    </label>
+
+                                            
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22 text-center">
+
+                                                <button type="button"
+                                                    id="kinPan_popup_proceed_btn"
+                                                    class="popup-button button-blue gray-btn" disabled data-popup-target="#ckyc_otp_popup">
+                                                    Proceed
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button"
+                                            class="close close-popup"
+                                            id="kinpan_otp_close" aria-label="close popup">
+                                            </button>
+
+
+                                        <!-- OTP Content inside Small Popup -->
+                                        <div class="ckyc-kinpan-consent-otpbox-popup"
+                                            id="ckyc_small_popup_otp_content"
+                                            style="display: none;">
+
+                                            <div class="popup-otp-title text-center">
+                                                Enter OTP
+                                            </div>
+
+                                            <div class="popup-otp-text text-center">
+                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            </div>
+
+                                            <div class="popup-input-field">
+
+                                                <input type="password"
+                                                    placeholder="Enter OTP Here"
+                                                    maxlength="6"
+                                                    id="ckyc_small_popup_otp_input">
+
+                                                <div class="resend-block">
+
+                                                    <div class="resend-timer-block">
+                                                        <span>Resend OTP </span>
+                                                        <span id="ckyc_small_popup_resend_timer">00:87</span>
+                                                    </div>
+
+                                                    <a href="javascript:void(0);"
+                                                        id="ckyc_small_popup_resend_button"
+                                                        class="resend-button-block hidden">
+                                                        Resend OTP
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22">
+
+                                                <a href="javascript:void(0);"
+                                                    id="ckyc_small_popup_proceed"
+                                                    class="popup-button button-blue gray-btn disable-input-fileds">
+                                                    Proceed
+                                                </a>
+
+                                            </div>
+
+                                            <a href="javascript:void(0);"
+                                                class="close close-popup">
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="overlay"></div>
+
+                                </div>
+
+
+                                <!-- ////////////// OTP Popup /////////////////// -->
+
+                                <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup ckyc-otp-popup"
+                                    id="ckyc_otp_popup"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    aria-labelledby="ckyc_otp_popup_title"
+                                    aria-describedby="ckyc_otp_popup_description"
+                                    aria-hidden="true">
+
+                                    <div class="popup-inner" tabindex="-1">
+                                        <h2 id="ckyc_otp_popup_title" class="sr-only">
+                                            Enter OTP
+                                        </h2>
+
+                                        <p id="ckyc_otp_popup_description" class="sr-only">
+                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                        </p>
+
+                                        <div class="popup-checkbox-block letter-checbox" style="display: none;">
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                                id="ckyc_otp_kin_checkbox"
+                                                style="display: block;">
+
+                                                <span class="auth-msg-kin">
+                                                    I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                                </span>
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_kin_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-PAN"
+                                                id="ckyc_otp_pan_checkbox"
+                                                style="display: none;">
+
+                                                I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my PAN updated in SBI Card records.
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_pan_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22 text-center">
+
+                                                <a href="javascript:void(0);"
+                                                    id="ckyc_otp_kinPan_popup_proceed_btn"
+                                                    class="popup-button button-blue letter-popup-proceed close-popup">
+                                                    Proceed
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button"
+                                        class="close close-popup"
+                                         id="ckyc_otp_kinpan_close"
+                                        aria-label="Close CKYC OTP popup">
+                                        </button>
+
+
+                                        <!-- OTP Content -->
+                                        <div class="ckyc-kinpan-consent-otpbox-popup"
+                                            id="ckyc_otp_content"
+                                            style="display: block;">
+
+                                            <div class="popup-otp-title text-center">
+                                                Enter OTP
+                                            </div>
+
+                                            <div class="popup-otp-text text-center">
+                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            </div>
+
+                                            <div class="popup-input-field">
+
+                                                <input type="password"
+                                                    placeholder="Enter OTP Here"
+                                                    maxlength="6"
+                                                    id="ckyc_otp_input">
+
+                                                <div class="resend-block">
+
+                                                    <div class="resend-timer-block">
+                                                        <span>Resend OTP </span>
+                                                        <span id="ckyc_otp_resend_timer">00:84</span>
+                                                    </div>
+
+                                                    <a href="javascript:void(0);"
+                                                        id="ckyc_otp_resend_button"
+                                                        class="resend-button-block hidden">
+                                                        Resend OTP
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22">
+
+                                                <button
+    type="button"
+    id="ckycProceedFormSubmission_modify"
+    class="popup-button button-blue gray-btn"
+    disabled>
+    Proceed
+</button>
+
+                                            </div>
+
+                                            <button type="button"
+                                                class="close close-popup" aria-label="Close CKYC OTP popup">
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="overlay"></div>
+
+                                </div>
 
                     <section class="otp-section-block view-edit">
                         <hr>
@@ -2704,89 +3097,7 @@
 
 
 
-    <script>
-        //            =========Custom Select box ===============================
-        var x, i, j, l, ll, selElmnt, a, b, c;
-        /* Look for any elements with the class "custom-select": */
-        x = document.getElementsByClassName("custom-select");
-        l = x.length;
-        for (i = 0; i < l; i++) {
-            selElmnt = x[i].getElementsByTagName("select")[0];
-            ll = selElmnt.length;
-            /* For each element, create a new DIV that will act as the selected item: */
-            a = document.createElement("DIV");
-            a.setAttribute("class", "select-selected");
-            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-            x[i].appendChild(a);
-            /* For each element, create a new DIV that will contain the option list: */
-            b = document.createElement("DIV");
-            b.setAttribute("class", "select-items select-hide");
-            for (j = 1; j < ll; j++) {
-                /* For each option in the original select element,
-                 create a new DIV that will act as an option item: */
-                c = document.createElement("DIV");
-                c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function (e) {
-                    /* When an item is clicked, update the original select box,
-                     and the selected item: */
-                    var y, i, k, s, h, sl, yl;
-                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                    sl = s.length;
-                    h = this.parentNode.previousSibling;
-                    for (i = 0; i < sl; i++) {
-                        if (s.options[i].innerHTML == this.innerHTML) {
-                            s.selectedIndex = i;
-                            h.innerHTML = this.innerHTML;
-                            y = this.parentNode.getElementsByClassName("same-as-selected");
-                            yl = y.length;
-                            for (k = 0; k < yl; k++) {
-                                y[k].removeAttribute("class");
-                            }
-                            this.setAttribute("class", "same-as-selected");
-                            break;
-                        }
-                    }
-                    h.click();
-                });
-                b.appendChild(c);
-            }
-            x[i].appendChild(b);
-            a.addEventListener("click", function (e) {
-                /* When the select box is clicked, close any other select boxes,
-                 and open/close the current select box: */
-                e.stopPropagation();
-                closeAllSelect(this);
-                this.nextSibling.classList.toggle("select-hide");
-                this.classList.toggle("select-arrow-active");
-            });
-        }
-
-        function closeAllSelect(elmnt) {
-            /* A function that will close all select boxes in the document,
-             except the current select box: */
-            var x, y, i, xl, yl, arrNo = [];
-            x = document.getElementsByClassName("select-items");
-            y = document.getElementsByClassName("select-selected");
-            xl = x.length;
-            yl = y.length;
-            for (i = 0; i < yl; i++) {
-                if (elmnt == y[i]) {
-                    arrNo.push(i)
-                } else {
-                    y[i].classList.remove("select-arrow-active");
-                }
-            }
-            for (i = 0; i < xl; i++) {
-                if (arrNo.indexOf(i)) {
-                    x[i].classList.add("select-hide");
-                }
-            }
-        }
-
-        /* If the user clicks anywhere outside the select box,
-         then close all select boxes: */
-        document.addEventListener("click", closeAllSelect);
-    </script>
+    
     <script>
         $(document).ready(function () {
             $('#terms_conditions').click(function () {

@@ -2224,20 +2224,7 @@ body.ckyc-popup-open input:focus-within {
 
 .ckyc-address-button-block .ckyc-confirm-btn,
 .ckyc-address-button-block .ckyc-modify-btn {
-  width: 212px;
-  min-width: 212px;
-  height: 44px;
   margin: 0;
-  padding: 0 15px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 0;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
 }
 
 /* Confirm Button */
@@ -2273,7 +2260,7 @@ body.ckyc-popup-open input:focus-within {
 }
 
 .ckyc-address-button-block .ckyc-modify-btn.ckyc-secondary-btn:focus-visible,
-body.ckyc-popup-open .close-popup:focus-within {
+body.ckyc-popup-open .close-popup:focus-visible {
   outline: 2px solid #0077af !important;
   outline-offset: 2px;
 }
