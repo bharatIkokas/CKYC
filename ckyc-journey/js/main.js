@@ -48,373 +48,514 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //////////////////////////////////Popup///////////////////////////////////////////////
 (function ($) {
-  "use strict";
+    "use strict";
 
-  var activePopup = null;
-  var lastFocusedElement = null;
-  var isPopupTransition = false;
+    var activePopup = null;
+    var lastFocusedElement = null;
 
-  var focusableSelector = [
-    "a[href]",
-    "area[href]",
-    "button:not([disabled])",
-    "input:not([disabled])",
-    "select:not([disabled])",
-    "textarea:not([disabled])",
-    "iframe",
-    "object",
-    "embed",
-    '[contenteditable="true"]',
-    '[tabindex]:not([tabindex="-1"])',
-  ].join(",");
+    var focusableSelector = [
+        "a[href]",
+        "area[href]",
+        "button:not([disabled])",
+        "input:not([disabled])",
+        "select:not([disabled])",
+        "textarea:not([disabled])",
+        "iframe",
+        "object",
+        "embed",
+        '[contenteditable="true"]',
+        '[tabindex]:not([tabindex="-1"])'
+    ].join(", ");
 
-  /*
-   * Get visible and enabled focusable elements
-   */
-  function getFocusableElements($popup) {
-    if (!$popup || !$popup.length) {
-      return $();
+
+    /*
+     * Get visible and enabled focusable elements
+     */
+    function getFocusableElements($popup) {
+
+        if (!$popup || !$popup.length) {
+            return $();
+        }
+
+        return $popup
+            .find(focusableSelector)
+            .filter(":visible")
+            .filter(function () {
+
+                var $element = $(this);
+
+                return (
+                    !$element.is(":disabled") &&
+                    $element.attr("aria-hidden") !== "true"
+                );
+
+            });
     }
 
-    return $popup
-      .find(focusableSelector)
-      .filter(":visible")
-      .filter(function () {
-        var $element = $(this);
 
-        return (
-          !$element.is(":disabled") && $element.attr("aria-hidden") !== "true"
-        );
-      });
-  }
+    /*
+     * Get popup title
+     */
+    function getPopupTitle($popup) {
 
-  /*
-   * Get popup title
-   */
-  function getPopupTitle($popup) {
-    var labelledBy = $popup.attr("aria-labelledby");
+        var labelledBy = $popup.attr("aria-labelledby");
 
-    if (!labelledBy) {
-      return "";
+        if (!labelledBy) {
+            return "";
+        }
+
+        var title = "";
+
+        $.each(labelledBy.split(/\s+/), function (index, id) {
+
+            var $label = $("#" + id);
+
+            if ($label.length) {
+                title += " " + $.trim($label.text());
+            }
+
+        });
+
+        return $.trim(title);
     }
 
-    var title = "";
 
-    $.each(labelledBy.split(/\s+/), function (index, id) {
-      var $label = $("#" + id);
+    /*
+     * Announce popup to screen reader
+     */
+    function announcePopup($popup) {
 
-      if ($label.length) {
-        title += " " + $.trim($label.text());
-      }
+        var title = getPopupTitle($popup);
+
+        if (!title) {
+            return;
+        }
+
+        var $liveRegion = $("#popup-live-region");
+
+        if (!$liveRegion.length) {
+
+            $liveRegion = $("<div>", {
+                id: "popup-live-region",
+                role: "status",
+                "aria-live": "assertive",
+                "aria-atomic": "true"
+            }).css({
+                position: "absolute",
+                width: "1px",
+                height: "1px",
+                padding: "0",
+                margin: "-1px",
+                overflow: "hidden",
+                clip: "rect(0, 0, 0, 0)",
+                whiteSpace: "nowrap",
+                border: "0"
+            });
+
+            $("body").append($liveRegion);
+        }
+
+        $liveRegion.text("");
+
+        setTimeout(function () {
+            $liveRegion.text(title);
+        }, 100);
+    }
+
+
+    /*
+     * Move focus inside popup
+     */
+    function focusFirstElement($popup) {
+
+        if (!$popup || !$popup.length) {
+            return;
+        }
+
+        var $focusable = getFocusableElements($popup);
+
+        if ($focusable.length) {
+
+            $focusable.first().trigger("focus");
+
+            return;
+        }
+
+        var $popupInner = $popup.find(".popup-inner").first();
+
+        if ($popupInner.length) {
+            $popupInner.trigger("focus");
+        }
+    }
+
+
+    /*
+     * Open popup
+     */
+    function openPopup(target, triggerElement) {
+
+        var $popup = $(target);
+
+        if (!$popup.length) {
+            return;
+        }
+
+
+        /*
+         * Store ONLY the original page element
+         * that opened the popup.
+         *
+         * If another popup is already active,
+         * do not overwrite the original page trigger.
+         */
+        if (!activePopup && triggerElement) {
+            lastFocusedElement = triggerElement;
+        }
+
+
+        /*
+         * Close any other open popup visually.
+         *
+         * Do not call closePopup() here because
+         * that would restore focus to the page
+         * during a popup-to-popup transition.
+         */
+        $('.modal-overlay[role="dialog"].open')
+            .not($popup)
+            .removeClass("open")
+            .attr("aria-hidden", "true");
+
+
+        /*
+         * Set active popup.
+         */
+        activePopup = $popup;
+
+
+        /*
+         * Open popup.
+         */
+        $popup
+            .addClass("open")
+            .attr("aria-hidden", "false");
+
+
+        /*
+         * Lock page scrolling.
+         */
+        $("body").addClass("ckyc-popup-open");
+
+
+        /*
+         * Announce popup to screen reader.
+         */
+        announcePopup($popup);
+
+
+        /*
+         * Move focus inside popup.
+         */
+        setTimeout(function () {
+
+            if (
+                activePopup &&
+                activePopup.is($popup) &&
+                $popup.hasClass("open")
+            ) {
+                focusFirstElement($popup);
+            }
+
+        }, 100);
+    }
+
+
+    /*
+     * Close popup
+     *
+     * Focus is always restored to the
+     * original page element that opened
+     * the popup.
+     */
+    function closePopup($popup) {
+
+        if (!$popup || !$popup.length) {
+            return;
+        }
+
+
+        /*
+         * Save the return-focus element
+         * before clearing the variable.
+         */
+        var returnFocusElement = lastFocusedElement;
+
+
+        /*
+         * Close popup.
+         */
+        $popup
+            .removeClass("open")
+            .attr("aria-hidden", "true");
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Clear activePopup BEFORE restoring focus.
+         *
+         * This prevents the focusin handler
+         * from moving focus back inside the popup.
+         */
+        if (activePopup && activePopup.is($popup)) {
+            activePopup = null;
+        }
+
+
+        /*
+         * Unlock page scrolling.
+         */
+        $("body").removeClass("ckyc-popup-open");
+
+
+        /*
+         * Clear stored focus element.
+         */
+        lastFocusedElement = null;
+
+
+        /*
+         * Restore focus to the original page element.
+         */
+        if (
+            returnFocusElement &&
+            document.contains(returnFocusElement)
+        ) {
+
+            setTimeout(function () {
+
+                /*
+                 * Make sure the element is still
+                 * visible and enabled before focusing.
+                 */
+                var $returnElement = $(returnFocusElement);
+
+                if (
+                    $returnElement.length &&
+                    !$returnElement.is(":disabled") &&
+                    $returnElement.is(":visible")
+                ) {
+                    $returnElement.trigger("focus");
+                }
+
+            }, 0);
+        }
+    }
+
+
+    /*
+     * OPEN POPUP
+     *
+     * Example:
+     *
+     * data-popup-target="#ckyc_small_popup"
+     */
+    $(document).on(
+        "click",
+        "[data-popup-target]",
+        function (e) {
+
+            e.preventDefault();
+
+            var target = $(this).attr("data-popup-target");
+
+            if (!target) {
+                return;
+            }
+
+            /*
+             * Pass the page element that opened
+             * the popup.
+             */
+            openPopup(target, this);
+        }
+    );
+
+
+    /*
+     * CLOSE POPUP
+     *
+     * This works for:
+     *
+     * - Mouse click
+     * - Enter
+     * - Space
+     *
+     * because native button activation
+     * generates a click event.
+     */
+    $(document).on(
+        "click",
+        '.modal-overlay[role="dialog"] .close-popup',
+        function (e) {
+
+            e.preventDefault();
+
+            var $popup = $(this).closest(
+                '.modal-overlay[role="dialog"]'
+            );
+
+            closePopup($popup);
+        }
+    );
+
+
+    /*
+     * CLOSE ON OVERLAY CLICK
+     */
+    $(document).on(
+        "click",
+        '.modal-overlay[role="dialog"]',
+        function (e) {
+
+            if (
+                $(e.target).is(".modal-overlay") ||
+                $(e.target).is(".overlay")
+            ) {
+                closePopup($(this));
+            }
+        }
+    );
+
+
+    /*
+     * KEYBOARD HANDLING
+     */
+    $(document).on("keydown", function (e) {
+
+        /*
+         * Do nothing when no popup is active.
+         */
+        if (
+            !activePopup ||
+            !activePopup.hasClass("open")
+        ) {
+            return;
+        }
+
+
+        /*
+         * ESC
+         */
+        if (
+            e.key === "Escape" ||
+            e.key === "Esc"
+        ) {
+
+            e.preventDefault();
+
+            closePopup(activePopup);
+
+            return;
+        }
+
+
+        /*
+         * Focus trap
+         */
+        if (e.key !== "Tab") {
+            return;
+        }
+
+
+        var $focusable = getFocusableElements(activePopup);
+
+
+        /*
+         * If popup has no focusable element,
+         * keep focus inside popup-inner.
+         */
+        if (!$focusable.length) {
+
+            e.preventDefault();
+
+            focusFirstElement(activePopup);
+
+            return;
+        }
+
+
+        var firstElement = $focusable[0];
+        var lastElement =
+            $focusable[$focusable.length - 1];
+
+
+        /*
+         * SHIFT + TAB
+         */
+        if (e.shiftKey) {
+
+            if (
+                document.activeElement === firstElement ||
+                !activePopup.has(document.activeElement).length
+            ) {
+
+                e.preventDefault();
+
+                $(lastElement).trigger("focus");
+            }
+
+            return;
+        }
+
+
+        /*
+         * TAB
+         */
+        if (
+            document.activeElement === lastElement ||
+            !activePopup.has(document.activeElement).length
+        ) {
+
+            e.preventDefault();
+
+            $(firstElement).trigger("focus");
+        }
     });
 
-    return $.trim(title);
-  }
-
-  /*
-   * Announce popup to screen reader
-   */
-  function announcePopup($popup) {
-    var title = getPopupTitle($popup);
-
-    if (!title) {
-      return;
-    }
-
-    var $liveRegion = $("#popup-live-region");
-
-    if (!$liveRegion.length) {
-      $liveRegion = $("<div>", {
-        id: "popup-live-region",
-        role: "status",
-        "aria-live": "assertive",
-        "aria-atomic": "true",
-      }).css({
-        position: "absolute",
-        width: "1px",
-        height: "1px",
-        padding: "0",
-        margin: "-1px",
-        overflow: "hidden",
-        clip: "rect(0, 0, 0, 0)",
-        whiteSpace: "nowrap",
-        border: "0",
-      });
-
-      $("body").append($liveRegion);
-    }
-
-    $liveRegion.text("");
-
-    setTimeout(function () {
-      $liveRegion.text(title);
-    }, 100);
-  }
-
-  /*
-   * Move focus inside popup
-   */
-  function focusFirstElement($popup) {
-    if (!$popup || !$popup.length) {
-      return;
-    }
-
-    var $focusable = getFocusableElements($popup);
-
-    if ($focusable.length) {
-      $focusable.first().trigger("focus");
-
-      return;
-    }
-
-    var $popupInner = $popup.find(".popup-inner").first();
-
-    if ($popupInner.length) {
-      $popupInner.trigger("focus");
-    }
-  }
-
-  /*
-   * Open popup
-   */
-  function openPopup(target, triggerElement) {
-    var $popup = $(target);
-
-    if (!$popup.length) {
-      return;
-    }
 
     /*
-     * Store original trigger only when
-     * opening the first popup.
-     */
-    if (!activePopup && triggerElement) {
-      lastFocusedElement = triggerElement;
-    }
-
-    /*
-     * Check whether this is a popup-to-popup transition.
-     */
-    isPopupTransition = !!activePopup;
-
-    /*
-     * Close all other open popups.
-     */
-    $('.modal-overlay[role="dialog"].open')
-      .not($popup)
-      .removeClass("open")
-      .attr("aria-hidden", "true");
-
-    /*
-     * Set new active popup.
-     */
-    activePopup = $popup;
-
-    /*
-     * Open new popup.
-     */
-    $popup.addClass("open").attr("aria-hidden", "false");
-
-    /*
-     * Keep body scroll locked.
-     */
-    $("body").addClass("ckyc-popup-open");
-
-    /*
-     * Announce popup.
-     */
-    announcePopup($popup);
-
-    /*
-     * Move focus into the new popup.
-     */
-    setTimeout(function () {
-      if (activePopup && activePopup.is($popup) && $popup.hasClass("open")) {
-        focusFirstElement($popup);
-      }
-    }, 100);
-
-    isPopupTransition = false;
-  }
-
-  /*
-   * Close popup
-   */
-  function closePopup($popup) {
-    if (!$popup || !$popup.length) {
-      return;
-    }
-
-    $popup.removeClass("open").attr("aria-hidden", "true");
-
-    /*
-     * Clear active popup only if
-     * this is the active popup.
-     */
-    if (activePopup && activePopup.is($popup)) {
-      activePopup = null;
-    }
-
-    /*
-     * Unlock body only when
-     * no popup remains open.
-     */
-    if (!$('.modal-overlay[role="dialog"].open').length) {
-      $("body").removeClass("ckyc-popup-open");
-
-      /*
-       * Restore focus to the element
-       * that originally opened the popup.
-       */
-      if (lastFocusedElement && document.contains(lastFocusedElement)) {
-        setTimeout(function () {
-          $(lastFocusedElement).trigger("focus");
-        }, 0);
-      }
-
-      lastFocusedElement = null;
-    }
-  }
-
-  /*
-   * OPEN POPUP
-   *
-   * Example:
-   *
-   * data-popup-target="#ckyc_small_popup"
-   */
-  $(document).on("click", "[data-popup-target]", function (e) {
-    e.preventDefault();
-
-    var target = $(this).attr("data-popup-target");
-
-    if (!target) {
-      return;
-    }
-
-    /*
-     * Do not close the current popup manually.
+     * Prevent focus from leaving popup.
      *
-     * openPopup() handles popup-to-popup
-     * transition.
+     * This only runs while a popup is active.
      */
-    openPopup(target, this);
-  });
+    $(document).on("focusin", function (e) {
 
-  /*
-   * CLOSE POPUP
-   */
-  $(document).on(
-    "click",
-    '.modal-overlay[role="dialog"] .close-popup',
-    function (e) {
-      e.preventDefault();
+        if (
+            !activePopup ||
+            !activePopup.hasClass("open")
+        ) {
+            return;
+        }
 
-      var $popup = $(this).closest('.modal-overlay[role="dialog"]');
 
-      closePopup($popup);
-    },
-  );
+        /*
+         * Focus is already inside popup.
+         */
+        if (
+            activePopup.is(e.target) ||
+            activePopup.has(e.target).length
+        ) {
+            return;
+        }
 
-  /*
-   * CLOSE ON OVERLAY CLICK
-   */
-  $(document).on("click", '.modal-overlay[role="dialog"]', function (e) {
-    if ($(e.target).is(".modal-overlay") || $(e.target).is(".overlay")) {
-      closePopup($(this));
-    }
-  });
 
-  /*
-   * KEYBOARD HANDLING
-   */
-  $(document).on("keydown", function (e) {
-    if (!activePopup || !activePopup.hasClass("open")) {
-      return;
-    }
+        /*
+         * Focus somehow moved outside.
+         * Bring it back inside.
+         */
+        focusFirstElement(activePopup);
+    });
 
-    /*
-     * ESC
-     */
-    if (e.key === "Escape" || e.key === "Esc") {
-      e.preventDefault();
-
-      closePopup(activePopup);
-
-      return;
-    }
-
-    /*
-     * Focus trap
-     */
-    if (e.key !== "Tab") {
-      return;
-    }
-
-    var $focusable = getFocusableElements(activePopup);
-
-    /*
-     * If popup has no focusable element,
-     * keep focus on popup-inner.
-     */
-    if (!$focusable.length) {
-      e.preventDefault();
-
-      focusFirstElement(activePopup);
-
-      return;
-    }
-
-    var firstElement = $focusable[0];
-    var lastElement = $focusable[$focusable.length - 1];
-
-    /*
-     * SHIFT + TAB
-     */
-    if (e.shiftKey) {
-      if (
-        document.activeElement === firstElement ||
-        !activePopup.has(document.activeElement).length
-      ) {
-        e.preventDefault();
-
-        $(lastElement).trigger("focus");
-      }
-
-      return;
-    }
-
-    /*
-     * TAB
-     */
-    if (
-      document.activeElement === lastElement ||
-      !activePopup.has(document.activeElement).length
-    ) {
-      e.preventDefault();
-
-      $(firstElement).trigger("focus");
-    }
-  });
-
-  /*
-   * Prevent focus from leaving popup.
-   */
-  $(document).on("focusin", function (e) {
-    if (!activePopup || !activePopup.hasClass("open")) {
-      return;
-    }
-
-    if (activePopup.is(e.target) || activePopup.has(e.target).length) {
-      return;
-    }
-
-    /*
-     * If focus somehow moves outside,
-     * immediately move it back inside.
-     */
-    focusFirstElement(activePopup);
-  });
 })(jQuery);
 
 //////////////////////////OTP Proceed Button Active///////////////////////////////////
@@ -885,236 +1026,324 @@ document.addEventListener("DOMContentLoaded", function () {
 
 ///////////////////////////////Custom Select///////////////////////////
 (function () {
-  "use strict";
+    "use strict";
 
-  var customSelects = document.querySelectorAll(".custom-select");
+    var customSelects = document.querySelectorAll(".custom-select");
 
-  if (!customSelects.length) {
-    return;
-  }
-
-  customSelects.forEach(function (customSelect) {
-    var select = customSelect.querySelector("select");
-    var combobox = customSelect.querySelector(".select-selected");
-    var listbox = customSelect.querySelector(".select-items");
-    var options = customSelect.querySelectorAll('[role="option"]');
-
-    if (!select || !combobox || !listbox || !options.length) {
-      return;
-    }
-
-    var selectedIndex =
-      select.selectedIndex > 0 ? select.selectedIndex - 1 : -1;
-
-    function openSelect() {
-      closeAllSelect(customSelect);
-
-      listbox.classList.remove("select-hide");
-      combobox.setAttribute("aria-expanded", "true");
-
-      if (selectedIndex >= 0 && options[selectedIndex]) {
-        setActiveOption(selectedIndex);
-      }
-    }
-
-    function closeSelect() {
-      listbox.classList.add("select-hide");
-      combobox.setAttribute("aria-expanded", "false");
-      combobox.removeAttribute("aria-activedescendant");
-    }
-
-    function toggleSelect() {
-      var isOpen = combobox.getAttribute("aria-expanded") === "true";
-
-      if (isOpen) {
-        closeSelect();
-      } else {
-        openSelect();
-      }
-    }
-
-    function setActiveOption(index) {
-      if (index < 0 || index >= options.length) {
+    if (!customSelects.length) {
         return;
-      }
-
-      options.forEach(function (option) {
-        option.setAttribute("aria-selected", "false");
-      });
-
-      var option = options[index];
-
-      option.setAttribute("aria-selected", "true");
-
-      combobox.setAttribute("aria-activedescendant", option.id);
-
-      selectedIndex = index;
-    }
-
-    function selectOption(index) {
-      if (index < 0 || index >= options.length) {
-        return;
-      }
-
-      var option = options[index];
-      var value = option.getAttribute("data-value");
-
-      if (!value) {
-        return;
-      }
-
-      select.value = value;
-
-      combobox.textContent = option.textContent.trim();
-
-      options.forEach(function (item) {
-        item.setAttribute("aria-selected", "false");
-      });
-
-      option.setAttribute("aria-selected", "true");
-
-      selectedIndex = index;
-
-      select.dispatchEvent(
-        new Event("change", {
-          bubbles: true,
-        }),
-      );
-
-      closeSelect();
-    }
-
-    function moveActiveOption(direction) {
-      var nextIndex = selectedIndex + direction;
-
-      if (nextIndex < 0) {
-        nextIndex = options.length - 1;
-      }
-
-      if (nextIndex >= options.length) {
-        nextIndex = 0;
-      }
-
-      setActiveOption(nextIndex);
     }
 
     function closeAllSelect(exception) {
-      customSelects.forEach(function (item) {
-        if (item === exception) {
-          return;
-        }
+        customSelects.forEach(function (customSelect) {
+            if (customSelect === exception) {
+                return;
+            }
 
-        var otherCombobox = item.querySelector(".select-selected");
-        var otherListbox = item.querySelector(".select-items");
+            var combobox = customSelect.querySelector(".select-selected");
+            var listbox = customSelect.querySelector(".select-items");
 
-        if (!otherCombobox || !otherListbox) {
-          return;
-        }
+            if (!combobox || !listbox) {
+                return;
+            }
 
-        otherListbox.classList.add("select-hide");
-        otherCombobox.setAttribute("aria-expanded", "false");
-        otherCombobox.removeAttribute("aria-activedescendant");
-      });
+            listbox.classList.add("select-hide");
+            combobox.setAttribute("aria-expanded", "false");
+            combobox.removeAttribute("aria-activedescendant");
+        });
     }
 
-    combobox.addEventListener("click", function (event) {
-      event.stopPropagation();
-      toggleSelect();
-    });
-
-    combobox.addEventListener("keydown", function (event) {
-      var isOpen = combobox.getAttribute("aria-expanded") === "true";
-
-      switch (event.key) {
-        case "Enter":
-        case " ":
-          event.preventDefault();
-
-          if (!isOpen) {
-            openSelect();
-          } else if (selectedIndex >= 0) {
-            selectOption(selectedIndex);
-          }
-
-          break;
-
-        case "ArrowDown":
-          event.preventDefault();
-
-          if (!isOpen) {
-            openSelect();
-          }
-
-          moveActiveOption(1);
-          break;
-
-        case "ArrowUp":
-          event.preventDefault();
-
-          if (!isOpen) {
-            openSelect();
-          }
-
-          moveActiveOption(-1);
-          break;
-
-        case "Home":
-          if (isOpen) {
-            event.preventDefault();
-            setActiveOption(0);
-          }
-          break;
-
-        case "End":
-          if (isOpen) {
-            event.preventDefault();
-            setActiveOption(options.length - 1);
-          }
-          break;
-
-        case "Escape":
-          if (isOpen) {
-            event.preventDefault();
-            closeSelect();
-          }
-          break;
-
-        case "Tab":
-          closeSelect();
-          break;
-
-        default:
-          break;
-      }
-    });
-
-    options.forEach(function (option, index) {
-      option.addEventListener("click", function (event) {
-        event.stopPropagation();
-        selectOption(index);
-        combobox.focus();
-      });
-
-      option.addEventListener("mousemove", function () {
-        setActiveOption(index);
-      });
-    });
-  });
-
-  document.addEventListener("click", function () {
     customSelects.forEach(function (customSelect) {
-      var combobox = customSelect.querySelector(".select-selected");
-      var listbox = customSelect.querySelector(".select-items");
+        var select = customSelect.querySelector("select");
+        var combobox = customSelect.querySelector(".select-selected");
+        var listbox = customSelect.querySelector(".select-items");
+        var options = customSelect.querySelectorAll('[role="option"]');
 
-      if (!combobox || !listbox) {
-        return;
-      }
+        if (!select || !combobox || !listbox || !options.length) {
+            return;
+        }
 
-      listbox.classList.add("select-hide");
-      combobox.setAttribute("aria-expanded", "false");
-      combobox.removeAttribute("aria-activedescendant");
+        var selectedIndex = select.selectedIndex > 0
+            ? select.selectedIndex - 1
+            : -1;
+
+        var activeIndex = selectedIndex;
+
+        function setActiveOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            var option = options[index];
+
+            activeIndex = index;
+
+            /*
+             * aria-activedescendant is maintained on the
+             * combobox for screen-reader context.
+             */
+            if (option.id) {
+                combobox.setAttribute(
+                    "aria-activedescendant",
+                    option.id
+                );
+            }
+
+            /*
+             * Move actual keyboard focus to the option.
+             */
+            option.focus();
+        }
+
+        function setSelectedOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            options.forEach(function (option) {
+                option.setAttribute("aria-selected", "false");
+            });
+
+            options[index].setAttribute("aria-selected", "true");
+
+            selectedIndex = index;
+        }
+
+        function openSelect() {
+            closeAllSelect(customSelect);
+
+            listbox.classList.remove("select-hide");
+            combobox.setAttribute("aria-expanded", "true");
+
+            if (selectedIndex >= 0) {
+                activeIndex = selectedIndex;
+            } else {
+                activeIndex = 0;
+            }
+
+            /*
+             * Move focus to the currently selected option.
+             * If nothing is selected, focus the first option.
+             */
+            setActiveOption(activeIndex);
+        }
+
+        function closeSelect(restoreFocus) {
+            listbox.classList.add("select-hide");
+            combobox.setAttribute("aria-expanded", "false");
+            combobox.removeAttribute("aria-activedescendant");
+
+            activeIndex = selectedIndex;
+
+            if (restoreFocus) {
+                combobox.focus();
+            }
+        }
+
+        function selectOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            var option = options[index];
+            var value = option.getAttribute("data-value");
+
+            if (!value) {
+                return;
+            }
+
+            select.value = value;
+
+            combobox.textContent = option.textContent.trim();
+
+            setSelectedOption(index);
+
+            activeIndex = index;
+
+            select.dispatchEvent(
+                new Event("change", {
+                    bubbles: true
+                })
+            );
+
+            /*
+             * Return focus to combobox after selection.
+             */
+            closeSelect(true);
+        }
+
+        function moveActiveOption(direction) {
+            var nextIndex = activeIndex + direction;
+
+            if (activeIndex === -1) {
+                nextIndex = direction > 0
+                    ? 0
+                    : options.length - 1;
+            }
+
+            if (nextIndex < 0) {
+                nextIndex = options.length - 1;
+            }
+
+            if (nextIndex >= options.length) {
+                nextIndex = 0;
+            }
+
+            setActiveOption(nextIndex);
+        }
+
+        function toggleSelect() {
+            var isOpen =
+                combobox.getAttribute("aria-expanded") === "true";
+
+            if (isOpen) {
+                closeSelect(true);
+            } else {
+                openSelect();
+            }
+        }
+
+        combobox.addEventListener("click", function (event) {
+            event.stopPropagation();
+            toggleSelect();
+        });
+
+        combobox.addEventListener("keydown", function (event) {
+            var isOpen =
+                combobox.getAttribute("aria-expanded") === "true";
+
+            switch (event.key) {
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else if (activeIndex >= 0) {
+                        selectOption(activeIndex);
+                    }
+
+                    break;
+
+                case "ArrowDown":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else {
+                        moveActiveOption(1);
+                    }
+
+                    break;
+
+                case "ArrowUp":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else {
+                        moveActiveOption(-1);
+                    }
+
+                    break;
+
+                case "Home":
+                    if (isOpen) {
+                        event.preventDefault();
+                        setActiveOption(0);
+                    }
+                    break;
+
+                case "End":
+                    if (isOpen) {
+                        event.preventDefault();
+                        setActiveOption(options.length - 1);
+                    }
+                    break;
+
+                case "Escape":
+                    if (isOpen) {
+                        event.preventDefault();
+                        closeSelect(true);
+                    }
+                    break;
+
+                case "Tab":
+                    if (isOpen) {
+                        closeSelect(false);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        });
+
+        options.forEach(function (option, index) {
+            option.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                selectOption(index);
+            });
+
+            option.addEventListener("keydown", function (event) {
+                switch (event.key) {
+                    case "ArrowDown":
+                        event.preventDefault();
+                        moveActiveOption(1);
+                        break;
+
+                    case "ArrowUp":
+                        event.preventDefault();
+                        moveActiveOption(-1);
+                        break;
+
+                    case "Home":
+                        event.preventDefault();
+                        setActiveOption(0);
+                        break;
+
+                    case "End":
+                        event.preventDefault();
+                        setActiveOption(options.length - 1);
+                        break;
+
+                    case "Enter":
+                    case " ":
+                        event.preventDefault();
+                        selectOption(index);
+                        break;
+
+                    case "Escape":
+                        event.preventDefault();
+                        closeSelect(true);
+                        break;
+
+                    case "Tab":
+                        closeSelect(false);
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+
+            option.addEventListener("mousemove", function () {
+                activeIndex = index;
+
+                if (option.id) {
+                    combobox.setAttribute(
+                        "aria-activedescendant",
+                        option.id
+                    );
+                }
+            });
+        });
     });
-  });
+
+    document.addEventListener("click", function () {
+        closeAllSelect(null);
+    });
 })();
 
 
@@ -1150,4 +1379,63 @@ $(function () {
             $proceed.removeClass('gray-btn p-none');
         }
     });
+});
+
+(function () {
+    "use strict";
+
+    function announceCkycError() {
+        var announcement = document.getElementById("ckyc-error-announcement");
+        var errorMessage = document.getElementById("ckyc-error-message");
+
+        if (!announcement || !errorMessage) {
+            return;
+        }
+
+        var message = errorMessage.textContent.trim();
+
+        if (!message) {
+            return;
+        }
+
+        // Ensure the live region starts empty.
+        announcement.textContent = "";
+
+        // Wait until the page and live region are rendered.
+        window.setTimeout(function () {
+            announcement.textContent = message;
+        }, 500);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
+            announceCkycError();
+        });
+    } else {
+        announceCkycError();
+    }
+})();
+
+$(".form-upload").on("change", ".file-upload-field", function () {
+    var fileInput = $(this);
+    var fileName = fileInput.val().replace(/.*(\/|\\)/, "");
+
+    fileInput
+        .parent(".file-upload-wrapper")
+        .attr("data-text", fileName);
+
+    fileInput
+        .closest(".lable-contact-block")
+        .find(".document-upload-success-message")
+        .removeClass("d-none");
+});
+
+$("#ckyc_journey_proceed").on("click", function () {
+    $("#ckyc_card_selection").addClass("d-none");
+    $("#ckyc_upload_document").removeClass("d-none");
+});
+
+$("#ckyc_address_modify_btn").on("click", function () {
+    $("#ckyc_select_address").addClass("d-none");
+    $("#ckyc_upload_photo").removeClass("d-none");
 });

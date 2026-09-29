@@ -1252,7 +1252,7 @@
      box-sizing: border-box;
    }
    
-   input {height: 38px !important; border: solid 1px #ddd !important; background-color: #fbfbfb !important;}
+   input {height: 38px !important; border: solid 1px #ddd !important;}
    .submit-button-block .confirm-button {background: #0095da !important; color: #ffffff !important;}
    .tick-buttons-block a {margin: 0; margin-right: 10px; margin-top: 22px;}
    .otp-section-block {display: none;}
@@ -1904,11 +1904,11 @@ label.fancy-checkbox.ucic-checkbox-upd-msg {
   background-color: transparent;
 }
 
-.impairement-block input::placeholder {color: #A6A1A1;}
+/* .impairement-block input::placeholder {color: #A6A1A1;}
 .impairement-block input::-webkit-input-placeholder {color: #A6A1A1;}
 .impairement-block input::-moz-placeholder {color: #A6A1A1;}
 .impairement-block input:-ms-input-placeholder {color: #A6A1A1;}
-.impairement-block .select-selected:after {right: 6px;} 
+.impairement-block .select-selected:after {right: 6px;}  */
 .kyc-renewal-impairement-block .blue-btn.inactive-btn {color: #666666;}
 .differently-abled {color: #0095d9 !important; font-weight: bold !important;}
 
@@ -2246,8 +2246,7 @@ body.ckyc-popup-open input:focus-within {
 }
 
 /* Modify Button */
-.ckyc-address-button-block
-  .ckyc-modify-btn.ckyc-secondary-btn:not(.p-none):not(:disabled) {
+.ckyc-address-button-block .ckyc-modify-btn.ckyc-secondary-btn:not(.p-none):not(:disabled) {
   background: #fff !important;
   color: #0077af !important;
   border: 1px solid #0077af;
@@ -2925,6 +2924,27 @@ article.ckyc-upload-documents .ckyc-method-consent {
   outline-offset: 2px;
 }
 
+
+.ckyc-journey-wrap .impairement-block.lg .form-group .impairement-field span {
+    font-size: 10px;
+        margin-bottom: 8px !important;
+    display: block;
+        font-weight: 600;
+}
+
+.ckyc-journey-wrap button.ckyc-upload-link {
+    background-color: transparent;
+    font-weight: 600;
+    color: #0077af !important;
+}
+
+.ckyc-journey-wrap .impairement-block .select-items div, 
+.ckyc-journey-wrap .impairement-block .select-selected {
+  font-size: 12px;
+}
+
+.upload-block .label-block div {font-weight: 600;}
+
 /* -------------------------
    Mobile
    ------------------------- */
@@ -2950,3 +2970,70 @@ article.ckyc-upload-documents .ckyc-method-consent {
 @media(min-width: 767px) {
   .ckyc-label-wrap {width: 298px;}
 }
+
+
+
+/* ////////////////Accessbilty/////////////////// */
+.accessbility-handled-wrap a {font-weight: 600; color: #0077af;}
+
+.accessbility-handled-wrap a:focus-visible,
+.accessbility-handled-wrap .file-upload-wrapper:focus-within,
+.accessbility-handled-wrap .select-selected:focus-within,
+.accessbility-handled-wrap input:focus-within, 
+body.ckyc-popup-open input:focus-within,
+.accessbility-handled-wrap .custom-select .select-selected:focus-visible,
+button.ckyc-upload-link:focus-visible,
+.accessbility-handled-wrap .select-items div:focus-visible {
+  outline: 2px solid #0077af !important; 
+  outline-offset: 2px;
+}
+
+.accessbility-handled-wrap .differently-abled .ckyc-consent-text {color: #0077af !important;}
+.accessbility-handled-wrap .select-items div:hover {color: #222222;}
+
+.accessbility-handled-wrap .gray-btn,
+.accessbility-handled-wrap .file-upload-wrapper:before {
+    color: #000000 !important;
+}
+
+.accessbility-handled-wrap p,
+.my-profile #address-tab .accessbility-handled-wrap .field-value-heading,
+.accessbility-handled-wrap .impairement-block input,
+.accessbility-handled-wrap .impairement-block .select-items div, 
+.accessbility-handled-wrap .impairement-block .select-selected,
+.ckyc-popup-open .ckyc-consent-text,
+.accessbility-handled-wrap .ckyc-consent-text,
+.ckyc-popup-open .ckyc-kinpan-consent-otpbox-popup .popup-input-field input {
+    color: #222222;
+}
+
+.accessbility-handled-wrap input::placeholder,
+.ckyc-popup-open input::placeholder {
+    color: #222222;
+}
+
+.accessbility-handled-wrap .file-upload-wrapper,
+.accessbility-handled-wrap .select-items div, 
+.accessbility-handled-wrap .select-selected,
+.accessbility-handled-wrap .ckyc-consent-label .check,
+.ckyc-popup-open .ckyc-consent-label .check {
+    border: solid 1px #666666;
+}
+
+.accessbility-handled-wrap .custom-select [role="option"][aria-selected="true"] {
+    color: #0077af;
+    font-weight: bold;
+}
+
+.ckyc-popup-open input,
+.accessbility-handled-wrap input {
+  border: solid 1px #666666 !important;
+}
+
+.accessbility-handled-wrap .select-items div {
+    border-bottom: 0 !important;
+}
+
+
+/* //////////////////OTP Error////////////////// */
+.otp-error-block {font-size: 12px; font-weight: 500; color: #b10e00; width: 70%;}

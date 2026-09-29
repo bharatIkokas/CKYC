@@ -1948,7 +1948,7 @@
                         
 
                         <!-- CKYC Method Selection -->
-                        <article class="tab-content ckyc-method-selection ckyc-journey-wrap" id="ckyc-method-selection-error">
+                        <article class="tab-content ckyc-method-selection ckyc-journey-wrap accessbility-handled-wrap" id="ckyc-method-selection-error">
 
                             <div class="ckyc-method-selection-content">
 
@@ -1959,15 +1959,27 @@
                                 <div class="ckyc-method-divider"></div>
 
                                 <div class="ckyc-error-block">
-                                    <div class="flex items-center">
-                                        <div class="ckyc-error-img-block">
-                                            <img src="../img/error-1.png" alt="">
-                                        </div>
-                                        <div class="ckyc-error-content-block">
-                                            We were unable to fetch your CKVC details at this time. Please proceed with options below:
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="flex items-center">
+        <div class="ckyc-error-img-block">
+            <img src="../img/error-1.png" alt="">
+        </div>
+
+        <div
+            class="ckyc-error-content-block"
+            id="ckyc-error-message">
+            We were unable to fetch your CKYC details at this time.
+            Please proceed with options below:
+        </div>
+    </div>
+
+    <!-- Screen-reader announcement -->
+    <div
+        id="ckyc-error-announcement"
+        class="sr-only"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"></div>
+</div>
 
                                 <h3 class="mb-20">
                                     Please continue with the below step:
@@ -2051,14 +2063,13 @@
                                     <!-- Upload Documents -->
                                     <div
                                         class="ckyc-method-upload-option"
-                                        role="button"
                                         tabindex="0"
                                         aria-label="Upload documents instead"
                                     >
                                         <div class="ckyc-upload-card">
                                             <span class="ckyc-upload-text">
                                                 To upload documents instead, please
-                                                <a href="#" class="ckyc-upload-link" aria-label="Click here to upload documents">click here</a>
+                                                <button type="button" class="ckyc-upload-link" aria-label="Click here to upload documents">click here</button>
                                             </span>
                                         </div>
                                     </div>
@@ -2108,112 +2119,124 @@
                                         <span class="checkmark"></span>
                                     </label> -->
                                                                     <div class="impairement-block hidden lg">
-                                                                        
-<div class="d-flex form-group justify-between">
 
-    <div class="impairement-field col-md-4">
-        <label for="add-type">Type of Impairment</label>
+    <div class="d-flex form-group justify-between">
 
-        <div class="custom-select" id="add-type-wrapper">
+        <div class="impairement-field col-md-4">
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select Impairment</option>
-                <option value="Option1">Option 1</option>
-                <option value="Option2">Option 2</option>
-                <option value="Option3">Option 3</option>
-                <option value="Option4">Option 4</option>
-            </select>
+            <span id="disability-1-add-type-label">
+                Type of Impairment
+            </span>
 
             <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
+                class="custom-select"
+                id="disability-1-add-type-wrapper"
             >
-                Select Impairment
+
+                <select
+                    id="disability-1-add-type"
+                    name="disability-1-add-type"
+                    class="form-control"
+                    tabindex="-1"
+                    aria-hidden="true"
+                >
+                    <option value="" selected>Select Impairment</option>
+                    <option value="Option1">Option 1</option>
+                    <option value="Option2">Option 2</option>
+                    <option value="Option3">Option 3</option>
+                    <option value="Option4">Option 4</option>
+                </select>
+
+                <div
+                    class="select-selected"
+                    id="disability-1-add-type-combobox"
+                    role="combobox"
+                    tabindex="0"
+                    aria-labelledby="disability-1-add-type-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-controls="disability-1-add-type-listbox"
+                >
+                    Select Impairment
+                </div>
+
+                <div
+                    class="select-items select-hide"
+                    id="disability-1-add-type-listbox"
+                    role="listbox"
+                    aria-labelledby="disability-1-add-type-label"
+                >
+                    <div
+                        id="disability-1-add-type-option-1"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option1"
+                    >
+                        Option 1
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-2"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option2"
+                    >
+                        Option 2
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-3"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option3"
+                    >
+                        Option 3
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-4"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option4"
+                    >
+                        Option 4
+                    </div>
+                </div>
+
             </div>
-
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Option 1
-                </div>
-
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Option 2
-                </div>
-
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Option 3
-                </div>
-
-                <div
-                    id="add-type-option-4"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option4"
-                >
-                    Option 4
-                </div>
-            </div>
-
         </div>
-    </div>
 
-    <div class="impairement-field col-md-4">
-        <label for="impairment-percentage">Percentage of Impairment</label>
-        <input
-            type="text"
-            id="impairment-percentage"
-            name="impairment-percentage"
-            placeholder="Enter Percentage"
-        >
-    </div>
+        <div class="impairement-field col-md-4">
+            <label for="disability-1-impairment-percentage">
+                Percentage of Impairment
+            </label>
 
-    <div class="impairement-field col-md-4">
-        <label for="udid-number">UDID Number</label>
-        <input
-            type="text"
-            id="udid-number"
-            name="udid-number"
-            placeholder="Enter UDID Number"
-        >
-    </div>
+            <input
+                type="text"
+                id="disability-1-impairment-percentage"
+                name="disability-1-impairment-percentage"
+                placeholder="Enter Percentage"
+            >
+        </div>
 
-</div>
+        <div class="impairement-field col-md-4">
+            <label for="disability-2-udid-number">
+                UDID Number
+            </label>
+
+            <input
+                type="text"
+                id="disability-2-udid-number"
+                name="disability-2-udid-number"
+                placeholder="Enter UDID Number"
+            >
+        </div>
+
+    </div>
 
                                                                     </div>
 
@@ -2261,7 +2284,7 @@
                         
                         <!-- Upload Documents Screen Step 3 -->
                         <article 
-                            class="tab-content ckyc-upload-documents ckyc-journey-wrap"
+                            class="tab-content ckyc-upload-documents ckyc-journey-wrap accessbility-handled-wrap"
                             id="ckyc-upload-documents"
                             style="display: none;"
                             >
@@ -2283,9 +2306,12 @@
                                             </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="flex-block row email-block border-bottom-0 mb-0 align-items-start">
-                                            <div class="label-block pt-10">Select document</div>
+                                        <div class="flex-block row email-block border-bottom-0 mb-0 align-items-start">
+                                            <!-- <div class="label-block pt-10">Select document</div> -->
+                                             <div class="label-block pt-10">
+                                                
+                                                <div id="combo1_label_1" class="combo-label">Select document</div>
+                                            </div>
                                             <div class="lable-contact-block text-left">
                                                 <!-- <div class="input-field custom-select-common custom-select" onclick="kycSubmit2();">
                                                     <select class="form-control w-100" name="cs_1" required>
@@ -2297,72 +2323,70 @@
                                                 </div> -->
                                                 <div class="custom-select" id="add-type-wrapper">
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select</option>
-                <option value="Option1">Pan Card</option>
-                <option value="Option2">Aadhaar Card</option>
-                <option value="Option3">Driving Licence</option>
-            </select>
+    <select
+        id="add-type"
+        name="add-type"
+        class="form-control"
+        tabindex="-1"
+        aria-hidden="true"
+    >
+        <option value="" selected>Select</option>
+        <option value="Option1">Pan Card</option>
+        <option value="Option2">Aadhaar Card</option>
+        <option value="Option3">Driving Licence</option>
+    </select>
 
-            <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
-            >
-                Select
-            </div>
+    <div
+        class="select-selected"
+        id="add-type-combobox"
+        role="combobox"
+        tabindex="0"
+        aria-labelledby="combo1_label_1"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-controls="add-type-listbox"
+    >
+        Select
+    </div>
 
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Pan Card
-                </div>
-
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Aadhaar Card
-                </div>
-
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Driving Licence
-                </div>
-
-                
-            </div>
-
+    <div
+        class="select-items select-hide"
+        id="add-type-listbox"
+        role="listbox"
+        aria-labelledby="combo1_label_1"
+    >
+        <div
+            id="add-type-option-1"
+            role="option"
+            tabindex="-1"
+            aria-selected="false"
+            data-value="Option1"
+        >
+            Pan Card
         </div>
+
+        <div
+            id="add-type-option-2"
+            role="option"
+            tabindex="-1"
+            aria-selected="false"
+            data-value="Option2"
+        >
+            Aadhaar Card
+        </div>
+
+        <div
+            id="add-type-option-3"
+            role="option"
+            tabindex="-1"
+            aria-selected="false"
+            data-value="Option3"
+        >
+            Driving Licence
+        </div>
+    </div>
+
+                                                </div>
                                                 <div class="d-show" id="a_card">
                                                     <div class="d-show-cnt-block">
                                                         <div class="d-cntent">
@@ -2386,7 +2410,7 @@
                                             <div class="lable-contact-block position-relative">
                                                 <div class="form-upload" onclick="kycSubmit();">
                                                     <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
+                                                        <input type="file" class="file-upload-field"
                                                             name="file_1" required>
                                                     </div>
                                                 </div>
@@ -2401,7 +2425,7 @@
                                             <div class="lable-contact-block position-relative">
                                                 <div class="form-upload" onclick="kycSubmit();">
                                                     <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
+                                                        <input type="file" class="file-upload-field"
                                                             name="file_2" required>
                                                     </div>
                                                     <div class="text-sm">File should be in .pdf, .jpg, .tiff or .png format & upload size
@@ -2421,7 +2445,7 @@
                                             <div class="lable-contact-block position-relative">
                                                 <div class="form-upload" onclick="kycSubmit();">
                                                     <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field" value=""
+                                                        <input type="file" class="file-upload-field"
                                                             name="pan_file_1" required>
                                                     </div>
                                                    
@@ -2482,103 +2506,106 @@
 <div class="d-flex form-group justify-between">
 
     <div class="impairement-field col-md-4">
-        <label for="add-type">Type of Impairment</label>
 
-        <div class="custom-select" id="add-type-wrapper">
+    <span id="disability-2-add-type-label">
+        Type of Impairment
+    </span>
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select Impairment</option>
-                <option value="Option1">Option 1</option>
-                <option value="Option2">Option 2</option>
-                <option value="Option3">Option 3</option>
-                <option value="Option4">Option 4</option>
-            </select>
+    <div class="custom-select" id="disability-2-add-type-wrapper">
 
-            <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
-            >
-                Select Impairment
-            </div>
+        <select
+            id="disability-2-add-type"
+            name="disability-2-add-type"
+            class="form-control"
+            tabindex="-1"
+            aria-hidden="true"
+        >
+            <option value="" selected>Select Impairment</option>
+            <option value="Option1">Option 1</option>
+            <option value="Option2">Option 2</option>
+            <option value="Option3">Option 3</option>
+            <option value="Option4">Option 4</option>
+        </select>
 
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Option 1
-                </div>
-
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Option 2
-                </div>
-
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Option 3
-                </div>
-
-                <div
-                    id="add-type-option-4"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option4"
-                >
-                    Option 4
-                </div>
-            </div>
-
+        <div
+            class="select-selected"
+            id="disability-2-add-type-combobox"
+            role="combobox"
+            tabindex="0"
+            aria-labelledby="disability-2-add-type-label"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-controls="disability-2-add-type-listbox"
+        >
+            Select Impairment
         </div>
+
+        <div
+            class="select-items select-hide"
+            id="disability-2-add-type-listbox"
+            role="listbox"
+            aria-labelledby="disability-2-add-type-label"
+        >
+            <div
+                id="disability-2-add-type-option-1"
+                role="option"
+                tabindex="-1"
+                aria-selected="false"
+                data-value="Option1"
+            >
+                Option 1
+            </div>
+
+            <div
+                id="disability-2-add-type-option-2"
+                role="option"
+                tabindex="-1"
+                aria-selected="false"
+                data-value="Option2"
+            >
+                Option 2
+            </div>
+
+            <div
+                id="disability-2-add-type-option-3"
+                role="option"
+                tabindex="-1"
+                aria-selected="false"
+                data-value="Option3"
+            >
+                Option 3
+            </div>
+
+            <div
+                id="disability-2-add-type-option-4"
+                role="option"
+                tabindex="-1"
+                aria-selected="false"
+                data-value="Option4"
+            >
+                Option 4
+            </div>
+        </div>
+
     </div>
+</div>
 
     <div class="impairement-field col-md-4">
-        <label for="impairment-percentage">Percentage of Impairment</label>
+        <label for="disability-2-impairment-percentage">Percentage of Impairment</label>
         <input
             type="text"
-            id="impairment-percentage"
-            name="impairment-percentage"
+            id="disability-2-impairment-percentage"
+            name="disability-2-impairment-percentage"
             placeholder="Enter Percentage"
         >
     </div>
 
     <div class="impairement-field col-md-4">
-        <label for="udid-number">UDID Number</label>
+        <label for="disability-1-udid-number">UDID Number</label>
         <input
             type="text"
-            id="udid-number"
-            name="udid-number"
+            id="disability-1-udid-number"
+            name="disability-1-udid-number"
             placeholder="Enter UDID Number"
         >
     </div>
@@ -2694,9 +2721,9 @@
                                             id="ckyc_otp_content"
                                             style="display: block;">
 
-                                            <div class="popup-otp-title text-center">
+                                            <h3 class="popup-otp-title text-center">
                                                 Enter OTP
-                                            </div>
+                                            </h3>
 
                                             <div class="popup-otp-text text-center">
                                                 Please enter the OTP sent to you on your mobile number registered with CKYCR.

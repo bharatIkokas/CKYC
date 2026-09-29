@@ -1955,9 +1955,9 @@
                                     </p>
                                 </div>
 
-                                <fieldset class="ckyc-address-type-wrapper" >
+                                <fieldset class="ckyc-address-type-wrapper">
     <legend class="ckyc-address-type-legend sr-only">
-        Select Address Type Radio Buttons Required
+        Select Address Type
     </legend>
 
     <!-- Permanent Address -->
@@ -1970,7 +1970,7 @@
                     type="radio"
                     name="addressType"
                     value="permanent"
-                    
+                    required
                 >
 
                 <span class="ckyc-radio" aria-hidden="true"></span>
@@ -1997,7 +1997,7 @@
                     type="radio"
                     name="addressType"
                     value="current"
-                    
+                    required
                 >
 
                 <span class="ckyc-radio" aria-hidden="true"></span>
@@ -2847,13 +2847,13 @@
                                             </div>
 
                                             <div class="popup-input-field">
-                                                <label for="ckyc_otp_input" class="sr-only">Enter OTP</label>
-                                                <input type="password"
-                                                    placeholder="Enter OTP Here"
-                                                    maxlength="6"
-                                                    id="ckyc_otp_input">
 
-                                                <div class="resend-block">
+                                                <input type="password" maxlength="6" id="ckyc_otp_input" value="123456" aria-describedby="ckyc_otp_error" aria-invalid="false">
+                                                <div class="otp-error-and-resend-wrap flex justify-between">
+                                                    <div class="otp-error-block" id="ckyc_otp_error" role="alert">
+                                                        Please Enter Correct OTP
+                                                    </div>
+                                                    <div class="resend-block">
 
                                                     <div class="resend-timer-block">
                                                         <span>Resend OTP </span>
@@ -2867,6 +2867,8 @@
                                                     </a>
 
                                                 </div>
+                                                </div>
+                                                
 
                                             </div>
 

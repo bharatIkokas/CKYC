@@ -1835,36 +1835,221 @@
                     </div>
 
                 </div>
-                <section class="multicard-process ckyc-journey-wrap">
-                    <section class="main-wrap my-profile">
-                        <h3>Select Card</h3>
-                        <div class="checkbox-group">
-                            <label class="inline-label fancy-radio radio-wrap radio-wrap-lg" id="check_1">
-                                <input type="radio" class="address-select h-auto" name="radio-group" id="ckyc_journey_checkbox">
-                                <span></span>
-                                <div class="radio-label">
-                                    <div>Primary Card XXXX-XXXX-XXXX-2937</div>
-                                    <div class="due-wrapp">
-                                        <div>NAMITA GUPTA</div>
-                                    </div>
-                                </div>
-                            </label>
-                            
-                        </div>
-                        
-                        <div class="d-line"></div>
-                        <form id="upload_form">
-                            <div class="border-block-y pb-0 border-top-0">
-                                <div class="conatct-block upload-block mt-0">
-                                    <div class="bottom-btn-block border-top-0 mt-0 pt-0 p-card">
-                                        <div class="input-block tick-buttons-block">
-                                            <a href="registered-address.html" class="blue-btn gray-btn p-none" id="ckyc_journey_proceed">Proceed</a>
+                <section class="multicard-process ckyc-journey-wrap accessbility-handled-wrap ckyc-journey-wrap-scenario-2">
+                    
+                    <section class="main-wrap my-profile" id="ckyc_upload_photo">
+                        <form id="nominee_form">
+                                <div class="border-block-y pb-0 border-top-0 pt-0">
+                                    <div class="ckyc-error-block">
+    <div class="flex items-center">
+        <div class="ckyc-error-img-block">
+            <img src="../img/error-1.png" alt="">
+        </div>
+
+        <div class="ckyc-error-content-block" id="ckyc-error-message">
+            We’re unable to fetch your CKVC details at this time. Please proceed with options below:
+        </div>
+    </div>
+
+    <!-- Screen-reader announcement -->
+    <div id="ckyc-error-announcement" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true">We’re unable to fetch your CKVC details at this time. Please proceed with options below:</div>
+
+            
+</div>
+                                <h3 class="ckyc-method-title ps-0 mb-30">
+                                    Please upload your photo to continue:
+                                </h3>
+
+                                <!-- <div class="ckyc-method-divider"></div> -->
+                                    <!-- <div class="block-title"></div> -->
+                                    <div class="conatct-block upload-block mt-0" id="div_to_add">
+                                        
+                                        
+                                        
+                                        <div class="if-pan">
+                                            <div class="flex-block row email-block border-bottom-0 align-items-start">
+                                            <!-- <div class="label-block pt-10">Upload Document</div> -->
+                                             <div class="label-block pt-10">
+                                                        <label for="pan_file_1">Upload Your Passport Size Photo</label>
+                                             </div>
+                                            <div class="lable-contact-block position-relative">
+                                                <div class="form-upload" onclick="kycSubmit();">
+                                                    <div class="file-upload-wrapper" data-text="">
+                                                        <input type="file" class="file-upload-field"
+                                                            name="pan_file_1" id="pan_file_1" required>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="text-sm">The file should be in .pdf, .jpg, .jpeg or .tiff format & not exceed more than 5 MB in size. Screenshot of a photo with any quotes / text or with you wearing goggles, photo with people in background, photo in a document or stamped photo is not acceptable.
+                                                    </div>
+                                                <div class="document-upload-success-message d-none">Your document has been successfully uploaded.</div>
+                                            </div>
+
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                                
+                            
+                                <div class="bottom-btn-block border-top-0 mt-0 pt-0">
+                                    <div class="ckyc-address-button-block">
+
+                                        <a href="registered-address.html"
+                                            id="ckyc_upload_submit_btn"
+                                            class="blue-btn ckyc-confirm-btn"
+                                        >
+                                            Proceed
+                                        </a>
+
+                                        <!-- <button
+                                            type="button"
+                                            id="ckyc_upload_cancel_btn"
+                                            class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn"
+                                            disabled
+                                            aria-disabled="true"
+                                        >
+                                            Cancel
+                                        </button> -->
+
+                                    </div>
+                                </div>
+                            </form>
                     </section>
+                   
+
+                    
+
+                    <!-- ////////////// OTP Popup /////////////////// -->
+
+                                <div class="modal-overlay popup-wrapp digilocker-popup-wrap kyc-Address-consent-checkbox-popup ckyc-kinpan-consent-checkbox-popup ckyc-otp-popup"
+                                    id="ckyc_otp_popup"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    aria-labelledby="ckyc_otp_popup_title"
+                                    aria-describedby="ckyc_otp_popup_description"
+                                    aria-hidden="true">
+
+                                    <div class="popup-inner" tabindex="-1">
+                                        <h2 id="ckyc_otp_popup_title" class="sr-only">
+                                            Enter OTP
+                                        </h2>
+
+                                        <p id="ckyc_otp_popup_description" class="sr-only">
+                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                        </p>
+
+                                        <div class="popup-checkbox-block letter-checbox" style="display: none;">
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-KIN"
+                                                id="ckyc_otp_kin_checkbox"
+                                                style="display: block;">
+
+                                                <span class="auth-msg-kin">
+                                                    I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my CKYC / KIN Number xxxxxxx
+                                                    <span class="last-four-dig">5566</span>
+                                                </span>
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_kin_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            
+
+                                            <label class="sbi-input-checkbox sbi-input-checkbox-PAN"
+                                                id="ckyc_otp_pan_checkbox"
+                                                style="display: none;">
+
+                                                I hereby authorized SBI Card to fetch and download my KYC information / documents from CKYCR basis my PAN updated in SBI Card records.
+
+                                                <input type="checkbox"
+                                                    class="checkKINPANConcentChecked"
+                                                    id="ckyc_otp_pan_check_box">
+
+                                                <span class="checkmark check-toggl"></span>
+
+                                            </label>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22 text-center">
+
+                                                <a href="javascript:void(0);"
+                                                    id="ckyc_otp_kinPan_popup_proceed_btn"
+                                                    class="popup-button button-blue letter-popup-proceed close-popup">
+                                                    Proceed
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button"
+                                        class="close close-popup"
+                                         id="ckyc_otp_kinpan_close"
+                                        aria-label="Close CKYC OTP popup">
+                                        </button>
+
+
+                                        <!-- OTP Content -->
+                                        <div class="ckyc-kinpan-consent-otpbox-popup"
+                                            id="ckyc_otp_content"
+                                            style="display: block;">
+
+                                            <h3 class="popup-otp-title text-center">
+                                                Enter OTP
+                                            </h3>
+
+                                            <div class="popup-otp-text text-center">
+                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            </div>
+
+                                            <div class="popup-input-field">
+
+                                                <input type="password"
+                                                    placeholder="Enter OTP Here"
+                                                    maxlength="6"
+                                                    id="ckyc_otp_input">
+
+                                                <div class="resend-block">
+
+                                                    <div class="resend-timer-block">
+                                                        <span>Resend OTP </span>
+                                                        <span id="ckyc_otp_resend_timer">00:84</span>
+                                                    </div>
+
+                                                    <a href="javascript:void(0);"
+                                                        id="ckyc_otp_resend_button"
+                                                        class="resend-button-block hidden">
+                                                        Resend OTP
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="popup-button-block d-flex justify-content-center mt-22">
+
+                                                <button type="button"
+                                                    id="ckycProceedFormSubmission_success_screen"
+                                                    class="popup-button button-blue gray-btn close-popup" disabled>
+                                                    Proceed
+                                                </button>
+
+                                            </div>
+
+                                            <button type="button"
+                                                class="close close-popup" aria-label="Close CKYC OTP popup">
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="overlay"></div>
+
+                                </div>
 
                     <section class="otp-section-block view-edit">
                         <hr>

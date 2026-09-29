@@ -1835,104 +1835,275 @@
                     </div>
 
                 </div>
-                <section class="multicard-process ckyc-journey-wrap">
-                    <section class="main-wrap my-profile active pt-3">
-                            <div>
-                            <div class="card-view-holder message-seccess-view mt-sm-0 mt-0">
-                                <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                    <h2 class="trans-style d-inline-block m-0 mr-5">Thank you!
-                                    </h2>
-                                    <p>We have received your request for KYC renewal.</p>
-                                    <p class="black">Your Service Request Number is 28379708900.</p>
-                                    <p>Your request will be processed in next 10 working days post validation of the KYC document(s).<br> In case of a name mismatch, your name will be updated in our records basis KYC documents provided by you.</p>
-                                    <p><a href="#">Click here</a> to track the status of your request.</p>
-                                </div>
-                            </div>
-                            </div>
-                        </section>
+                <section class="multicard-process ckyc-journey-wrap accessbility-handled-wrap">
+                    
+                    <section class="main-wrap my-profile" id="ckyc_upload_document">
+                        <form id="nominee_form">
+                                <div class="border-block-y pb-0 border-top-0 pt-0">
+                                <!-- <h3 class="ckyc-method-title ps-0">
+                                    Enter PAN Number & Upload PAN Card Copy
+                                </h3> -->
+                                <div class="ckyc-error-block">
+    <div class="flex items-center">
+        <div class="ckyc-error-img-block">
+            <img src="../img/error-1.png" alt="">
+        </div>
 
-                    <section class="otp-section-block view-edit">
-                        <hr>
+        <div class="ckyc-error-content-block" id="ckyc-error-message">
+            Your PAN could not be validated. Please enter correct PAN number to proceed.
+        </div>
+    </div>
 
-                        <section class="main-wrap my-profile active bank-detail-wrapp">
-                            <div class="gray-block">
-                                <div class="card-view-holder message-seccess-view">
-                                    <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                        <h2 class="trans-style d-inline-block m-0 mr-5">Enter One-Time Password</h2>
-                                        <p>Please enter the One Time Password (OTP) sent on your registered mobile
-                                            number +91 XXXXXX7024 and email ID: PSXXXX@GMAIL.COM. If you have not
-                                            received the OTP, click Resend OTP.</p>
-                                        <div class="otp-block">
-                                            <label>Enter OTP<span class="red-text">*</span></label>
-                                            <input type="number" onclick="viewEditInput();" />
-                                            <a href="#" class="input-blue-text">Resend OTP</a>
+    <!-- Screen-reader announcement -->
+    <div id="ckyc-error-announcement" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true">We were unable to fetch your CKYC details at this time.
+            Your PAN could not be validated. Please enter correct PAN number to proceed.</div>
+
+            
+</div>
+
+<h3 class="ckyc-method-title ps-0">
+                                    Enter PAN Number & Upload PAN Card Copy
+                                </h3>
+                                <!-- <div class="ckyc-method-divider"></div> -->
+                                    <!-- <div class="block-title"></div> -->
+                                    <div class="conatct-block upload-block mt-0" id="div_to_add">
+                                        <div
+                                            class="custom-flex-upload flex-block row email-block border-bottom-0 mb-0 align-items-start">
+                                            <div class="label-block pt-10"></div>
+                                            <div class="lable-contact-block text-left">
+                                             <!-- <div class="card-view-holder message-seccess-view mt-15">
+                                                <p class="m-0 ckyc-text-sm">To know the list of acceptable documents, <a href="#">click here</a> </p>
+                                            </div> -->
+                                            </div>
                                         </div>
-                                        <div class="otp-submit-block">
-                                            <a href="javascript:void(0);"
-                                                class="step-2 blue-btn mb-0 gray-btn pointer-events-none"
-                                                onclick="cmnSubmit();" id="v_e_submit">Submit</a>
-                                            <a href="#" class="step-2 blue-btn gray-btn mb-0">Cancel</a>
+                                        <div class="flex-block row email-block border-bottom-0 mb-0 align-items-start">
+                                            <!-- <div class="label-block pt-10">Select document</div> -->
+                                             <div class="label-block pt-10">
+                                                
+                                                <div id="enter_pan" class="combo-label">Enter PAN Number</div>
+                                            </div>
+                                            <div class="lable-contact-block text-left">
+                                                <input type="text" class="address form-control-field" name="panCard" aria-labelledby="enter_pan" id="pan_card_field">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
+                                        
+                                        <div class="if-pan">
+                                            <div class="flex-block row email-block border-bottom-0 align-items-start">
+                                            <!-- <div class="label-block pt-10">Upload Document</div> -->
+                                             <div class="label-block pt-10">
+                                                        <label for="pan_file_1">Upload Document</label>
+                                             </div>
+                                            <div class="lable-contact-block position-relative">
+                                                <div class="form-upload" onclick="kycSubmit();">
+                                                    <div class="file-upload-wrapper" data-text="">
+                                                        <input type="file" class="file-upload-field"
+                                                            name="pan_file_1" id="pan_file_1" required>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="text-sm">File should be in .pdf, .jpg, .tiff or .png format & upload size
+                                                    should not exceed 5 MB
+                                                    </div>
+                                                <div class="document-upload-success-message d-none">Your document has been successfully uploaded.</div>
+                                            </div>
 
-                    <section class="otp-section-block email-submit-otp-block">
-                        <hr>
-
-                        <section class="main-wrap my-profile active bank-detail-wrapp">
-                            <div class="gray-block">
-                                <div class="card-view-holder message-seccess-view">
-                                    <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                        <h2 class="trans-style d-inline-block m-0 mr-5">Enter One-Time Password</h2>
-                                        <p>Please enter One TIme Password (OTP) that has been sent on your new Email ID
-                                            GTXXXXXX@gmail.com. If you have not received the OTP, click Resend OTP</p>
-                                        <div class="otp-block">
-                                            <label>Enter OTP<span class="red-text">*</span></label>
-                                            <input type="number" onclick="viewEditInput2();" />
-                                            <a href="#" class="input-blue-text">Resend OTP</a>
                                         </div>
-                                        <div class="otp-submit-block">
-                                            <a href="kyc-flow.html"
-                                                class="step-2 blue-btn mb-0 gray-btn pointer-events-none"
-                                                id="v_e_submit_2">Submit</a>
-                                            <a href="#" class="step-2 blue-btn gray-btn mb-0">Cancel</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-
-                    <section class="otp-section-block phone-submit-otp-block">
-                        <hr>
-
-                        <section class="main-wrap my-profile active bank-detail-wrapp">
-                            <div class="gray-block">
-                                <div class="card-view-holder message-seccess-view">
-                                    <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                        <h2 class="trans-style d-inline-block m-0 mr-5">Enter One-Time Password</h2>
-                                        <p>Please enter One TIme Password (OTP) that has been sent on your new Mobile
-                                            Number +91 XXXXXX6732. If you have not received the OTP, click Resend OTP
-                                        </p>
-                                        <div class="otp-block">
-                                            <label>Enter OTP<span class="red-text">*</span></label>
-                                            <input type="number" onclick="viewEditInput3();" />
-                                            <a href="#" class="input-blue-text">Resend OTP</a>
-                                        </div>
-                                        <div class="otp-submit-block">
-                                            <a href="kyc-flow.html"
-                                                class="step-2 blue-btn mb-0 gray-btn pointer-events-none"
-                                                id="v_e_submit_3">Submit</a>
-                                            <a href="#" class="step-2 blue-btn gray-btn mb-0">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                <!-- Consent -->
+                                <div class="ckyc-method-consent">
+
+                                    <label class="ckyc-consent-label">
+                                        <input
+                                            type="checkbox"
+                                            id="ckyc_upload_consent"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            I hereby give my consent to verify my details as provided in the copy of PAN Card.
+                                        </span>
+
+                                    </label>
+
+
+                                    <!-- Differently Abled -->
+                                    <!-- <label class="sbi-input-checkbox w-100 differently-abled">
+                                        Do you identify as a person with Disability?
+                                        <input type="checkbox" class="differently-abled-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label> -->
+                                    <label class="ckyc-consent-label differently-abled">
+
+                                        <input
+                                            type="checkbox"
+                                            id="disability_2_ckyc_primary_consent_2"
+                                            class="differently-abled-checkbox"
+                                        >
+
+                                        <span class="check" aria-hidden="true"></span>
+
+                                        <span class="ckyc-consent-text">
+                                            Do you identify as a person with Disability?
+                                        </span>
+
+                                    </label>
+
+
+                                                                    <div class="impairement-block hidden lg">
+
+    <div class="d-flex form-group justify-between">
+
+        <div class="impairement-field col-md-4">
+
+            <span id="disability-1-add-type-label">
+                Type of Impairment
+            </span>
+
+            <div
+                class="custom-select"
+                id="disability-1-add-type-wrapper"
+            >
+
+                <select
+                    id="disability-1-add-type"
+                    name="disability-1-add-type"
+                    class="form-control"
+                    tabindex="-1"
+                    aria-hidden="true"
+                >
+                    <option value="" selected>Select Impairment</option>
+                    <option value="Option1">Option 1</option>
+                    <option value="Option2">Option 2</option>
+                    <option value="Option3">Option 3</option>
+                    <option value="Option4">Option 4</option>
+                </select>
+
+                <div
+                    class="select-selected"
+                    id="disability-1-add-type-combobox"
+                    role="combobox"
+                    tabindex="0"
+                    aria-labelledby="disability-1-add-type-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-controls="disability-1-add-type-listbox"
+                >
+                    Select Impairment
+                </div>
+
+                <div
+                    class="select-items select-hide"
+                    id="disability-1-add-type-listbox"
+                    role="listbox"
+                    aria-labelledby="disability-1-add-type-label"
+                >
+                    <div
+                        id="disability-1-add-type-option-1"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option1"
+                    >
+                        Option 1
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-2"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option2"
+                    >
+                        Option 2
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-3"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option3"
+                    >
+                        Option 3
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-4"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option4"
+                    >
+                        Option 4
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="impairement-field col-md-4">
+            <label for="disability-1-impairment-percentage">
+                Percentage of Impairment
+            </label>
+
+            <input
+                type="text"
+                id="disability-1-impairment-percentage"
+                name="disability-1-impairment-percentage"
+                placeholder="Enter Percentage"
+            >
+        </div>
+
+        <div class="impairement-field col-md-4">
+            <label for="disability-2-udid-number">
+                UDID Number
+            </label>
+
+            <input
+                type="text"
+                id="disability-2-udid-number"
+                name="disability-2-udid-number"
+                placeholder="Enter UDID Number"
+            >
+        </div>
+
+    </div>
+
+                                                                    </div>
+
+                                </div>
+                            
+                                <div class="bottom-btn-block border-top-0 mt-0 pt-0">
+                                    <div class="ckyc-address-button-block">
+
+                                        <a href="modify-address.html"
+                                            id="ckyc_upload_submit_btn"
+                                            class="blue-btn ckyc-confirm-btn p-none gray-btn"
+                                            disabled
+                                            aria-disabled="true"
+                                            
+                                        >
+                                            Verify
+                                        </a>
+
+                                        <button
+                                            type="button"
+                                            id="ckyc_upload_cancel_btn"
+                                            class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn"
+                                            disabled
+                                            aria-disabled="true"
+                                        >
+                                            Cancel
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
                     </section>
+                    
                 </section>
 
             </div>
@@ -2704,89 +2875,7 @@
 
 
 
-    <script>
-        //            =========Custom Select box ===============================
-        var x, i, j, l, ll, selElmnt, a, b, c;
-        /* Look for any elements with the class "custom-select": */
-        x = document.getElementsByClassName("custom-select");
-        l = x.length;
-        for (i = 0; i < l; i++) {
-            selElmnt = x[i].getElementsByTagName("select")[0];
-            ll = selElmnt.length;
-            /* For each element, create a new DIV that will act as the selected item: */
-            a = document.createElement("DIV");
-            a.setAttribute("class", "select-selected");
-            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-            x[i].appendChild(a);
-            /* For each element, create a new DIV that will contain the option list: */
-            b = document.createElement("DIV");
-            b.setAttribute("class", "select-items select-hide");
-            for (j = 1; j < ll; j++) {
-                /* For each option in the original select element,
-                 create a new DIV that will act as an option item: */
-                c = document.createElement("DIV");
-                c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function (e) {
-                    /* When an item is clicked, update the original select box,
-                     and the selected item: */
-                    var y, i, k, s, h, sl, yl;
-                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                    sl = s.length;
-                    h = this.parentNode.previousSibling;
-                    for (i = 0; i < sl; i++) {
-                        if (s.options[i].innerHTML == this.innerHTML) {
-                            s.selectedIndex = i;
-                            h.innerHTML = this.innerHTML;
-                            y = this.parentNode.getElementsByClassName("same-as-selected");
-                            yl = y.length;
-                            for (k = 0; k < yl; k++) {
-                                y[k].removeAttribute("class");
-                            }
-                            this.setAttribute("class", "same-as-selected");
-                            break;
-                        }
-                    }
-                    h.click();
-                });
-                b.appendChild(c);
-            }
-            x[i].appendChild(b);
-            a.addEventListener("click", function (e) {
-                /* When the select box is clicked, close any other select boxes,
-                 and open/close the current select box: */
-                e.stopPropagation();
-                closeAllSelect(this);
-                this.nextSibling.classList.toggle("select-hide");
-                this.classList.toggle("select-arrow-active");
-            });
-        }
-
-        function closeAllSelect(elmnt) {
-            /* A function that will close all select boxes in the document,
-             except the current select box: */
-            var x, y, i, xl, yl, arrNo = [];
-            x = document.getElementsByClassName("select-items");
-            y = document.getElementsByClassName("select-selected");
-            xl = x.length;
-            yl = y.length;
-            for (i = 0; i < yl; i++) {
-                if (elmnt == y[i]) {
-                    arrNo.push(i)
-                } else {
-                    y[i].classList.remove("select-arrow-active");
-                }
-            }
-            for (i = 0; i < xl; i++) {
-                if (arrNo.indexOf(i)) {
-                    x[i].classList.add("select-hide");
-                }
-            }
-        }
-
-        /* If the user clicks anywhere outside the select box,
-         then close all select boxes: */
-        document.addEventListener("click", closeAllSelect);
-    </script>
+    
     <script>
         $(document).ready(function () {
             $('#terms_conditions').click(function () {

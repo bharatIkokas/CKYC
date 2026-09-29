@@ -1945,7 +1945,7 @@
                         
                         
                                 
-                        <article class="tab-content hide-editable ckyc-journey-wrap">
+                        <article class="tab-content hide-editable ckyc-journey-wrap accessbility-handled-wrap">
                             <div class="vpa-block">
                                 <header class="tab-header">
                                     <h3>
@@ -1984,112 +1984,124 @@
 
                                     </label>
                                                                     <div class="impairement-block hidden lg">
-                                                                        
-<div class="d-flex form-group justify-between">
 
-    <div class="impairement-field col-md-4">
-        <label for="add-type">Type of Impairment</label>
+    <div class="d-flex form-group justify-between">
 
-        <div class="custom-select" id="add-type-wrapper">
+        <div class="impairement-field col-md-4">
 
-            <select
-                id="add-type"
-                name="add-type"
-                class="form-control"
-                tabindex="-1"
-                aria-hidden="true"
-            >
-                <option value="" selected>Select Impairment</option>
-                <option value="Option1">Option 1</option>
-                <option value="Option2">Option 2</option>
-                <option value="Option3">Option 3</option>
-                <option value="Option4">Option 4</option>
-            </select>
+            <span id="disability-1-add-type-label">
+                Type of Impairment
+            </span>
 
             <div
-                class="select-selected"
-                id="add-type-combobox"
-                role="combobox"
-                tabindex="0"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-controls="add-type-listbox"
-                aria-activedescendant=""
+                class="custom-select"
+                id="disability-1-add-type-wrapper"
             >
-                Select Impairment
+
+                <select
+                    id="disability-1-add-type"
+                    name="disability-1-add-type"
+                    class="form-control"
+                    tabindex="-1"
+                    aria-hidden="true"
+                >
+                    <option value="" selected>Select Impairment</option>
+                    <option value="Option1">Option 1</option>
+                    <option value="Option2">Option 2</option>
+                    <option value="Option3">Option 3</option>
+                    <option value="Option4">Option 4</option>
+                </select>
+
+                <div
+                    class="select-selected"
+                    id="disability-1-add-type-combobox"
+                    role="combobox"
+                    tabindex="0"
+                    aria-labelledby="disability-1-add-type-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-controls="disability-1-add-type-listbox"
+                >
+                    Select Impairment
+                </div>
+
+                <div
+                    class="select-items select-hide"
+                    id="disability-1-add-type-listbox"
+                    role="listbox"
+                    aria-labelledby="disability-1-add-type-label"
+                >
+                    <div
+                        id="disability-1-add-type-option-1"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option1"
+                    >
+                        Option 1
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-2"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option2"
+                    >
+                        Option 2
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-3"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option3"
+                    >
+                        Option 3
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-4"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option4"
+                    >
+                        Option 4
+                    </div>
+                </div>
+
             </div>
-
-            <div
-                class="select-items select-hide"
-                id="add-type-listbox"
-                role="listbox"
-                aria-labelledby="add-type-combobox"
-            >
-                <div
-                    id="add-type-option-1"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option1"
-                >
-                    Option 1
-                </div>
-
-                <div
-                    id="add-type-option-2"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option2"
-                >
-                    Option 2
-                </div>
-
-                <div
-                    id="add-type-option-3"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option3"
-                >
-                    Option 3
-                </div>
-
-                <div
-                    id="add-type-option-4"
-                    role="option"
-                    tabindex="-1"
-                    aria-selected="false"
-                    data-value="Option4"
-                >
-                    Option 4
-                </div>
-            </div>
-
         </div>
-    </div>
 
-    <div class="impairement-field col-md-4">
-        <label for="impairment-percentage">Percentage of Impairment</label>
-        <input
-            type="text"
-            id="impairment-percentage"
-            name="impairment-percentage"
-            placeholder="Enter Percentage"
-        >
-    </div>
+        <div class="impairement-field col-md-4">
+            <label for="disability-1-impairment-percentage">
+                Percentage of Impairment
+            </label>
 
-    <div class="impairement-field col-md-4">
-        <label for="udid-number">UDID Number</label>
-        <input
-            type="text"
-            id="udid-number"
-            name="udid-number"
-            placeholder="Enter UDID Number"
-        >
-    </div>
+            <input
+                type="text"
+                id="disability-1-impairment-percentage"
+                name="disability-1-impairment-percentage"
+                placeholder="Enter Percentage"
+            >
+        </div>
 
-</div>
+        <div class="impairement-field col-md-4">
+            <label for="disability-2-udid-number">
+                UDID Number
+            </label>
+
+            <input
+                type="text"
+                id="disability-2-udid-number"
+                name="disability-2-udid-number"
+                placeholder="Enter UDID Number"
+            >
+        </div>
+
+    </div>
 
                                                                     </div>
                         <div class="input-block tick-buttons-block">
@@ -2177,9 +2189,9 @@
                                             id="ckyc_small_popup_otp_content"
                                             style="display: none;">
 
-                                            <div class="popup-otp-title text-center">
+                                            <h3 class="popup-otp-title text-center">
                                                 Enter OTP
-                                            </div>
+                                            </h3>
 
                                             <div class="popup-otp-text text-center">
                                                 Please enter the OTP sent to you on your mobile number registered with CKYCR.
@@ -2308,16 +2320,16 @@
                                             id="ckyc_otp_content"
                                             style="display: block;">
 
-                                            <div class="popup-otp-title text-center">
+                                            <h3 class="popup-otp-title text-center">
                                                 Enter OTP
-                                            </div>
+                                            </h3>
 
                                             <div class="popup-otp-text text-center">
                                                 Please enter the OTP sent to you on your mobile number registered with CKYCR.
                                             </div>
 
                                             <div class="popup-input-field">
-
+                                                <label for="ckyc_otp_input" class="sr-only">Enter OTP</label>
                                                 <input type="password"
                                                     placeholder="Enter OTP Here"
                                                     maxlength="6"
