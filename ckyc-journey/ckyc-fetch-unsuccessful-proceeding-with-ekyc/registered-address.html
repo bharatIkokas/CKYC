@@ -1876,9 +1876,28 @@
                                     </label>
                         </div>
                         <div class="ckyc-address-button-block">
-                            <button type="button" class="blue-btn ckyc-confirm-btn p-none gray-btn" id="rigester_cofirm_btn" data-popup-target="#ckyc_otp_popup">Confirm</button>
-                            <a href="verify-your-ekyc.html" class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn" id="rigester_modify_btn">Modify</a>
-                        </div>
+    <button
+        type="button"
+        class="blue-btn ckyc-confirm-btn p-none gray-btn"
+        id="rigester_cofirm_btn"
+        data-popup-target="#ckyc_otp_popup"
+        disabled
+        tabindex="-1"
+        aria-disabled="true"
+    >
+        Confirm
+    </button>
+
+    <a
+        href="verify-your-ekyc.html"
+        class="blue-btn ckyc-modify-btn ckyc-secondary-btn p-none gray-btn"
+        id="rigester_modify_btn"
+        tabindex="-1"
+        aria-disabled="true"
+    >
+        Modify
+    </a>
+</div>
                     </section>
 
                     <!-- ////////////// OTP Popup /////////////////// -->
@@ -1897,7 +1916,8 @@
                                         </h2>
 
                                         <p id="ckyc_otp_popup_description" class="sr-only">
-                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                         </p>
 
                                         <div class="popup-checkbox-block letter-checbox" style="display: none;">
@@ -1962,15 +1982,13 @@
                                             </h3>
 
                                             <div class="popup-otp-text text-center">
-                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                                Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                             </div>
 
                                             <div class="popup-input-field">
-
-                                                <input type="password"
-                                                    placeholder="Enter OTP Here"
-                                                    maxlength="6"
-                                                    id="ckyc_otp_input">
+                                                <label for="ckyc_otp_input" class="sr-only">Enter OTP</label>
+                                                <input type="password" placeholder="Enter OTP Here" maxlength="6" id="ckyc_otp_input">
 
                                                 <div class="resend-block">
 
@@ -1979,9 +1997,7 @@
                                                         <span id="ckyc_otp_resend_timer">00:84</span>
                                                     </div>
 
-                                                    <a href="javascript:void(0);"
-                                                        id="ckyc_otp_resend_button"
-                                                        class="resend-button-block hidden">
+                                                    <a href="javascript:void(0);" id="ckyc_otp_resend_button" class="resend-button-block hidden">
                                                         Resend OTP
                                                     </a>
 
@@ -1993,8 +2009,8 @@
 
                                                 <a href="success-screen.html"
     id="ckycProceedFormSubmission_KYCRenewal"
-    class="popup-button button-blue gray-btn"
-    disabled>
+    class="popup-button button-blue gray-btn" tabindex="-1" aria-disabled="true"
+    >
     Proceed
 </a>
 

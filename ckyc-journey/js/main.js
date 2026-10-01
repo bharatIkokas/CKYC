@@ -559,20 +559,41 @@ document.addEventListener("DOMContentLoaded", function () {
 })(jQuery);
 
 //////////////////////////OTP Proceed Button Active///////////////////////////////////
+function setButtonState(button, isEnabled) {
+    if (!button) {
+        return;
+    }
+
+    if (isEnabled) {
+        button.classList.remove("gray-btn", "p-none");
+        button.removeAttribute("tabindex");
+        button.setAttribute("aria-disabled", "false");
+
+        if (button.tagName.toLowerCase() === "button") {
+            button.disabled = false;
+        }
+    } else {
+        button.classList.add("gray-btn", "p-none");
+        button.setAttribute("tabindex", "-1");
+        button.setAttribute("aria-disabled", "true");
+
+        if (button.tagName.toLowerCase() === "button") {
+            button.disabled = true;
+        }
+    }
+}
+
 $("#ckyc_otp_input").on("input", function () {
-  var otp = $(this).val().replace(/\D/g, "");
-  var $proceedButton = $("#ckycProceedFormSubmission_KYCRenewal");
-  var $proceedButtonModify = $("#ckycProceedFormSubmission_modify");
+    var otp = $(this).val().replace(/\D/g, "");
+    var proceedButton = document.getElementById("ckycProceedFormSubmission_KYCRenewal");
+    var proceedButtonModify = document.getElementById("ckycProceedFormSubmission_modify");
 
-  $(this).val(otp);
+    $(this).val(otp);
 
-  if (otp.length === 6) {
-    $proceedButton.prop("disabled", false).removeClass("gray-btn");
-    $proceedButtonModify.prop("disabled", false).removeClass("gray-btn");
-  } else {
-    $proceedButton.prop("disabled", true).addClass("gray-btn");
-    $proceedButtonModify.prop("disabled", true).addClass("gray-btn");
-  }
+    var isOtpValid = otp.length === 6;
+
+    setButtonState(proceedButton, isOtpValid);
+    setButtonState(proceedButtonModify, isOtpValid);
 });
 
 $("#ckycProceedFormSubmission_KYCRenewal").on("click", function () {
@@ -625,6 +646,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  
+
   function updateAddressButtons() {
     // Check if either Permanent or Current address is selected
     const addressSelected = Array.from(addressRadios).some(function (radio) {
@@ -641,6 +664,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Confirm - Primary / Blue
       confirmBtn.disabled = false;
       confirmBtn.setAttribute("aria-disabled", "false");
+      confirmBtn.removeAttribute("tabindex");
 
       confirmBtn.classList.remove("p-none");
       confirmBtn.classList.remove("gray-btn");
@@ -655,6 +679,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Confirm - Disabled
       confirmBtn.disabled = true;
       confirmBtn.setAttribute("aria-disabled", "true");
+      confirmBtn.setAttribute("tabindex", "-1");
 
       confirmBtn.classList.add("p-none");
       confirmBtn.classList.add("gray-btn");
@@ -992,6 +1017,7 @@ document.addEventListener("DOMContentLoaded", function () {
       uploadSubmitBtn.setAttribute("aria-disabled", "false");
       uploadSubmitBtn.classList.remove("p-none");
       uploadSubmitBtn.classList.remove("gray-btn");
+      uploadSubmitBtn.removeAttribute("tabindex");
 
       // Cancel - Secondary
       uploadCancelBtn.disabled = false;
@@ -1002,6 +1028,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Submit - Disabled
       uploadSubmitBtn.disabled = true;
       uploadSubmitBtn.setAttribute("aria-disabled", "true");
+      uploadSubmitBtn.setAttribute("tabindex", "-1");
       uploadSubmitBtn.classList.add("p-none");
       uploadSubmitBtn.classList.add("gray-btn");
 
@@ -1351,33 +1378,94 @@ document.addEventListener("DOMContentLoaded", function () {
 $(function () {
     var $checkbox = $('#rigester_checkbox_1');
     var $buttons = $('#rigester_cofirm_btn, #rigester_modify_btn');
+    var confirmButton = document.getElementById('rigester_cofirm_btn');
+    var modifyButton = document.getElementById('rigester_modify_btn');
 
     if (!$checkbox.length || !$buttons.length) {
         return;
     }
 
+    function enableAddressButtons() {
+        if (confirmButton) {
+            confirmButton.disabled = false;
+            confirmButton.removeAttribute('tabindex');
+            confirmButton.setAttribute('aria-disabled', 'false');
+            confirmButton.classList.remove('p-none', 'gray-btn');
+        }
+
+        if (modifyButton) {
+            modifyButton.removeAttribute('tabindex');
+            modifyButton.setAttribute('aria-disabled', 'false');
+            modifyButton.classList.remove('p-none', 'gray-btn');
+        }
+    }
+
+    function disableAddressButtons() {
+        if (confirmButton) {
+            confirmButton.disabled = true;
+            confirmButton.setAttribute('tabindex', '-1');
+            confirmButton.setAttribute('aria-disabled', 'true');
+            confirmButton.classList.add('p-none', 'gray-btn');
+        }
+
+        if (modifyButton) {
+            modifyButton.setAttribute('tabindex', '-1');
+            modifyButton.setAttribute('aria-disabled', 'true');
+            modifyButton.classList.add('p-none', 'gray-btn');
+        }
+    }
+
     $checkbox.on('change', function () {
         if ($(this).is(':checked')) {
-            $buttons.removeClass('gray-btn p-none');
+            enableAddressButtons();
         } else {
-            $buttons.addClass('gray-btn p-none');
+            disableAddressButtons();
         }
     });
+
+    // Set the correct initial state
+    if ($checkbox.is(':checked')) {
+        enableAddressButtons();
+    } else {
+        disableAddressButtons();
+    }
 });
 
 
-$(function () {
-    var $radio = $('#ckyc_journey_checkbox');
-    var $proceed = $('#ckyc_journey_proceed');
-
-    if (!$radio.length || !$proceed.length) {
+function setButtonState(button, isEnabled) {
+    if (!button) {
         return;
     }
 
-    $radio.on('change', function () {
-        if ($(this).is(':checked')) {
-            $proceed.removeClass('gray-btn p-none');
+    if (isEnabled) {
+        button.classList.remove('gray-btn', 'p-none');
+        button.removeAttribute('tabindex');
+        button.setAttribute('aria-disabled', 'false');
+
+        if (button.tagName.toLowerCase() === 'button') {
+            button.disabled = false;
         }
+    } else {
+        button.classList.add('gray-btn', 'p-none');
+        button.setAttribute('tabindex', '-1');
+        button.setAttribute('aria-disabled', 'true');
+
+        if (button.tagName.toLowerCase() === 'button') {
+            button.disabled = true;
+        }
+    }
+}
+
+$(function () {
+    var radio = document.getElementById('ckyc_journey_checkbox');
+    var proceedButton = document.getElementById('ckyc_journey_proceed');
+
+    if (!radio || !proceedButton) {
+        return;
+    }
+
+    radio.addEventListener('change', function () {
+        setButtonState(proceedButton, radio.checked);
     });
 });
 
@@ -1418,16 +1506,26 @@ $(function () {
 
 $(".form-upload").on("change", ".file-upload-field", function () {
     var fileInput = $(this);
-    var fileName = fileInput.val().replace(/.*(\/|\\)/, "");
 
-    fileInput
-        .parent(".file-upload-wrapper")
-        .attr("data-text", fileName);
+    var fileName = fileInput.val().split(/(\\|\/)/g).pop();
 
-    fileInput
-        .closest(".lable-contact-block")
-        .find(".document-upload-success-message")
-        .removeClass("d-none");
+    var $uploadWrapper = fileInput.parent(".file-upload-wrapper");
+    var $contactBlock = fileInput.closest(".lable-contact-block");
+    var $successMessage = $contactBlock.find(".document-upload-success-message");
+
+    // Update selected file name
+    $uploadWrapper.attr("data-text", fileName);
+
+    // Show success message
+    $successMessage
+        .removeClass("d-none")
+        .attr("role", "status")
+        .attr("aria-live", "polite")
+        .attr("aria-atomic", "true")
+        .text("Your document has been successfully uploaded.");
+
+    // Keep focus on the file input
+    fileInput.trigger("focus");
 });
 
 $("#ckyc_journey_proceed").on("click", function () {
@@ -1439,3 +1537,9 @@ $("#ckyc_address_modify_btn").on("click", function () {
     $("#ckyc_select_address").addClass("d-none");
     $("#ckyc_upload_photo").removeClass("d-none");
 });
+
+
+
+
+
+

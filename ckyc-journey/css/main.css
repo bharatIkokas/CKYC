@@ -3586,6 +3586,11 @@ body.ckyc-popup-open input:focus-within {
   margin: 0;
 }
 
+.ckyc-journey-wrap .blue-btn {
+  border: 1px solid #dddddd ;
+  line-height: 1 !important;
+}
+
 /* Confirm Button */
 .ckyc-address-button-block .ckyc-confirm-btn:not(.p-none):not(:disabled) {
   background: #0077af !important;
@@ -4305,6 +4310,11 @@ article.ckyc-upload-documents .ckyc-method-consent {
 
 .upload-block .label-block div {font-weight: 600;}
 .ckyc-journey-wrap-scenario-2 {display: block !important;}
+.ckyc-journey-wrap .checkbox-group .radio-wrap {border: solid 1px #666666;}
+.ckyc-address-type-wrapper-group .ckyc-registered-address-wrap h4 {padding-left: 30px;}
+.ckyc-journey-wrap .checkbox-group .radio-wrap.active {border: 1px solid #e3f6ff;}
+
+
 
 /* -------------------------
    Mobile
@@ -4344,7 +4354,8 @@ article.ckyc-upload-documents .ckyc-method-consent {
 body.ckyc-popup-open input:focus-within,
 .accessbility-handled-wrap .custom-select .select-selected:focus-visible,
 button.ckyc-upload-link:focus-visible,
-.accessbility-handled-wrap .select-items div:focus-visible {
+.accessbility-handled-wrap .select-items div:focus-visible,
+.accessbility-handled-wrap .checkbox-group .radio-wrap:focus-within {
   outline: 2px solid #0077af !important; 
   outline-offset: 2px;
 }
@@ -4393,6 +4404,17 @@ button.ckyc-upload-link:focus-visible,
 
 .accessbility-handled-wrap .select-items div {
     border-bottom: 0 !important;
+}
+
+.accessbility-handled-wrap .radio-wrap input:checked~span {
+  border: 6px solid #0077af;
+}
+
+.accessbility-handled-wrap .fancy-radio strong {color: #222222;}
+
+.accessbility-handled-wrap .fancy-checkbox span, 
+.accessbility-handled-wrap .radio-wrap span {
+  border: 1px solid #222222;
 }
 
 .ckyc-journey-wrap .lable-contact-block .form-control-field {border: 1px solid #cdcbcb; font-size: 12px; line-height: 18px; font-weight: 600; color: #666; padding: 10px 9px; box-sizing: border-box; height: auto; width: 100%; display: block; background-color: #ffffff !important;}

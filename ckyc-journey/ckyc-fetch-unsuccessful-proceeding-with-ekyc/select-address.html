@@ -1867,26 +1867,51 @@
                                         
                                         
                                         <div class="if-pan">
-                                            <div class="flex-block row email-block border-bottom-0 align-items-start">
-                                            <!-- <div class="label-block pt-10">Upload Document</div> -->
-                                             <div class="label-block pt-10">
-                                                        <label for="pan_file_1">Upload Your Passport Size Photo</label>
-                                             </div>
-                                            <div class="lable-contact-block position-relative">
-                                                <div class="form-upload" onclick="kycSubmit();">
-                                                    <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field"
-                                                            name="pan_file_1" id="pan_file_1" required>
-                                                    </div>
-                                                   
-                                                </div>
-                                                <div class="text-sm">The file should be in .pdf, .jpg, .jpeg or .tiff format & not exceed more than 5 MB in size. Screenshot of a photo with any quotes / text or with you wearing goggles, photo with people in background, photo in a document or stamped photo is not acceptable.
-                                                    </div>
-                                                <div class="document-upload-success-message d-none">Your document has been successfully uploaded.</div>
-                                            </div>
+    <div class="flex-block row email-block border-bottom-0 align-items-start">
 
-                                        </div>
-                                        </div>
+        <div class="label-block pt-10">
+            <label for="pan_file_1">Upload Your Passport Size Photo</label>
+        </div>
+
+        <div class="lable-contact-block position-relative">
+
+            <div class="form-upload">
+                <div class="file-upload-wrapper" data-text="">
+                    <input
+                        type="file"
+                        class="file-upload-field"
+                        name="pan_file_1"
+                        id="pan_file_1"
+                        aria-describedby="pan_file_1_instructions pan_file_1_status"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div
+                id="pan_file_1_instructions"
+                class="text-sm"
+            >
+                The file should be in .pdf, .jpg, .jpeg or .tiff format and
+                not exceed more than 5 MB in size. Screenshot of a photo with
+                any quotes or text, or with you wearing goggles, photo with
+                people in background, photo in a document or stamped photo is
+                not acceptable.
+            </div>
+
+            <div
+                id="pan_file_1_status"
+                class="document-upload-success-message d-none"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+            >
+                Your document has been successfully uploaded.
+            </div>
+
+        </div>
+    </div>
+</div>
                                     </div>
                                 </div>
                                 
@@ -1935,7 +1960,8 @@
                                         </h2>
 
                                         <p id="ckyc_otp_popup_description" class="sr-only">
-                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                         </p>
 
                                         <div class="popup-checkbox-block letter-checbox" style="display: none;">
@@ -2002,15 +2028,13 @@
                                             </h3>
 
                                             <div class="popup-otp-text text-center">
-                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                                Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                             </div>
 
                                             <div class="popup-input-field">
-
-                                                <input type="password"
-                                                    placeholder="Enter OTP Here"
-                                                    maxlength="6"
-                                                    id="ckyc_otp_input">
+                                                <label for="ckyc_otp_input" class="sr-only">Enter OTP</label>
+                                                <input type="password" placeholder="Enter OTP Here" maxlength="6" id="ckyc_otp_input">
 
                                                 <div class="resend-block">
 
@@ -2019,9 +2043,7 @@
                                                         <span id="ckyc_otp_resend_timer">00:84</span>
                                                     </div>
 
-                                                    <a href="javascript:void(0);"
-                                                        id="ckyc_otp_resend_button"
-                                                        class="resend-button-block hidden">
+                                                    <a href="javascript:void(0);" id="ckyc_otp_resend_button" class="resend-button-block hidden">
                                                         Resend OTP
                                                     </a>
 

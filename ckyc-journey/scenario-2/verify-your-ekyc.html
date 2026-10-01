@@ -1923,8 +1923,7 @@
                                     <!-- Upload Documents -->
                                     <div
                                         class="ckyc-method-upload-option"
-                                        tabindex="0"
-                                        aria-label="Upload documents instead"
+                                        
                                     >
                                         <div class="ckyc-upload-card">
                                             <span class="ckyc-upload-text">
@@ -2527,7 +2526,8 @@
                                         </h2>
 
                                         <p id="ckyc_otp_popup_description" class="sr-only">
-                                            Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                            Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                         </p>
 
                                         <div class="popup-checkbox-block letter-checbox" style="display: none;">
@@ -2592,15 +2592,13 @@
                                             </h3>
 
                                             <div class="popup-otp-text text-center">
-                                                Please enter the OTP sent to you on your mobile number registered with CKYCR.
+                                                Please enter the OTP sent on your registered
+mobile number to confirm your address.
                                             </div>
 
                                             <div class="popup-input-field">
-
-                                                <input type="password"
-                                                    placeholder="Enter OTP Here"
-                                                    maxlength="6"
-                                                    id="ckyc_otp_input">
+                                                <label for="ckyc_otp_input" class="sr-only">Enter OTP</label>
+                                                <input type="password" placeholder="Enter OTP Here" maxlength="6" id="ckyc_otp_input">
 
                                                 <div class="resend-block">
 
@@ -2609,9 +2607,7 @@
                                                         <span id="ckyc_otp_resend_timer">00:84</span>
                                                     </div>
 
-                                                    <a href="javascript:void(0);"
-                                                        id="ckyc_otp_resend_button"
-                                                        class="resend-button-block hidden">
+                                                    <a href="javascript:void(0);" id="ckyc_otp_resend_button" class="resend-button-block hidden">
                                                         Resend OTP
                                                     </a>
 
@@ -2624,7 +2620,7 @@
                                                 <a href="success-screen.html"
     id="ckycProceedFormSubmission_KYCRenewal"
     class="popup-button button-blue gray-btn"
-    disabled>
+    >
     Proceed
 </a>
 

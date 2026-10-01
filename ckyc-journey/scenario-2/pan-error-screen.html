@@ -1861,21 +1861,13 @@
             
 </div>
 
-<h3 class="ckyc-method-title ps-0">
+<h3 class="ckyc-method-title ps-0 mb-20">
                                     Enter PAN Number & Upload PAN Card Copy
                                 </h3>
                                 <!-- <div class="ckyc-method-divider"></div> -->
                                     <!-- <div class="block-title"></div> -->
                                     <div class="conatct-block upload-block mt-0" id="div_to_add">
-                                        <div
-                                            class="custom-flex-upload flex-block row email-block border-bottom-0 mb-0 align-items-start">
-                                            <div class="label-block pt-10"></div>
-                                            <div class="lable-contact-block text-left">
-                                             <!-- <div class="card-view-holder message-seccess-view mt-15">
-                                                <p class="m-0 ckyc-text-sm">To know the list of acceptable documents, <a href="#">click here</a> </p>
-                                            </div> -->
-                                            </div>
-                                        </div>
+                                        
                                         <div class="flex-block row email-block border-bottom-0 mb-0 align-items-start">
                                             <!-- <div class="label-block pt-10">Select document</div> -->
                                              <div class="label-block pt-10">
@@ -1888,26 +1880,47 @@
                                         </div>
                                         
                                         <div class="if-pan">
-                                            <div class="flex-block row email-block border-bottom-0 align-items-start">
-                                            <!-- <div class="label-block pt-10">Upload Document</div> -->
-                                             <div class="label-block pt-10">
-                                                        <label for="pan_file_1">Upload Document</label>
-                                             </div>
-                                            <div class="lable-contact-block position-relative">
-                                                <div class="form-upload" onclick="kycSubmit();">
-                                                    <div class="file-upload-wrapper" data-text="">
-                                                        <input type="file" class="file-upload-field"
-                                                            name="pan_file_1" id="pan_file_1" required>
+                                                <div class="flex-block row email-block border-bottom-0 align-items-start">
+
+                                                    <div class="label-block pt-10">
+                                                        <label for="pan_file_1">Upload Your PAN Card Copy</label>
                                                     </div>
-                                                   
-                                                </div>
-                                                <div class="text-sm">File should be in .pdf, .jpg, .tiff or .png format & upload size
-                                                    should not exceed 5 MB
-                                                    </div>
-                                                <div class="document-upload-success-message d-none">Your document has been successfully uploaded.</div>
+
+                                                    <div class="lable-contact-block position-relative">
+
+                                                        <div class="form-upload">
+                                                            <div class="file-upload-wrapper" data-text="">
+                                                                <input
+                                                                    type="file"
+                                                class="file-upload-field"
+                                                name="pan_file_1"
+                                                id="pan_file_1"
+                                                aria-describedby="pan_file_1_instructions pan_file_1_status"
+                                                required
+                                                                >
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            id="pan_file_1_instructions"
+                                                            class="text-sm"
+                                                        >
+                                                            File should be in .pdf, .jpg, .tif, .tiff, gif or .png format and
+                                                            upload size should not exceed 5 MB each.
+                                                        </div>
+
+                                                        <div
+                                                id="pan_file_1_status"
+                                                class="document-upload-success-message d-none"
+                                                role="status"
+                                                aria-live="polite"
+                                                aria-atomic="true"
+                                            >
+                                                Your document has been successfully uploaded.
                                             </div>
 
-                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1935,7 +1948,7 @@
                                         <input type="checkbox" class="differently-abled-checkbox">
                                         <span class="checkmark"></span>
                                     </label> -->
-                                    <label class="ckyc-consent-label differently-abled">
+                                    <!-- <label class="ckyc-consent-label differently-abled">
 
                                         <input
                                             type="checkbox"
@@ -2072,7 +2085,7 @@
 
     </div>
 
-                                                                    </div>
+                                                                    </div> -->
 
                                 </div>
                             
@@ -2082,7 +2095,7 @@
                                         <a href="modify-address.html"
                                             id="ckyc_upload_submit_btn"
                                             class="blue-btn ckyc-confirm-btn p-none gray-btn"
-                                            disabled
+                                            
                                             aria-disabled="true"
                                             
                                         >
