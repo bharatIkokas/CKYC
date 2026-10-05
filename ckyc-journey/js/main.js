@@ -672,6 +672,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Modify - Secondary / Gray
       modifyBtn.disabled = false;
       modifyBtn.setAttribute("aria-disabled", "false");
+      modifyBtn.removeAttribute("tabindex");
+      
 
       modifyBtn.classList.remove("p-none");
       modifyBtn.classList.add("ckyc-secondary-btn");
@@ -691,6 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
       modifyBtn.classList.add("p-none");
       modifyBtn.classList.add("gray-btn");
       modifyBtn.classList.add("ckyc-secondary-btn");
+      modifyBtn.setAttribute("tabindex", "-1");
     }
   }
 

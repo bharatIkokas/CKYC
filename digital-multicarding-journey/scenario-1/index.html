@@ -2238,7 +2238,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="stepper-content-block">
-                                                    <div class="ckyc-error-block mt-30">
+                                                    <div class="pan-upload-screen" id="pan_upload_screen">
+                                                        <div class="ckyc-error-block mt-30">
                                                         <div class="flex items-center">
                                                             <div class="ckyc-error-img-block">
                                                                 <img src="../img/error-1.png" alt="">
@@ -2250,7 +2251,7 @@
                                                         <!-- Screen-reader announcement -->
                                                         <div id="ckyc-error-announcement" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true">PAN number verification couldn’t be completed. Please upload your PAN copy below:</div>
                                                     </div>
-                                                    <div class="multicarding-pan-enter-and-upload-block">
+                                                    <div class="multicarding-pan-enter-and-upload-block relative">
                                                         <h4 class="total-limit mb-0 mt-40">Enter PAN Number & Upload PAN Card Copy</h4>
                                                         <div class="form-group align-items-center">
                                                             <div class="col-md-6"><label>Enter PAN Number</label></div>
@@ -2281,31 +2282,150 @@
                                                                     </div>
                                                         </div>
                                                         <label class="ckyc-consent-label mt-48">
+    <input
+        type="checkbox"
+        id="ckyc_address_consent"
+    >
 
-                                                            <input type="checkbox" id="ckyc_address_consent">
+    <span class="check" aria-hidden="true"></span>
 
-                                                            <span class="check" aria-hidden="true"></span>
+    <span class="ckyc-consent-text">
+        By clicking on confirm, you authorize SBI Card to use your above address across all your associated card(s).
+    </span>
+</label>
 
-                                                            <span class="ckyc-consent-text">
-                                                                By clicking on confirm, you authorize SBI Card to use your above address across all your associated card(s).
-                                                            </span>
+<div class="bottom-btn-block border-top-0 mt-0 pt-0">
+    <div class="ckyc-address-button-block">
 
-                                                        </label>
+        <button
+            type="button"
+    id="ckyc_address_proceed"
+    class="blue-btn gray-btn multicarding-primary-btn"
+    aria-disabled="true"
+    aria-describedby="ckyc_address_error"
+    tabindex="0"
+    data-switch-screen
+    data-hide-screen="pan_upload_screen"
+    data-show-screen="verfiy_ckyc_kin_screen"
+        >
+            Proceed
+        </button>
 
-                                                        <div class="bottom-btn-block border-top-0 mt-0 pt-0">
-                                    <div class="ckyc-address-button-block">
+        <button
+            type="button"
+            id="ckyc_address_cancel"
+            class="blue-btn ckyc-modify-btn with-outline"
+        >
+            Cancel
+        </button>
 
-                                        <button type="button" id="" class="blue-btn p-none gray-btn multicarding-primary-btn" disabled aria-disabled="true">
-                                            Proceed
-                                        </button>
+    </div>
+</div>
 
-                                        <button type="button" id="" class="blue-btn ckyc-modify-btn multicarding-secondary-btn p-none gray-btn" disabled aria-disabled="true">
-                                            Cancel
-                                        </button>
-
-                                    </div>
-                                </div>
+<div
+    id="ckyc_address_error"
+    class="sr-only ckyc-kin-alert-message"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+></div>
                                                     </div>
+                                                    </div>
+                                                    <div class="verify-ckyc-kin-screen mt-68 d-none" id="verfiy_ckyc_kin_screen">
+                                                        <div class="verify-kin-card">
+                                                            <div class="verify-screen-block" id="verify_ckyc_kin_checkbox">
+                                                            <div class="ckyc-kin-contnet-block">
+                                                                <div>
+                                                                    <h3 class="mb-22 text-center">Verify Your CKYC/KIN Number</h3>
+                                                                    <div class="ckyc-kin-img-block mb-10 text-center">
+                                                                        <img src="../img/ckyc-kin.png" alt="" aria-hidden="true">
+                                                                    </div>
+                                                                    <div class="ckyc-kin-subline text-center">Please proceed with CKYC verification.</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ckyc-kin-checkbox-block relative">
+    <div>
+        <label class="ckyc-consent-label mt-0">
+            <input type="checkbox" id="ckyc_kin_constant_1">
+            <span class="check" aria-hidden="true"></span>
+            <span class="ckyc-consent-text">
+                I hereby give my consent to SBI Card to download the details basis CKYC number for updating my KYC details on CKYCR (Central KYC registry)
+            </span>
+        </label>
+
+        <div class="ckyc-kin-card-button-block">
+            <button
+                type="button"
+                class="blue-btn gray-btn w-100"
+                id="ckyc_kin_proceed"
+                aria-disabled="true"
+    aria-describedby="ckyc_address_error"
+    tabindex="0"
+    data-switch-screen
+    data-hide-screen="verify_ckyc_kin_checkbox"
+    data-show-screen="verify_ckyc_kin_otp"
+            >
+                Proceed
+            </button>
+        </div>
+
+        <div
+            id="ckyc_kin_error"
+            class="sr-only ckyc-kin-alert-message"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        ></div>
+    </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="verify-ckyc-kin-otp-block sky-blue-bg relative d-none" id="verify_ckyc_kin_otp">
+                                                                <div class="ckyc-kin-contnet-block">
+                                                                    <div>
+                                                                        <h3 class="mb-22 text-center blue-color">Enter One Time Password</h3>
+                                                                        <div class="ckyc-kin-subline text-center">Please enter the OTP send on your Registered Mobile NumberXXXXXXX1558 and email ID:PHXXXXXXXXXXXXXXXX@gmail.com</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ckyc-kin-otp-wrap">
+                                                                    <h4 class="blue-color text-15 mb-14 font-bold text-center">Enter OTP</h4>
+                                                                    <div class="ckyc-kin-otp-block">
+                                                                        <div class="otp-field-wrapper"> <div class="otp-fields" role="group" aria-labelledby="otp-group-label" > <span id="otp-group-label" class="sr-only"> Enter your 6 digit one-time password </span> <input type="password" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" aria-label="OTP digit 1 of 6" > <input type="password" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="OTP digit 2 of 6" > <input type="password" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="OTP digit 3 of 6" > <input type="password" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="OTP digit 4 of 6" > <input type="password" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="OTP digit 5 of 6" > <input type="password" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="OTP digit 6 of 6" > <span class="otp-success-icon" id="otp-success-icon" aria-hidden="true" hidden > <img src="../img/green-tick.svg" alt=""> </span> </div> <!-- Visual + screen-reader status --> <p class="otp-status sr-only" id="otp-status" aria-live="polite" aria-atomic="true" ></p> <a href="#" class="otp-resend-link" id="otp-resend-link" aria-describedby="otp-resend-status" > Resend OTP </a> <!-- Countdown / resend accessibility message --> <span id="otp-resend-status" class="sr-only" aria-live="polite" aria-atomic="true" ></span> </div>
+                                                                    </div>
+                                                                    <div class="ckyc-kin-card-button-block">
+                                                                    <button
+                                                                        type="button"
+                                                                        class="blue-btn gray-btn w-100 mt-26"
+                                                                        id="ckyc_kin_otp_submit"
+                                                                        aria-disabled="true"
+                                                                        aria-describedby="ckyc_kin_otp_error"
+                                                                        tabindex="0"
+                                                                        data-switch-screen
+                                                                        data-hide-screen="verfiy_ckyc_kin_screen"
+                                                                        data-show-screen="address_suceesfully_retrieved_screen">
+                                                                        Proceed
+                                                                    </button>
+        </div>
+                                                                </div>
+                                                                <div
+                                                                        id="ckyc_kin_otp_error"
+                                                                        class="sr-only ckyc-kin-alert-message"
+                                                                        role="alert"
+                                                                        aria-live="assertive"
+                                                                        aria-atomic="true"
+                                                                    ></div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="stpper-cancel-btn-block">
+                                                            <a href="javascript:void(0);" class="blue-btn with-outline mb-0 mt-0" onclick="cancelStepes();">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="added-successfully-block d-none" id="address_suceesfully_retrieved_screen">
+                                                                <img src="../img/tick-success.svg" alt="">
+                                                                <div class="added-successfully-title-block">
+                                                                    Address <strong>Successfully</strong> Retrieved <br> From CKYC
+                                                                </div>
+                                                            </div>
                                                 </div>
                                             </div>
                                         </div>

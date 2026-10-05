@@ -2190,12 +2190,25 @@ video#cam + .upload-square-title {
 .mt-30 {margin-top: 30px !important;}
 .mt-40 {margin-top: 40px !important;}
 .mt-48 {margin-top: 48px !important;}
+.mt-68 {margin-top: 68px !important;}
+
+.mb-22 {margin-bottom: 22px !important;}
+.mb-10 {margin-bottom: 10px !important;}
+.mb-14 {margin-bottom: 14px !important;}
+
+.text-15 {font-size: 15px !important;}
+.font-bold {font-weight: 700;}
 
 .ckyc-error-content-block {
     font-size: 12px;
     color: #222222;
     margin-left: 15px;
 }
+
+.multicarding-verification-and-upload-wrap h3 {font-weight: bold; font-size: 18px;}
+
+.p-none {pointer-events: none !important;}
+.relative {position: relative !important;}
 
 .sr-only {
     position: absolute;
@@ -2207,6 +2220,26 @@ video#cam + .upload-square-title {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+.ckyc-kin-alert-message {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    height: auto;
+    clip: unset;
+    text-align: center;
+    background-color: #fefafa;
+    border: 1px solid #ef6c69;
+    padding: 5px;
+    font-size: 12px;
+    white-space: normal;
+    display: none;
+}
+
+.ckyc-kin-alert-message.show {
+    display: block;
 }
 
 .multicarding-verification-and-upload-wrap .stepper-content-block {
@@ -2301,8 +2334,8 @@ video#cam + .upload-square-title {
     width: calc(100% - 20px);
     padding-left: 8px;
     color: #666666;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 400;
     line-height: 1.45;
 }
 
@@ -2313,12 +2346,127 @@ video#cam + .upload-square-title {
     margin-top: 0;
 }
 
-.p-none {pointer-events: none;}
-
-.multicarding-secondary-btn {
-
+.multicarding-verification-and-upload-wrap .blue-btn {
+    line-height: 1.5;
 }
 
+.p-none {pointer-events: none;}
+
+.verify-kin-card {
+  filter: drop-shadow(0px 3px 26px rgba(0, 0, 0, 0.149));
+  background-color: #ffffff;
+      width: 364px;
+    margin: 0 auto;
+}
+
+.ckyc-kin-contnet-block {
+  padding: 24px 34px 15px 34px;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.verify-ckyc-kin-otp-block .ckyc-kin-contnet-block {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.ckyc-kin-checkbox-block,
+.ckyc-kin-otp-wrap {
+  padding: 13px 34px 21px 34px;
+}
+
+.ckyc-kin-contnet-block {margin: 0; color: #222222; font-size: 16px; font-weight: 700;}
+.ckyc-kin-subline {color: #222222; font-size: 13px; font-weight: 600;}
+.multicarding-verification-and-upload-wrap .stpper-cancel-btn-block {padding-left: 0; margin-top: 29px;}
+.sky-blue-bg {background-color: #F2F9FC !important;}
+
+.otp-fields {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.multicarding-verification-and-upload-wrap .otp-input {
+    width: 38px;
+    height: 42px;
+    padding: 0;
+    border: 0 !important;
+    border-bottom: 2px solid #222222 !important;
+    border-radius: 0;
+    background: transparent;
+
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+
+    outline: none;
+    box-sizing: border-box;
+    color: #222222;
+}
+
+.ckyc-kin-card-button-block .blue-btn {margin-bottom: 0; margin-top: 26px;}
+
+/* Keyboard focus */
+.multicarding-verification-and-upload-wrap .otp-input:focus {
+    border-bottom-color: transparent !important;
+}
+
+.multicarding-verification-and-upload-wrap input[type=password]:focus {
+  background-color: transparent !important;
+}
+
+/* Valid/filled field */
+.otp-input:not(:placeholder-shown) {
+    border-bottom-color: #222222;
+}
+
+.otp-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 2px;
+}
+
+.otp-success-icon[hidden] {
+    display: none;
+}
+
+.otp-success-icon img {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.otp-resend-link {
+    display: inline-block;
+    margin-top: 9px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+
+/* Mobile */
+@media (max-width: 575px) {
+    .otp-fields {
+        gap: 8px;
+    }
+
+    .otp-input {
+        width: 32px;
+        height: 38px;
+        font-size: 22px;
+    }
+
+    .otp-success-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .otp-success-icon img {
+        width: 18px;
+        height: 18px;
+    }
+}
 
 
 
@@ -2339,7 +2487,8 @@ video#cam + .upload-square-title {
 body.ckyc-popup-open input:focus-within,
 .accessbility-handled-wrap .custom-select .select-selected:focus-visible,
 button.ckyc-upload-link:focus-visible,
-.accessbility-handled-wrap .select-items div:focus-visible {
+.accessbility-handled-wrap .select-items div:focus-visible,
+.accessbility-handled-wrap .blue-btn:focus-visible {
   outline: 2px solid #0077af !important; 
   outline-offset: 2px;
 }
@@ -2396,11 +2545,22 @@ button.ckyc-upload-link:focus-visible,
     cursor: pointer;
 }
 
-.accessbility-handled-wrap .gray-btn {
+.accessbility-handled-wrap .gray-btn,
+.accessbility-handled-wrap .gray-btn.with-outline {
   background: #dddddd !important;
   color: #000000 !important;
   border: 1px solid #dddddd;
 }
+
+.accessbility-handled-wrap .with-outline {
+    background: #ffffff !important;
+    color: #0077af !important;
+    border: 1px solid #0077af;
+    cursor: pointer;
+}
+
+.accessbility-handled-wrap .blue-color {color: #0077af !important;}
+
 
 
 

@@ -3588,7 +3588,7 @@ body.ckyc-popup-open input:focus-within {
 
 .ckyc-journey-wrap .blue-btn {
   border: 1px solid #dddddd ;
-  line-height: 1 !important;
+  line-height: 1.5 !important;
 }
 
 /* Confirm Button */
@@ -3692,6 +3692,8 @@ body.ckyc-popup-open .close-popup:focus-visible {
 .ckyc-method-upload-option {
   margin-bottom: 32px;
 }
+
+.legend-title {font-size: 20px; margin-bottom: 10px; display: inline-block;}
 
 
 /* CKYC METHOD RADIO */
@@ -3797,7 +3799,7 @@ body.ckyc-popup-open .close-popup:focus-visible {
 .ckyc-upload-text {
   color: #222222;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* CONSENT */
@@ -4314,6 +4316,21 @@ article.ckyc-upload-documents .ckyc-method-consent {
 .ckyc-address-type-wrapper-group .ckyc-registered-address-wrap h4 {padding-left: 30px;}
 .ckyc-journey-wrap .checkbox-group .radio-wrap.active {border: 1px solid #e3f6ff;}
 
+span.radio-label.radio-label-accessbilty,
+span.radio-label.radio-label-accessbilty span {
+  border: 0 !important;
+  width: calc(100% - 23px) !important;
+  height: auto !important;
+  text-align: left;
+  margin: 0 !important;
+  font-weight: 600;
+  font-size: 12px;
+  background-color: transparent !important;
+}
+
+
+span.radio-label.radio-label-accessbilty span:nth-of-type(1) {margin-bottom: 5px !important; display: inline-block;}
+
 
 
 /* -------------------------
@@ -4410,7 +4427,7 @@ button.ckyc-upload-link:focus-visible,
   border: 6px solid #0077af;
 }
 
-.accessbility-handled-wrap .fancy-radio strong {color: #222222;}
+.accessbility-handled-wrap .fancy-radio .radio-label-accessbilty {color: #222222;}
 
 .accessbility-handled-wrap .fancy-checkbox span, 
 .accessbility-handled-wrap .radio-wrap span {
