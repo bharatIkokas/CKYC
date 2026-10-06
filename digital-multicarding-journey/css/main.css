@@ -2194,10 +2194,13 @@ video#cam + .upload-square-title {
 
 .mb-22 {margin-bottom: 22px !important;}
 .mb-10 {margin-bottom: 10px !important;}
+.mb-8 {margin-bottom: 8px !important;}
 .mb-14 {margin-bottom: 14px !important;}
+.mb-18 {margin-bottom: 18px !important;}
 
 .text-15 {font-size: 15px !important;}
-.font-bold {font-weight: 700;}
+.font-bold {font-weight: 700 !important;}
+.font-600 {font-weight: 600 !important;}
 
 .ckyc-error-content-block {
     font-size: 12px;
@@ -2236,6 +2239,7 @@ video#cam + .upload-square-title {
     font-size: 12px;
     white-space: normal;
     display: none;
+    position: absolute;
 }
 
 .ckyc-kin-alert-message.show {
@@ -2374,7 +2378,7 @@ video#cam + .upload-square-title {
 }
 
 .ckyc-kin-contnet-block {margin: 0; color: #222222; font-size: 16px; font-weight: 700;}
-.ckyc-kin-subline {color: #222222; font-size: 13px; font-weight: 600;}
+.ckyc-kin-subline {color: #222222; font-size: 13px; font-weight: 600; line-height: 1.8rem;}
 .multicarding-verification-and-upload-wrap .stpper-cancel-btn-block {padding-left: 0; margin-top: 29px;}
 .sky-blue-bg {background-color: #F2F9FC !important;}
 
@@ -2413,6 +2417,65 @@ video#cam + .upload-square-title {
   background-color: transparent !important;
 }
 
+.multicarding-verification-and-upload-wrap .added-successfully-block {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.multicarding-verification-and-upload-wrap .stepper-submit-btn-block {
+    padding: 21px 31px;
+    position: relative;
+}
+
+.multicarding-verification-and-upload-wrap .photo-info-block {
+    font-size: 12px;
+    margin: 15px 0;
+}
+
+.multicarding-verification-and-upload-wrap .stepper-upload-by-defalut-img-block .img-delete-block {
+    width: auto !important;
+    height: auto !important;
+}
+
+.multicarding-verification-and-upload-wrap .stepper-upload-by-defalut-img-block .img-delete-block img {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.upload-four-steps {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 88%;
+    margin: 0 auto;
+    margin-bottom: 14px;
+}
+
+.upload-four-steps li {width: 42%; margin-bottom: 3px; font-size: 11px; color: #222222; list-style: disc; text-align: left;}
+.text-left {text-align: left !important;}
+
+.accessbility-handled-wrap .upload-square-title {
+    display: block;
+}
+
+.accessbility-handled-wrap .steper-f-uload-btn,
+.accessbility-handled-wrap .close-modal,
+.accessbility-handled-wrap .upload-square-title,
+.accessbility-handled-wrap .stepper-upload-by-defalut-img-block .img-delete-block {
+  background-color: transparent;
+}
+
+.accessbility-handled-wrap .added-successfully-title-block,
+.accessbility-handled-wrap .select-address-title,
+.accessbility-handled-wrap .upload-square-title {
+    color: #0077af;
+}
+
+.card-view-holder-p-full-block p {
+    display: block;
+    width: 100%;
+}
+
 /* Valid/filled field */
 .otp-input:not(:placeholder-shown) {
     border-bottom-color: #222222;
@@ -2443,6 +2506,38 @@ video#cam + .upload-square-title {
     font-weight: 600;
     font-size: 12px;
 }
+
+.ckyc-klocker-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ckyc-klocker-modal[hidden] {
+    display: none;
+}
+
+.ckyc-modal-open {height: 100vh; overflow: hidden;}
+
+.kyc-kin-3-steps .steper-block:nth-of-type(3)::after,
+.kyc-kin-4-steps .steper-block:nth-of-type(4)::after {
+  width: 0;
+}
+
+.multicarding-verification-and-upload-wrap .stpper-title {
+    color: #222222;
+}
+
+.stpper-title br {display: none;}
+.kyc-kin-5-steps .stpper-title br {display: block;}
+
+
 
 
 /* Mobile */
@@ -2488,7 +2583,8 @@ body.ckyc-popup-open input:focus-within,
 .accessbility-handled-wrap .custom-select .select-selected:focus-visible,
 button.ckyc-upload-link:focus-visible,
 .accessbility-handled-wrap .select-items div:focus-visible,
-.accessbility-handled-wrap .blue-btn:focus-visible {
+.accessbility-handled-wrap .blue-btn:focus-visible,
+.accessbility-handled-wrap .stepper-upload-document-block:focus-within {
   outline: 2px solid #0077af !important; 
   outline-offset: 2px;
 }
@@ -2560,6 +2656,21 @@ button.ckyc-upload-link:focus-visible,
 }
 
 .accessbility-handled-wrap .blue-color {color: #0077af !important;}
+.accessbility-handled-wrap .photo-info-block {color: #222222;}
+
+.accessbility-handled-wrap .address-radio-block input[type=radio] + label {
+    border: 1px solid #0077af;
+}
+
+.accessbility-handled-wrap .address-radio-block input[type=radio] + label > span,
+.accessbility-handled-wrap .steper-block.active > div > span {
+    background-color: #0077af;
+}
+
+.accessbility-handled-wrap .steper-block.active .stpper-title {
+  color: #0077af;
+}
+
 
 
 
@@ -2571,6 +2682,13 @@ button.ckyc-upload-link:focus-visible,
 @media(max-width: 767px) {
   .multicarding-verification-and-upload-wrap .form-group .small br {display: none;}
   .multicarding-verification-and-upload-wrap .stepper-main-wrap {width: 100%;}
+  .verify-ckyc-kin-otp-block br {display: none;}
+  .multicarding-verification-and-upload-wrap .steppers {width: 100%;}
+  button#openModalBtn {max-width: 110px;}
+}
+
+@media(max-width: 400px) {
+ .multicarding-verification-and-upload-wrap .stpper-title {font-size: 9px;}
 }
 
 
