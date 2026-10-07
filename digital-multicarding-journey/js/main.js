@@ -16,32 +16,77 @@
     });
 })();
 
-// Upload Addhar front
+
+// Upload PAN front
+
 function handlePAN(event) {
-const file = event.target.files[0];
-const fileReader = new FileReader();
+    var input = event.target;
 
-fileReader.onload = function () {
-// const previewImg = document.getElementById('previewImg');
-//const frontImgName = document.getElementById('front_img_name');
-//previewImg.setAttribute('src', fileReader.result);
-$('#front_title_img_block').addClass('d-none');
-$('#front_img_name').removeClass('d-none');
-//frontImgName = fileName;
-};
+    if (!input || !input.files || !input.files.length) {
+        return;
+    }
 
-fileReader.readAsDataURL(file);
+    var file = input.files[0];
+    var fileName = file.name;
 
-const filePath = URL.createObjectURL(file);
-const fileName = file.name;
+    var fileReader = new FileReader();
 
-// document.getElementById('filePath').innerText = "File Path: " + filePath;
-document.getElementById('frontFileName').innerText = fileName;
-document.getElementById('upload_text_for_aadhar_front').innerText = "Re-Upload";
+    fileReader.onload = function () {
+        $('#front_title_img_block').addClass('d-none');
+        $('#front_img_name').removeClass('d-none');
+    };
 
-// Reset FileReader object
-event.target.value = ''; // Reset file input
+    fileReader.readAsDataURL(file);
+
+    // Update visible file name
+    var fileNameElement = document.getElementById('frontFileName');
+
+    if (fileNameElement) {
+        fileNameElement.textContent = fileName;
+    }
+
+    // Update upload text
+    var uploadText = document.getElementById(
+        'upload_text_for_aadhar_front'
+    );
+
+    if (uploadText) {
+        uploadText.textContent = 'Re-Upload';
+    }
+
+    /*
+     * Screen reader announcement
+     */
+    var uploadStatus = document.getElementById('pan_upload_status');
+
+    if (uploadStatus) {
+        // Remove old announcement
+        uploadStatus.textContent = '';
+
+        setTimeout(function () {
+            uploadStatus.textContent =
+                'PAN copy uploaded successfully. File name: ' + fileName;
+
+            /*
+             * Move focus to the announcement so the screen reader
+             * reliably reads the complete message.
+             */
+            setTimeout(function () {
+                uploadStatus.focus();
+            }, 50);
+
+        }, 150);
+    }
+
+    /*
+     * Reset the input after the file name has been captured.
+     * This also allows the same file to be selected again.
+     */
+    input.value = '';
 }
+
+
+
 
 
 //////////////////////////////Verify Your CKYC/KIN Number Checkbox and Button//////////////////////////////////
@@ -1082,6 +1127,101 @@ function initRadioConsentButton(options) {
     });
 
 }());
+
+
+
+////////////////////////////Failed to fetch CKYC Details////////////////////////////////////////////
+(function () {
+    "use strict";
+
+    var failedCkycScreen = document.getElementById("failed_to_fetch_ckyc");
+
+    var doNotSelectAddressScreen = document.getElementById(
+        "ckyc_kin_constant_donot_select_address"
+    );
+
+    var stepper2 = document.querySelector(
+        ".kyc-kin-stepper-2"
+    );
+
+    var stepper3 = document.querySelector(
+        ".kyc-kin-stepper-3"
+    );
+
+    var stepper3Title = document.querySelector(
+        ".kyc-kin-stepper-3 .stpper-title"
+    );
+
+    if (
+        !failedCkycScreen ||
+        !doNotSelectAddressScreen ||
+        !stepper2 ||
+        !stepper3 ||
+        !stepper3Title
+    ) {
+        return;
+    }
+
+    var timerStarted = false;
+
+    var observer = new MutationObserver(function () {
+        var failedScreenVisible =
+            !failedCkycScreen.classList.contains("d-none");
+
+        if (!failedScreenVisible || timerStarted) {
+            return;
+        }
+
+        timerStarted = true;
+
+        window.setTimeout(function () {
+
+            /*
+             * Hide failed CKYC screen.
+             */
+            failedCkycScreen.classList.add("d-none");
+
+            /*
+             * Show photo upload / KYC screen.
+             */
+            doNotSelectAddressScreen.classList.remove("d-none");
+
+            /*
+             * Step 2 completed.
+             */
+            stepper2.classList.remove("active");
+            stepper2.classList.add("filled");
+
+            /*
+             * Step 3 active.
+             */
+            stepper3.classList.add("active");
+
+            /*
+             * Change Step 3 title.
+             * Address / Upload → Photo / Upload
+             */
+            stepper3Title.innerHTML = "Photo/<br>Upload";
+
+            /*
+             * No longer need the observer.
+             */
+            observer.disconnect();
+
+        }, 3000);
+    });
+
+    observer.observe(failedCkycScreen, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+
+}());
+
+
+
+
+
 
 
 
@@ -2154,6 +2294,38 @@ function initRadioConsentButton(options) {
      * Announce the initial active step.
      */
     announceActiveStepper();
+})();
+
+
+//////////////////////////////Add class on parent tag when address radio is selected////////////////////////////////////
+(function () {
+    "use strict";
+
+    var addressRadios = document.querySelectorAll(
+        'input[name="kyc-kin-select-radio"]'
+    );
+
+    if (!addressRadios.length) {
+        return;
+    }
+
+    addressRadios.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+            // Remove class from all address blocks
+            document
+                .querySelectorAll(".select-address-radio-block")
+                .forEach(function (block) {
+                    block.classList.remove("kyckin-radio-selected");
+                });
+
+            // Add class only to the selected radio's parent block
+            var selectedBlock = radio.closest(".select-address-radio-block");
+
+            if (selectedBlock) {
+                selectedBlock.classList.add("kyckin-radio-selected");
+            }
+        });
+    });
 })();
 
 

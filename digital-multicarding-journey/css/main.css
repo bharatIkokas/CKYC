@@ -2184,31 +2184,37 @@ video#cam + .upload-square-title {
 
 
 /* /////////////////////////////////////////01 October, 2026//////////////////////////////////////////////// */
-.ckyc-error-block {background-color: #FFF8F8; border: 1px solid #EA4335; padding: 14px 19px;}
+.ckyc-error-block {background-color: #FFF8F8; border: 1px solid #EA4335; padding: 12px 13px;}
 .flex {display: flex;}
 .items-center {align-items: center;}
 .mt-30 {margin-top: 30px !important;}
+.mt-35 {margin-top: 35px !important;}
 .mt-40 {margin-top: 40px !important;}
 .mt-48 {margin-top: 48px !important;}
 .mt-68 {margin-top: 68px !important;}
 
-.mb-22 {margin-bottom: 22px !important;}
+.mb-0 {margin-bottom: 0px !important;}
+.mb-5 {margin-bottom: 5px !important;}
 .mb-10 {margin-bottom: 10px !important;}
 .mb-8 {margin-bottom: 8px !important;}
 .mb-14 {margin-bottom: 14px !important;}
 .mb-18 {margin-bottom: 18px !important;}
+.mb-22 {margin-bottom: 22px !important;}
+.mb-27 {margin-bottom: 27px !important;}
 
 .text-15 {font-size: 15px !important;}
 .font-bold {font-weight: 700 !important;}
 .font-600 {font-weight: 600 !important;}
 
 .ckyc-error-content-block {
-    font-size: 12px;
+    font-size: 11px;
     color: #222222;
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 .multicarding-verification-and-upload-wrap h3 {font-weight: bold; font-size: 18px;}
+.block {display: block !important;}
+.border-0 {border: 0 !important;}
 
 .p-none {pointer-events: none !important;}
 .relative {position: relative !important;}
@@ -2301,8 +2307,8 @@ video#cam + .upload-square-title {
   .ckyc-consent-label
   input[type="checkbox"]:checked
   + .check {
-  border-color: #0095d9;
-  background-color: #0095d9;
+  border-color: #0077af;
+  background-color: #0077af;
 }
 
 /* Checkmark */
@@ -2405,6 +2411,21 @@ video#cam + .upload-square-title {
     box-sizing: border-box;
     color: #222222;
 }
+
+.multicarding-verification-and-upload-wrap .invalid-otp .otp-input {
+  border-bottom: 2px solid #E00D0D !important;
+}
+
+.kyckin-radio-selected .select-radio-cnt-block {
+  filter: drop-shadow(0px 0px 22px rgba(0, 0, 0, 0.21));
+  border: 2px solid #0077af;
+}
+
+.accessbility-handled-wrap .failed-to-fetch-ckyc-details .added-successfully-title-block {color: #E00D0D;}
+.steper-f-uload-btn {cursor: pointer;}
+
+.multicarding-verification-and-upload-wrap .otp-error-message {color: #E00D0D; margin-bottom: 5px; margin-top: 10px; font-size: 12px;}
+.multicarding-verification-and-upload-wrap .invalid-otp .otp-resend-link {margin-top: 0;}
 
 .ckyc-kin-card-button-block .blue-btn {margin-bottom: 0; margin-top: 26px;}
 
@@ -2584,10 +2605,15 @@ body.ckyc-popup-open input:focus-within,
 button.ckyc-upload-link:focus-visible,
 .accessbility-handled-wrap .select-items div:focus-visible,
 .accessbility-handled-wrap .blue-btn:focus-visible,
-.accessbility-handled-wrap .stepper-upload-document-block:focus-within {
+.accessbility-handled-wrap .stepper-upload-document-block:focus-within,
+.accessbility-handled-wrap .upload-square-block:focus-within,
+.upload-modal .close-modal:focus-visible,
+.accessbility-handled-wrap .stepper-upload-by-defalut-img-block .img-delete-block:focus-visible {
   outline: 2px solid #0077af !important; 
   outline-offset: 2px;
 }
+
+.steper-f-uload-btn:focus-visible {outline: 0;}
 
 .accessbility-handled-wrap .differently-abled .ckyc-consent-text {color: #0077af !important;}
 .accessbility-handled-wrap .select-items div:hover {color: #222222;}
@@ -2604,7 +2630,8 @@ button.ckyc-upload-link:focus-visible,
 .accessbility-handled-wrap .impairement-block .select-selected,
 .ckyc-popup-open .ckyc-consent-text,
 .accessbility-handled-wrap .ckyc-consent-text,
-.ckyc-popup-open .ckyc-kinpan-consent-otpbox-popup .popup-input-field input {
+.ckyc-popup-open .ckyc-kinpan-consent-otpbox-popup .popup-input-field input,
+.accessbility-handled-wrap .upload-or-block {
     color: #222222;
 }
 
@@ -2626,7 +2653,8 @@ button.ckyc-upload-link:focus-visible,
     font-weight: bold;
 }
 
-.accessbility-handled-wrap input {
+.accessbility-handled-wrap input,
+.accessbility-handled-wrap .upload-square-block {
   border: solid 1px #666666 !important;
 }
 
@@ -2685,6 +2713,8 @@ button.ckyc-upload-link:focus-visible,
   .verify-ckyc-kin-otp-block br {display: none;}
   .multicarding-verification-and-upload-wrap .steppers {width: 100%;}
   button#openModalBtn {max-width: 110px;}
+  .stpper-cancel-btn-block > .blue-btn {max-width: 320px;}
+  .select-address-wrap {margin-top: 20px; width: 98%; margin-left: auto; margin-right: auto;}
 }
 
 @media(max-width: 400px) {
