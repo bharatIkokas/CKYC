@@ -2111,8 +2111,9 @@
             class="small"
             id="pan_upload_requirements"
         >
-            File should be in PDF, JPG, TIF, TIFF, GIF or PNG format
-            and the file size should not exceed 5 MB.
+            File should be in .pdf, .jpg, .tif .tiff, gif<br>
+or .png format & upload, size should not<br>
+exceed 5 MB each. 
         </div>
     </div>
 
@@ -2197,7 +2198,7 @@
     <span class="check" aria-hidden="true"></span>
 
     <span class="ckyc-consent-text">
-        By clicking on confirm, you authorize SBI Card to use your above address across all your associated card(s).
+        I hereby give my consent to verify my details as provided in the copy of PAN Card.
     </span>
 </label>
 
@@ -2222,6 +2223,7 @@
             type="button"
             id="ckyc_address_cancel"
             class="blue-btn ckyc-modify-btn with-outline"
+            onclick="cancelStepes();"
         >
             Cancel
         </button>
@@ -2390,7 +2392,7 @@
             class="photo-info-block"
             id="photo-info"
         >
-            Photo should be PNG or JPG<br> and maximum size 5 MB.
+            (Photo should be .pdf, .png, .jpg<br> & maximum size 5 MB)
         </p>
 
         <!-- Screen-reader announcement -->
@@ -3819,8 +3821,7 @@ clearPhoto();
 
     // Cancel Steps
     function cancelStepes() {
-        $('.stpper-view-block').addClass('d-none');
-        $('.address_label_view').removeClass('d-none');
+        window.location.reload();
     }
             
         </script>

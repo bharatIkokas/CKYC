@@ -2222,6 +2222,7 @@
             type="button"
             id="ckyc_address_cancel"
             class="blue-btn ckyc-modify-btn with-outline"
+            onclick="cancelStepes();"
         >
             Cancel
         </button>
@@ -2287,49 +2288,155 @@
                                                             </div>
                                                             </div>
                                                             <div class="verify-ckyc-kin-otp-block sky-blue-bg relative d-none" id="verify_ckyc_kin_otp">
-                                                                <div class="ckyc-kin-contnet-block">
+                                                                <div class="ckyc-kin-contnet-block mb-14">
                                                                     <div>
                                                                         <h3 class="mb-8 text-center blue-color">Enter One Time Password</h3>
                                                                         <div class="ckyc-kin-subline text-center">Please enter the OTP send on your<br> Registered Mobile Number<br> XXXXXXX1558 and email ID:<br>PHXXXXXXXXXXXXXXXX@gmail.com</div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="ckyc-kin-otp-wrap">
-                                                                    <h4 class="blue-color text-15 mb-14 font-bold text-center">Enter OTP</h4>
-                                                                    <div class="ckyc-kin-otp-block">
-                                                                        <div class="otp-field-wrapper invalid-otp"> 
-                                                                            <div class="otp-fields" role="group" aria-labelledby="otp-group-label" aria-describedby="otp-error-message"> 
-                                                                                <span id="otp-group-label" class="sr-only"> Enter your 6 digit one-time password </span> 
-                                                                                <input type="password" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="one-time-code" aria-label="OTP digit 1 of 6" > 
-                                                                                <input type="password" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="off" aria-label="OTP digit 2 of 6" > 
-                                                                                <input type="password" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="off" aria-label="OTP digit 3 of 6" > 
-                                                                                <input type="password" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="off" aria-label="OTP digit 4 of 6" > 
-                                                                                <input type="password" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="off" aria-label="OTP digit 5 of 6" > 
-                                                                                <input type="password" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" value="1" autocomplete="off" aria-label="OTP digit 6 of 6" > 
-                                                                                <!-- <span class="otp-error-icon" id="otp-error-icon"> <img src="../img/red-cross.svg" alt=""> </span> -->
-                                                                             </div> 
-                                                                                <!-- Visual + screen-reader status --> 
-                                                                                 <p class="otp-status sr-only" id="otp-status" aria-live="polite" aria-atomic="true" ></p> 
-                                                                                 <p class="otp-error-message" id="otp-error-message" role="alert">OTP request limit exceeded. Please try again shortly.</p>
-                                                                                 <a href="#" class="otp-resend-link" id="otp-resend-link" aria-describedby="otp-resend-status" > Resend OTP </a> 
-                                                                        <!-- Countdown / resend accessibility message --> 
-                                                                         <span id="otp-resend-status" class="sr-only" aria-live="polite" aria-atomic="true" ></span> 
-                                                                    </div>
-                                                                    </div>
-                                                                    <div class="ckyc-kin-card-button-block">
-                                                                    <button
-                                                                        type="button"
-                                                                        class="blue-btn gray-btn w-100 mt-26"
-                                                                        id="ckyc_kin_otp_submit"
-                                                                        aria-disabled="true"
-                                                                        aria-describedby="ckyc_kin_otp_error"
-                                                                        tabindex="0"
-                                                                        data-switch-screen
-                                                                        data-hide-screen="verfiy_ckyc_kin_screen"
-                                                                        data-show-screen="address_suceesfully_retrieved_screen">
-                                                                        Submit
-                                                                    </button>
+                                                                <fieldset class="ckyc-kin-otp-wrap">
+    <legend class="blue-color text-15 font-bold text-center">
+        Enter OTP
+    </legend>
+<div class="ckyc-kin-otp-block">
+    <div class="otp-field-wrapper invalid-otp">
+
+        <div class="otp-fields">
+
+            <input
+                type="password"
+                id="otp-1"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="one-time-code"
+                aria-label="OTP digit 1 of 6"
+            >
+
+            <input
+                type="password"
+                id="otp-2"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="off"
+                aria-label="OTP digit 2 of 6"
+            >
+
+            <input
+                type="password"
+                id="otp-3"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="off"
+                aria-label="OTP digit 3 of 6"
+            >
+
+            <input
+                type="password"
+                id="otp-4"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="off"
+                aria-label="OTP digit 4 of 6"
+            >
+
+            <input
+                type="password"
+                id="otp-5"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="off"
+                aria-label="OTP digit 5 of 6"
+            >
+
+            <input
+                type="password"
+                id="otp-6"
+                class="otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                value="1"
+                autocomplete="off"
+                aria-label="OTP digit 6 of 6"
+            >
+<span
+                class="otp-error-icon"
+                id="otp-error-icon"
+                aria-hidden="true"
+            >
+                <img
+                    src="../img/red-cross.svg"
+                    alt=""
+                >
+            </span>
         </div>
-                                                                </div>
+
+        <p
+            class="otp-status sr-only"
+            id="otp-status"
+            aria-live="polite"
+            aria-atomic="true"
+        ></p>
+
+        <p
+            class="otp-error-message"
+            id="otp-error-message"
+            role="alert"
+        >
+            OTP request limit exceeded. Please try again shortly.
+        </p>
+
+        <a
+            href="#"
+            class="otp-resend-link"
+            id="otp-resend-link"
+            aria-describedby="otp-resend-status"
+        >
+            Resend OTP
+        </a>
+
+        <span
+            id="otp-resend-status"
+            class="sr-only"
+            aria-live="polite"
+            aria-atomic="true"
+        ></span>
+
+    </div>
+</div>
+
+<div class="ckyc-kin-card-button-block">
+    <button
+        type="button"
+        class="blue-btn gray-btn w-100 mt-26"
+        id="ckyc_kin_otp_submit"
+        aria-disabled="true"
+        aria-describedby="otp-error-message"
+        data-switch-screen
+        data-hide-screen="verfiy_ckyc_kin_screen"
+        data-show-screen="address_suceesfully_retrieved_screen"
+    >
+        Submit
+    </button>
+</div>
+
+</fieldset>
+
                                                                 <div
                                                                         id="ckyc_kin_otp_error"
                                                                         class="sr-only ckyc-kin-alert-message"
@@ -2358,8 +2465,8 @@
             Please select the correct address below:
         </legend>
 
-        <div class="seclet-address-radio-wrap">
-
+        <div class="seclet-address-radio-wrap relative">
+                <div id="kyc_kin_radio_checkbox_proceed_error" class="ckyc-kin-alert-message sr-only" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" ></div>
             <div class="select-address-radio-block">
                 <div class="address-radio-block">
                     <input
@@ -2376,7 +2483,7 @@
                 <div class="select-radio-cnt-block">
                     <div class="sd-cnt">
                         <div class="select-radio-title">
-                            Address Retrieved From DigiLocker:
+                            Permanent Address
                         </div>
 
                         <div class="seclect-radio-description-block">
@@ -2412,7 +2519,7 @@
                 <div class="select-radio-cnt-block">
                     <div class="sd-cnt">
                         <div class="select-radio-title">
-                            Current Registered Address:
+                            Current Address:
                         </div>
 
                         <div class="seclect-radio-description-block">
@@ -2500,7 +2607,6 @@
                 >
                     Proceed
                 </button>
-                <div id="kyc_kin_radio_checkbox_proceed_error" class="ckyc-kin-alert-message sr-only" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" ></div>
             </div>
 
         </div>
@@ -2511,7 +2617,7 @@
                                                     <div class="verify-ckyc-kin-screen mt-68 d-none mt-68" id="verify_ckyc_kin_address_otp">
                                                         <div class="verify-kin-card">
                                                             <div class="verify-ckyc-kin-otp-block sky-blue-bg relative" id="verify_ckykin_otp">
-                                                                <div class="ckyc-kin-contnet-block">
+                                                                <div class="ckyc-kin-contnet-block mb-14">
                                                                     <div>
                                                                         <h3 class="mb-8 text-center blue-color">
                                                                             Enter One Time Password
@@ -2526,147 +2632,137 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="ckyc-kin-otp-wrap">
-                                                                    <h4 class="blue-color text-15 mb-14 font-bold text-center">
-                                                                        Enter OTP
-                                                                    </h4>
+                                                                <fieldset class="ckyc-kin-otp-wrap">
+    <legend class="blue-color text-15 font-bold text-center">
+        Enter OTP
+    </legend>
+<div class="ckyc-kin-otp-block">
+    <div class="otp-field-wrapper">
 
-                                                                    <div class="ckyc-kin-otp-block">
-                                                                        <div class="otp-field-wrapper">
+        <div class="otp-fields">
 
-                                                                            <div
-                                                                                class="otp-fields"
-                                                                                role="group"
-                                                                                aria-labelledby="address-otp-group-label"
-                                                                            >
-                                                                                <span
-                                                                                    id="address-otp-group-label"
-                                                                                    class="sr-only"
-                                                                                >
-                                                                                    Enter your 6 digit one-time password
-                                                                                </span>
+            <input
+                type="password"
+                id="address-otp-1"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="one-time-code"
+                aria-label="OTP digit 1 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-1"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="one-time-code"
-                                                                                    aria-label="OTP digit 1 of 6"
-                                                                                >
+            <input
+                type="password"
+                id="address-otp-2"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="off"
+                aria-label="OTP digit 2 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-2"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="off"
-                                                                                    aria-label="OTP digit 2 of 6"
-                                                                                >
+            <input
+                type="password"
+                id="address-otp-3"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="off"
+                aria-label="OTP digit 3 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-3"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="off"
-                                                                                    aria-label="OTP digit 3 of 6"
-                                                                                >
+            <input
+                type="password"
+                id="address-otp-4"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="off"
+                aria-label="OTP digit 4 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-4"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="off"
-                                                                                    aria-label="OTP digit 4 of 6"
-                                                                                >
+            <input
+                type="password"
+                id="address-otp-5"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="off"
+                aria-label="OTP digit 5 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-5"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="off"
-                                                                                    aria-label="OTP digit 5 of 6"
-                                                                                >
+            <input
+                type="password"
+                id="address-otp-6"
+                class="otp-input address-otp-input"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="off"
+                aria-label="OTP digit 6 of 6"
+            >
 
-                                                                                <input
-                                                                                    type="password"
-                                                                                    id="address-otp-6"
-                                                                                    class="otp-input address-otp-input"
-                                                                                    inputmode="numeric"
-                                                                                    pattern="[0-9]*"
-                                                                                    maxlength="1"
-                                                                                    autocomplete="off"
-                                                                                    aria-label="OTP digit 6 of 6"
-                                                                                >
+            <span
+                class="otp-success-icon"
+                id="address-otp-success-icon"
+                aria-hidden="true"
+                hidden
+            >
+                <img
+                    src="../img/green-tick.svg"
+                    alt=""
+                >
+            </span>
 
-                                                                                <span
-                                                                                    class="otp-success-icon"
-                                                                                    id="address-otp-success-icon"
-                                                                                    aria-hidden="true"
-                                                                                    hidden
-                                                                                >
-                                                                                    <img
-                                                                                        src="../img/green-tick.svg"
-                                                                                        alt=""
-                                                                                    >
-                                                                                </span>
-                                                                            </div>
+        </div>
 
-                                                                            <p
-                                                                                class="otp-status sr-only"
-                                                                                id="address-otp-status"
-                                                                                aria-live="polite"
-                                                                                aria-atomic="true"
-                                                                            ></p>
+        <p
+            class="otp-status sr-only"
+            id="address-otp-status"
+            aria-live="polite"
+            aria-atomic="true"
+        ></p>
 
-                                                                            <a
-                                                                                href="#"
-                                                                                class="otp-resend-link"
-                                                                                id="address-otp-resend-link"
-                                                                                aria-describedby="address-otp-resend-status"
-                                                                            >
-                                                                                Resend OTP
-                                                                            </a>
+        <a
+            href="#"
+            class="otp-resend-link"
+            id="address-otp-resend-link"
+            aria-describedby="address-otp-resend-status"
+        >
+            Resend OTP
+        </a>
 
-                                                                            <span
-                                                                                id="address-otp-resend-status"
-                                                                                class="sr-only"
-                                                                                aria-live="polite"
-                                                                                aria-atomic="true"
-                                                                            ></span>
+        <span
+            id="address-otp-resend-status"
+            class="sr-only"
+            aria-live="polite"
+            aria-atomic="true"
+        ></span>
 
-                                                                        </div>
-                                                                    </div>
+    </div>
+</div>
 
-                                                                    <div class="ckyc-kin-card-button-block">
-                                                                        <button
-                                                                            type="button"
-                                                                            class="blue-btn gray-btn w-100 mt-26"
-                                                                            id="ckyc_kin_address_otp_submit"
-                                                                            aria-disabled="true"
-                                                                            aria-describedby="ckyc_kin_address_otp_error"
-                                                                            tabindex="0"
-                                                                            data-switch-screen
-                                                                            data-hide-screen="multicarding_journey"
-                                                                            data-show-screen="success_screen"
-                                                                        >
-                                                                            Submit
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+<div class="ckyc-kin-card-button-block">
+    <button
+        type="button"
+        class="blue-btn gray-btn w-100 mt-26"
+        id="ckyc_kin_address_otp_submit"
+        aria-disabled="true"
+        aria-describedby="ckyc_kin_address_otp_error"
+        data-switch-screen
+        data-hide-screen="multicarding_journey"
+        data-show-screen="success_screen"
+    >
+        Submit
+    </button>
+</div>
+
+                                                                </fieldset>
 
                                                                 <div
                                                                     id="ckyc_kin_address_otp_error"
@@ -2730,7 +2826,7 @@
             class="photo-info-block"
             id="photo-info"
         >
-            Photo should be PNG or JPG<br> and maximum size 5 MB.
+            (Photo should be .pdf, .png, .jpg<br> & maximum size 5 MB)
         </p>
 
         <!-- Screen-reader announcement -->
@@ -4117,8 +4213,7 @@ clearPhoto();
 
     // Cancel Steps
     function cancelStepes() {
-        $('.stpper-view-block').addClass('d-none');
-        $('.address_label_view').removeClass('d-none');
+        window.location.reload();
     }
             
         </script>

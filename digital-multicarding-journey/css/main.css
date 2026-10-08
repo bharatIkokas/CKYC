@@ -2187,6 +2187,7 @@ video#cam + .upload-square-title {
 .ckyc-error-block {background-color: #FFF8F8; border: 1px solid #EA4335; padding: 12px 13px;}
 .flex {display: flex;}
 .items-center {align-items: center;}
+.mt-13 {margin-top: 13px !important;}
 .mt-30 {margin-top: 30px !important;}
 .mt-35 {margin-top: 35px !important;}
 .mt-40 {margin-top: 40px !important;}
@@ -2365,12 +2366,12 @@ video#cam + .upload-square-title {
 .verify-kin-card {
   filter: drop-shadow(0px 3px 26px rgba(0, 0, 0, 0.149));
   background-color: #ffffff;
-      width: 364px;
+      width: 307px;
     margin: 0 auto;
 }
 
 .ckyc-kin-contnet-block {
-  padding: 24px 34px 15px 34px;
+  padding: 24px 30px 15px 30px;
   border-bottom: 1px solid #EAEAEA;
 }
 
@@ -2380,7 +2381,7 @@ video#cam + .upload-square-title {
 
 .ckyc-kin-checkbox-block,
 .ckyc-kin-otp-wrap {
-  padding: 13px 34px 21px 34px;
+  padding: 13px 30px 21px 30px;
 }
 
 .ckyc-kin-contnet-block {margin: 0; color: #222222; font-size: 16px; font-weight: 700;}
@@ -2392,11 +2393,13 @@ video#cam + .upload-square-title {
     display: flex;
     align-items: center;
     gap: 12px;
+    justify-content: space-between;
+    position: relative;
 }
 
 .multicarding-verification-and-upload-wrap .otp-input {
-    width: 38px;
-    height: 42px;
+    width: 30px;
+    height: 36px;
     padding: 0;
     border: 0 !important;
     border-bottom: 2px solid #222222 !important;
@@ -2470,10 +2473,12 @@ video#cam + .upload-square-title {
   width: 88%;
     margin: 0 auto;
     margin-bottom: 14px;
+    margin-right: 5px;
 }
 
-.upload-four-steps li {width: 42%; margin-bottom: 3px; font-size: 11px; color: #222222; list-style: disc; text-align: left;}
+.upload-four-steps li {width: 42%; margin-bottom: 3px; font-size: 10px; color: #222222; list-style: disc; text-align: left;}
 .text-left {text-align: left !important;}
+.multicarding-verification-and-upload-wrap .stepper-upload-img-block {padding: 20px 7px; padding-bottom: 0;}
 
 .accessbility-handled-wrap .upload-square-title {
     display: block;
@@ -2509,6 +2514,10 @@ video#cam + .upload-square-title {
     width: 24px;
     height: 24px;
     margin-left: 2px;
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    transform: translateY(-50%);
 }
 
 .otp-success-icon[hidden] {
@@ -2699,6 +2708,8 @@ button.ckyc-upload-link:focus-visible,
   color: #0077af;
 }
 
+.modal-open {position: fixed; height: 100vh; overflow: hidden;}
+
 
 
 
@@ -2715,6 +2726,8 @@ button.ckyc-upload-link:focus-visible,
   button#openModalBtn {max-width: 110px;}
   .stpper-cancel-btn-block > .blue-btn {max-width: 320px;}
   .select-address-wrap {margin-top: 20px; width: 98%; margin-left: auto; margin-right: auto;}
+  #pan_upload_requirements {width: 90%;}
+  #pan_upload_requirements br {display: none;}
 }
 
 @media(max-width: 400px) {
