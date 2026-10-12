@@ -178,96 +178,49 @@ function handlePAN(event) {
      * Common Consent Button
      * =========================================================
      */
-    function initConsentButton(options) {
-        var checkbox = document.getElementById(options.checkboxId);
-        var proceedButton = document.getElementById(options.buttonId);
-        var errorMessage = document.getElementById(options.errorId);
-        
+    
+function initConsentButton(options) {
+    "use strict";
 
-        if (!checkbox || !proceedButton || !errorMessage) {
+    var checkbox = document.getElementById(options.checkboxId);
+    var proceedButton = document.getElementById(options.buttonId);
+
+    if (!checkbox || !proceedButton) {
+        return;
+    }
+
+    function updateButton() {
+    var isChecked = checkbox.checked;
+
+    proceedButton.disabled = !isChecked;
+
+    proceedButton.setAttribute(
+        "aria-disabled",
+        String(!isChecked)
+    );
+
+    proceedButton.classList.toggle(
+        "gray-btn",
+        !isChecked
+    );
+}
+
+    checkbox.addEventListener("change", updateButton);
+
+    proceedButton.addEventListener("click", function () {
+        if (proceedButton.disabled || !checkbox.checked) {
             return;
         }
 
-        var alertTimer = null;
-        var disabledMessage =
-            options.message || "Please provide your consent before proceeding.";
-
-        function hideError() {
-            window.clearTimeout(alertTimer);
-            alertTimer = null;
-
-            errorMessage.classList.remove("show");
-            errorMessage.textContent = "";
+        if (typeof options.onSuccess === "function") {
+            options.onSuccess();
         }
+    });
 
-        function showError() {
-            window.clearTimeout(alertTimer);
+    // Initialize the correct disabled state.
+    updateButton();
+}
 
-            errorMessage.textContent = disabledMessage;
-            errorMessage.classList.add("show");
-
-            errorMessage.focus();
-
-            alertTimer = window.setTimeout(function () {
-                hideError();
-            }, 3000);
-        }
-
-        function updateButton() {
-            var isChecked = checkbox.checked;
-
-            proceedButton.classList.toggle("gray-btn", !isChecked);
-
-            proceedButton.setAttribute(
-                "aria-disabled",
-                String(!isChecked)
-            );
-
-            if (isChecked) {
-                hideError();
-            }
-        }
-
-        function handleSuccess() {
-            hideError();
-
-            if (typeof options.onSuccess === "function") {
-                options.onSuccess();
-            }
-        }
-
-        checkbox.addEventListener("change", updateButton);
-
-        proceedButton.addEventListener("click", function (event) {
-
-            if (!checkbox.checked) {
-                event.preventDefault();
-                showError();
-                return;
-            }
-
-            handleSuccess();
-        });
-
-        proceedButton.addEventListener("keydown", function (event) {
-
-            if (checkbox.checked) {
-                return;
-            }
-
-            if (event.key !== "Enter" && event.key !== " ") {
-                return;
-            }
-
-            event.preventDefault();
-            showError();
-        });
-
-        proceedButton.removeAttribute("disabled");
-        proceedButton.setAttribute("tabindex", "0");
-
-        updateButton();
-    }
 
 
     /*
@@ -275,7 +228,10 @@ function handlePAN(event) {
      * Common Radio + Consent Button
      * =========================================================
      */
+
 function initRadioConsentButton(options) {
+    "use strict";
+
     var radios = options.radioIds.map(function (id) {
         return document.getElementById(id);
     });
@@ -288,49 +244,14 @@ function initRadioConsentButton(options) {
         options.buttonId
     );
 
-    var errorMessage = document.getElementById(
-        options.errorId
-    );
-
     if (
         radios.some(function (radio) {
             return !radio;
         }) ||
         !consentCheckbox ||
-        !proceedButton ||
-        !errorMessage
+        !proceedButton
     ) {
         return;
-    }
-
-    var errorTimer = null;
-
-    function hideError() {
-        window.clearTimeout(errorTimer);
-        errorTimer = null;
-
-        errorMessage.classList.add("sr-only");
-        errorMessage.classList.remove("show");
-        errorMessage.textContent = "";
-        errorMessage.setAttribute("aria-hidden", "true");
-    }
-
-    function showError() {
-        window.clearTimeout(errorTimer);
-
-        errorMessage.textContent =
-            options.message ||
-            "Please select an address and provide your consent before proceeding.";
-
-        errorMessage.classList.remove("sr-only");
-        errorMessage.classList.add("show");
-        errorMessage.removeAttribute("aria-hidden");
-
-        errorMessage.focus();
-
-        errorTimer = window.setTimeout(function () {
-            hideError();
-        }, 3000);
     }
 
     function isRadioSelected() {
@@ -340,30 +261,28 @@ function initRadioConsentButton(options) {
     }
 
     function updateProceedButton() {
-        var addressSelected = isRadioSelected();
-        var consentSelected = consentCheckbox.checked;
-        var isValid = addressSelected && consentSelected;
+    var isValid =
+        isRadioSelected() &&
+        consentCheckbox.checked;
 
-        proceedButton.classList.toggle(
-            "gray-btn",
-            !isValid
-        );
+    proceedButton.disabled = !isValid;
 
-        proceedButton.setAttribute(
-            "aria-disabled",
-            String(!isValid)
-        );
+    proceedButton.setAttribute(
+        "aria-disabled",
+        String(!isValid)
+    );
 
-        /*
-         * Hide error once both conditions are satisfied.
-         */
-        if (isValid) {
-            hideError();
-        }
-    }
+    proceedButton.classList.toggle(
+        "gray-btn",
+        !isValid
+    );
+}
 
     radios.forEach(function (radio) {
-        radio.addEventListener("change", updateProceedButton);
+        radio.addEventListener(
+            "change",
+            updateProceedButton
+        );
     });
 
     consentCheckbox.addEventListener(
@@ -371,63 +290,24 @@ function initRadioConsentButton(options) {
         updateProceedButton
     );
 
-    /*
-     * Proceed button click.
-     */
-    proceedButton.addEventListener("click", function (event) {
-        var addressSelected = isRadioSelected();
-        var consentSelected = consentCheckbox.checked;
-
-        /*
-         * Button is not valid.
-         */
-        if (!addressSelected || !consentSelected) {
-            event.preventDefault();
-            showError();
+    proceedButton.addEventListener("click", function () {
+        if (
+            proceedButton.disabled ||
+            !isRadioSelected() ||
+            !consentCheckbox.checked
+        ) {
             return;
         }
-
-        hideError();
 
         if (typeof options.onSuccess === "function") {
-            options.onSuccess(
-                radios,
-                consentCheckbox
-            );
+            options.onSuccess(radios, consentCheckbox);
         }
     });
 
-    /*
-     * Keyboard activation.
-     */
-    proceedButton.addEventListener("keydown", function (event) {
-        var addressSelected = isRadioSelected();
-        var consentSelected = consentCheckbox.checked;
-
-        if (addressSelected && consentSelected) {
-            return;
-        }
-
-        if (event.key !== "Enter" && event.key !== " ") {
-            return;
-        }
-
-        event.preventDefault();
-        showError();
-    });
-
-    /*
-     * Keep button keyboard accessible.
-     */
-    proceedButton.removeAttribute("disabled");
-    proceedButton.setAttribute("tabindex", "0");
-
-    /*
-     * Initial state.
-     */
-    hideError();
+    // Initialize the correct disabled state.
     updateProceedButton();
 }
+
 
 
 
@@ -693,357 +573,243 @@ function initRadioConsentButton(options) {
 (function () {
     "use strict";
 
-    var otpBlocks = Array.prototype.slice.call(
-        document.querySelectorAll(".verify-ckyc-kin-otp-block")
-    );
+    var RESEND_SECONDS = 30;
 
-    if (!otpBlocks.length) {
-        return;
-    }
+    Array.prototype.slice
+        .call(document.querySelectorAll(".verify-ckyc-kin-otp-block"))
+        .forEach(function (block) {
+            var inputs = Array.prototype.slice.call(block.querySelectorAll(".otp-input"));
+            var successIcon = block.querySelector(".otp-success-icon");
+            var status = block.querySelector(".otp-status");
+            var submitBtn = block.querySelector('button[id$="_otp_submit"]');
+            var errorBox = block.querySelector(".ckyc-kin-alert-message");
+            var resendBtn = block.querySelector(".otp-resend-link");
+            var resendTimerText = block.querySelector(".otp-resend-timer");
+            var resendStatus = block.querySelector(".otp-resend-status");
 
-    otpBlocks.forEach(function (otpBlock) {
-        var otpInputs = Array.prototype.slice.call(
-            otpBlock.querySelectorAll(".otp-input")
-        );
+            // Optional server-side error state (see otp-block-error.html)
+            var wrapper = block.querySelector(".otp-field-wrapper");
+            var fieldset = block.querySelector("fieldset");
+            var serverErrIcon = block.querySelector(".otp-error-icon");
+            var serverErrMsg = block.querySelector(".otp-error-message");
 
-        var successIcon = otpBlock.querySelector(".otp-success-icon");
-        var otpStatus = otpBlock.querySelector(".otp-status");
-        var submitButton = otpBlock.querySelector(
-            'button[id$="_otp_submit"]'
-        );
-        var otpError = otpBlock.querySelector(
-            ".ckyc-kin-alert-message"
-        );
-        var resendLink = otpBlock.querySelector(".otp-resend-link");
-        var resendStatus = otpBlock.querySelector(
-            ".otp-resend-link + .sr-only"
-        );
-
-        if (
-            !otpInputs.length ||
-            !successIcon ||
-            !otpStatus ||
-            !submitButton ||
-            !otpError ||
-            !resendLink ||
-            !resendStatus
-        ) {
-            return;
-        }
-
-        var resendTimer = null;
-        var errorTimer = null;
-        var resendSeconds = 30;
-
-        function getOtpValue() {
-            return otpInputs
-                .map(function (input) {
-                    return input.value;
-                })
-                .join("");
-        }
-
-        function isOtpComplete() {
-            return otpInputs.every(function (input) {
-                return input.value !== "";
-            });
-        }
-
-        function updateSubmitState() {
-            var complete = isOtpComplete();
-
-            if (complete) {
-                submitButton.classList.remove("gray-btn");
-                submitButton.setAttribute("aria-disabled", "false");
-            } else {
-                submitButton.classList.add("gray-btn");
-                submitButton.setAttribute("aria-disabled", "true");
-            }
-        }
-
-        function updateOtpStatus() {
-            var otpValue = getOtpValue();
-
-            if (isOtpComplete()) {
-                successIcon.hidden = false;
-                otpStatus.textContent = "OTP entered successfully.";
-            } else {
-                successIcon.hidden = true;
-
-                if (otpValue.length > 0) {
-                    otpStatus.textContent =
-                        otpValue.length +
-                        " of " +
-                        otpInputs.length +
-                        " OTP digits entered.";
-                } else {
-                    otpStatus.textContent = "";
-                }
-            }
-
-            updateSubmitState();
-        }
-
-        function focusInput(index) {
-            if (!otpInputs[index]) {
+            // successIcon is optional (a template may omit it).
+            if (!inputs.length || !status || !submitBtn ||
+                !errorBox || !resendBtn || !resendTimerText || !resendStatus) {
                 return;
             }
 
-            otpInputs[index].focus();
-            otpInputs[index].select();
-        }
+            var total = inputs.length;
+            var timer = null;
 
-        function setOtpValue(value) {
-            var digits = String(value).replace(/\D/g, "");
-
-            otpInputs.forEach(function (input, index) {
-                input.value = digits.charAt(index) || "";
-            });
-
-            updateOtpStatus();
-
-            if (digits.length >= otpInputs.length) {
-                otpInputs[otpInputs.length - 1].focus();
-            } else {
-                focusInput(digits.length);
-            }
-        }
-
-        function showOtpError(message) {
-            clearTimeout(errorTimer);
-
-            otpError.textContent = message;
-            otpError.classList.add("show");
-
-            errorTimer = setTimeout(function () {
-                otpError.textContent = "";
-                otpError.classList.remove("show");
-            }, 3000);
-        }
-
-        function handleOtpInput(input, index) {
-            var value = input.value.replace(/\D/g, "");
-
-            input.value = value.charAt(value.length - 1) || "";
-
-            if (
-                input.value &&
-                index < otpInputs.length - 1
-            ) {
-                focusInput(index + 1);
+            function isComplete() {
+                return inputs.every(function (i) { return i.value !== ""; });
             }
 
-            updateOtpStatus();
-        }
+            function firstEmptyIndex() {
+                for (var i = 0; i < total; i++) {
+                    if (inputs[i].value === "") { return i; }
+                }
+                return -1;
+            }
 
-        otpInputs.forEach(function (input, index) {
-            input.addEventListener("input", function () {
-                handleOtpInput(input, index);
-            });
+            function focusInput(index) {
+                var el = inputs[index];
+                if (!el) { return; }
+                el.focus();
+                el.select();
+            }
 
-            input.addEventListener("keydown", function (event) {
-                if (event.key === "Backspace") {
-                    if (!input.value && index > 0) {
-                        otpInputs[index - 1].value = "";
-                        focusInput(index - 1);
+            function hasServerError() {
+                return !!(wrapper && wrapper.classList.contains("invalid-otp"));
+            }
+
+            // Removes the backend-rendered error state as soon as the user starts correcting the OTP.
+            function clearServerError() {
+                if (!hasServerError()) { return; }
+                wrapper.classList.remove("invalid-otp");
+                if (serverErrIcon) { serverErrIcon.hidden = true; }
+                if (serverErrMsg) {
+                    serverErrMsg.hidden = true;
+                    // A hidden element is still read via aria-describedby, so drop the reference too.
+                    if (fieldset && serverErrMsg.id) {
+                        var ids = (fieldset.getAttribute("aria-describedby") || "")
+                            .split(/\s+/)
+                            .filter(function (id) { return id && id !== serverErrMsg.id; });
+                        fieldset.setAttribute("aria-describedby", ids.join(" "));
                     }
-
-                    updateOtpStatus();
-                    return;
                 }
+            }
 
-                if (
-                    event.key === "ArrowLeft" &&
-                    index > 0
-                ) {
-                    event.preventDefault();
-                    focusInput(index - 1);
-                    return;
-                }
+            function clearError() {
+                errorBox.textContent = "";
+                errorBox.classList.remove("show");
+                inputs.forEach(function (i) { i.removeAttribute("aria-invalid"); });
+                clearServerError();
+            }
 
-                if (
-                    event.key === "ArrowRight" &&
-                    index < otpInputs.length - 1
-                ) {
-                    event.preventDefault();
-                    focusInput(index + 1);
-                    return;
-                }
+            function showError(message) {
+                // Persistent (no auto-dismiss, WCAG 2.2.1); cleared when the user edits.
+                errorBox.textContent = "";
+                errorBox.classList.add("show");
+                // Re-insert text on next frame so repeated identical errors are re-announced.
+                window.setTimeout(function () { errorBox.textContent = message; }, 50);
+                inputs.forEach(function (i) {
+                    if (i.value === "") { i.setAttribute("aria-invalid", "true"); }
+                });
+            }
 
-                if (event.key === "Home") {
-                    event.preventDefault();
-                    focusInput(0);
-                    return;
-                }
+            var wasComplete = false;
 
-                if (event.key === "End") {
-                    event.preventDefault();
-                    focusInput(otpInputs.length - 1);
-                    return;
-                }
+            function update() {
+                var complete = isComplete();
+                var invalid = hasServerError();
+                // The error icon takes the success icon's place while the server error is showing.
+                if (successIcon) { successIcon.hidden = !complete || invalid; }
+                submitBtn.classList.toggle("gray-btn", !complete);
+                submitBtn.setAttribute("aria-disabled", complete ? "false" : "true");
 
-                if (
-                    event.key.length === 1 &&
-                    !/[0-9]/.test(event.key)
-                ) {
-                    event.preventDefault();
+                // Announce only on state change, not on every digit (avoids screen-reader noise).
+                if (complete && !wasComplete && !invalid) {
+                    status.textContent = "All 6 digits entered. You can now activate the Submit button.";
+                } else if (!complete && wasComplete) {
+                    status.textContent = "";
                 }
+                wasComplete = complete;
+            }
+
+            function fillFrom(index, raw) {
+                var digits = String(raw).replace(/\D/g, "");
+                if (!digits) { return; }
+                var i = index;
+                for (var d = 0; d < digits.length && i < total; d++, i++) {
+                    inputs[i].value = digits.charAt(d);
+                }
+                clearError();
+                update();
+                focusInput(Math.min(i, total - 1));
+            }
+
+            inputs.forEach(function (input, index) {
+                input.addEventListener("input", function () {
+                    var digits = input.value.replace(/\D/g, "");
+                    if (digits.length > 1) {
+                        // Autofill / multi-char input: distribute across boxes.
+                        input.value = "";
+                        fillFrom(index, digits);
+                        return;
+                    }
+                    input.value = digits;
+                    clearError();
+                    if (digits && index < total - 1) { focusInput(index + 1); }
+                    update();
+                });
+
+                input.addEventListener("keydown", function (e) {
+                    var key = e.key;
+
+                    if (key === "Backspace") {
+                        if (!input.value && index > 0) {
+                            e.preventDefault();
+                            inputs[index - 1].value = "";
+                            clearError();
+                            focusInput(index - 1);
+                            update();
+                        }
+                        return;
+                    }
+                    if (key === "ArrowLeft" && index > 0) { e.preventDefault(); focusInput(index - 1); return; }
+                    if (key === "ArrowRight" && index < total - 1) { e.preventDefault(); focusInput(index + 1); return; }
+                    if (key === "Home") { e.preventDefault(); focusInput(0); return; }
+                    if (key === "End") { e.preventDefault(); focusInput(total - 1); return; }
+
+                    // Block non-digit printable characters; never block shortcuts (Ctrl/Cmd+V etc.).
+                    if (key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !/[0-9]/.test(key)) {
+                        e.preventDefault();
+                    }
+                });
+
+                input.addEventListener("paste", function (e) {
+                    e.preventDefault();
+                    var text = (e.clipboardData && e.clipboardData.getData("text")) ||
+                               (window.clipboardData && window.clipboardData.getData("Text")) || "";
+                    fillFrom(0, text);
+                });
+
+                input.addEventListener("focus", function () { input.select(); });
             });
 
-            input.addEventListener("paste", function (event) {
-                event.preventDefault();
+            // Submit: block the data-switch-screen handler unless the OTP is complete.
+            // Capture phase on the container runs before handlers on/above the button.
+            block.addEventListener("click", function (e) {
+                var target = e.target;
+                if (!(target === submitBtn || submitBtn.contains(target))) { return; }
+                if (isComplete()) { return; }
 
-                var pastedText = "";
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
 
-                if (
-                    event.clipboardData &&
-                    typeof event.clipboardData.getData === "function"
-                ) {
-                    pastedText =
-                        event.clipboardData.getData("text");
-                }
+                var idx = firstEmptyIndex();
+                showError("Error: Please enter all 6 digits of the OTP. Digit " + (idx + 1) + " is empty.");
+                focusInput(idx);
+            }, true);
 
-                setOtpValue(pastedText);
+            // ---- Resend OTP ----
+            function stopTimer() {
+                if (timer) { window.clearInterval(timer); timer = null; }
+            }
+
+            // Visible timer shows only the countdown (e.g. "00:30").
+            function formatTime(s) {
+                var m = Math.floor(s / 60);
+                var r = s % 60;
+                return "0" + m + ":" + (r < 10 ? "0" : "") + r;
+            }
+
+            function startResendTimer() {
+                stopTimer();
+                var remaining = RESEND_SECONDS;
+
+                resendBtn.setAttribute("aria-disabled", "true");
+                resendBtn.classList.add("is-disabled");
+                // Sighted users: timer only. Screen readers: full sentence below (sr-only, announced once).
+                resendTimerText.textContent = formatTime(remaining);
+                resendStatus.textContent = "A new OTP has been sent. Resend will be available in " + remaining + " seconds.";
+
+                timer = window.setInterval(function () {
+                    remaining--;
+                    if (remaining > 0) {
+                        resendTimerText.textContent = formatTime(remaining);
+                        return;
+                    }
+                    stopTimer();
+                    resendBtn.removeAttribute("aria-disabled");
+                    resendBtn.classList.remove("is-disabled");
+                    resendTimerText.textContent = "";
+                    resendStatus.textContent = "You can now resend the OTP.";
+                }, 1000);
+            }
+
+            resendBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                if (resendBtn.getAttribute("aria-disabled") === "true") { return; }
+
+                inputs.forEach(function (i) { i.value = ""; });
+                clearError();
+                update();
+                startResendTimer();
+                focusInput(0);
+
+                /* TODO: call your real resend-OTP API here. */
             });
+
+            update();
+
+            // Server-rendered error state: move focus to the first box so the error is read out
+            // (only when the block is visible; a hidden block must not steal focus).
+            if (hasServerError() && block.offsetParent !== null) { focusInput(0); }
         });
-
-        /*
-         * Browser / mobile OTP autofill
-         */
-        otpInputs[0].addEventListener("change", function () {
-            var value = otpInputs[0].value.replace(/\D/g, "");
-
-            if (value.length > 1) {
-                setOtpValue(value);
-                return;
-            }
-
-            updateOtpStatus();
-        });
-
-        /*
-         * Submit button validation
-         */
-        submitButton.addEventListener("click", function () {
-            if (!isOtpComplete()) {
-                submitButton.setAttribute(
-                    "aria-disabled",
-                    "true"
-                );
-
-                showOtpError(
-                    "Please enter all 6 digits of the OTP before proceeding."
-                );
-
-                var firstEmptyIndex = otpInputs.findIndex(
-                    function (input) {
-                        return input.value === "";
-                    }
-                );
-
-                if (firstEmptyIndex !== -1) {
-                    focusInput(firstEmptyIndex);
-                }
-
-                return;
-            }
-
-            submitButton.setAttribute(
-                "aria-disabled",
-                "false"
-            );
-
-            /*
-             * Your existing data-switch-screen
-             * logic can handle successful submission.
-             */
-        });
-
-        /*
-         * Resend OTP
-         */
-        resendLink.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            if (
-                resendLink.getAttribute("aria-disabled") ===
-                "true"
-            ) {
-                return;
-            }
-
-            startResendTimer();
-
-            /*
-             * Add your actual resend OTP API/function here.
-             */
-        });
-
-        function startResendTimer() {
-            clearInterval(resendTimer);
-
-            resendSeconds = 30;
-
-            resendLink.setAttribute(
-                "aria-disabled",
-                "true"
-            );
-
-            resendLink.classList.add("is-disabled");
-
-            resendLink.textContent =
-                "Resend OTP in " +
-                resendSeconds +
-                " seconds";
-
-            resendStatus.textContent =
-                "OTP resend timer started. You can request a new OTP in 30 seconds.";
-
-            resendTimer = setInterval(function () {
-                resendSeconds--;
-
-                if (resendSeconds > 0) {
-                    resendLink.textContent =
-                        "Resend OTP in " +
-                        resendSeconds +
-                        " seconds";
-
-                    if (
-                        resendSeconds === 20 ||
-                        resendSeconds === 10 ||
-                        resendSeconds === 5
-                    ) {
-                        resendStatus.textContent =
-                            "You can resend the OTP in " +
-                            resendSeconds +
-                            " seconds.";
-                    }
-
-                    return;
-                }
-
-                clearInterval(resendTimer);
-
-                resendLink.removeAttribute(
-                    "aria-disabled"
-                );
-
-                resendLink.classList.remove(
-                    "is-disabled"
-                );
-
-                resendLink.textContent = "Resend OTP";
-
-                resendStatus.textContent =
-                    "You can now resend the OTP.";
-            }, 1000);
-        }
-
-        /*
-         * Initial state
-         */
-        updateOtpStatus();
-    });
 })();
 
 
@@ -1723,43 +1489,40 @@ function initRadioConsentButton(options) {
      */
 
     function enableProceedButton() {
-        if (!proceedButton) {
-            return;
-        }
-
-        proceedButton.disabled = false;
-
-        proceedButton.setAttribute(
-            "aria-disabled",
-            "false"
-        );
-
-        proceedButton.classList.remove("inactive-btn");
-        proceedButton.classList.remove("gray-btn");
-
-        hideUploadError();
+    if (!proceedButton) {
+        return;
     }
+
+    proceedButton.disabled = false;
+
+    proceedButton.setAttribute(
+        "aria-disabled",
+        "false"
+    );
+
+    proceedButton.classList.remove("inactive-btn");
+    proceedButton.classList.remove("gray-btn");
+
+    hideUploadError();
+}
 
 
     function disableProceedButton() {
-        if (!proceedButton) {
-            return;
-        }
-
-        /*
-         * Keep button keyboard accessible.
-         */
-        proceedButton.disabled = false;
-
-        proceedButton.setAttribute(
-            "aria-disabled",
-            "true"
-        );
-
-        proceedButton.classList.add("gray-btn");
-
-        hideUploadError();
+    if (!proceedButton) {
+        return;
     }
+
+    proceedButton.disabled = true;
+
+    proceedButton.setAttribute(
+        "aria-disabled",
+        "true"
+    );
+
+    proceedButton.classList.add("gray-btn");
+
+    hideUploadError();
+}
 
 
     /*
@@ -1769,58 +1532,15 @@ function initRadioConsentButton(options) {
      */
 
     if (proceedButton) {
-
-        /*
-         * Mouse / touch / normal activation.
-         */
-        proceedButton.addEventListener("click", function (event) {
-
-            if (hasPhoto()) {
-                hideUploadError();
-                return;
-            }
-
-            /*
-             * Prevent screen switching.
-             */
+    proceedButton.addEventListener("click", function (event) {
+        if (proceedButton.disabled || !hasPhoto()) {
             event.preventDefault();
+            return;
+        }
 
-            proceedButton.setAttribute(
-                "aria-disabled",
-                "true"
-            );
-
-            proceedButton.classList.add("gray-btn");
-
-            showUploadError(
-                "Please upload a photo or take a selfie before proceeding."
-            );
-        });
-
-
-        /*
-         * Keyboard activation.
-         */
-        proceedButton.addEventListener("keydown", function (event) {
-
-            if (
-                event.key !== "Enter" &&
-                event.key !== " "
-            ) {
-                return;
-            }
-
-            if (hasPhoto()) {
-                return;
-            }
-
-            event.preventDefault();
-
-            showUploadError(
-                "Please upload a photo or take a selfie before proceeding."
-            );
-        });
-    }
+        hideUploadError();
+    });
+}
 
 
     /*
@@ -2059,20 +1779,12 @@ function initRadioConsentButton(options) {
      */
 
     if (proceedButton) {
-        proceedButton.disabled = false;
-
-        proceedButton.setAttribute(
-            "aria-disabled",
-            "true"
-        );
-
-        proceedButton.setAttribute(
-            "tabindex",
-            "0"
-        );
-
-        proceedButton.classList.add("gray-btn");
+    if (hasPhoto()) {
+        enableProceedButton();
+    } else {
+        disableProceedButton();
     }
+}
 
     hideUploadError();
 
@@ -2196,7 +1908,7 @@ function initRadioConsentButton(options) {
     });
 })();
 
-//////////////////////////Step Anouncement///////////////////////////
+//////////////////////////Step Announcement///////////////////////////
 (function () {
     "use strict";
 
@@ -2327,6 +2039,862 @@ function initRadioConsentButton(options) {
         });
     });
 })();
+
+
+
+
+
+
+
+///////////////////////////////Custom Select///////////////////////////
+(function () {
+    "use strict";
+
+    var customSelects = document.querySelectorAll(".custom-select");
+
+    if (!customSelects.length) {
+        return;
+    }
+
+    function closeAllSelect(exception) {
+        customSelects.forEach(function (customSelect) {
+            if (customSelect === exception) {
+                return;
+            }
+
+            var combobox = customSelect.querySelector(".select-selected");
+            var listbox = customSelect.querySelector(".select-items");
+
+            if (!combobox || !listbox) {
+                return;
+            }
+
+            listbox.classList.add("select-hide");
+            combobox.setAttribute("aria-expanded", "false");
+            combobox.removeAttribute("aria-activedescendant");
+        });
+    }
+
+    customSelects.forEach(function (customSelect) {
+        var select = customSelect.querySelector("select");
+        var combobox = customSelect.querySelector(".select-selected");
+        var listbox = customSelect.querySelector(".select-items");
+        var options = customSelect.querySelectorAll('[role="option"]');
+
+        if (!select || !combobox || !listbox || !options.length) {
+            return;
+        }
+
+        var selectedIndex = select.selectedIndex > 0
+            ? select.selectedIndex - 1
+            : -1;
+
+        var activeIndex = selectedIndex;
+
+        function setActiveOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            var option = options[index];
+
+            activeIndex = index;
+
+            /*
+             * aria-activedescendant is maintained on the
+             * combobox for screen-reader context.
+             */
+            if (option.id) {
+                combobox.setAttribute(
+                    "aria-activedescendant",
+                    option.id
+                );
+            }
+
+            /*
+             * Move actual keyboard focus to the option.
+             */
+            option.focus();
+        }
+
+        function setSelectedOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            options.forEach(function (option) {
+                option.setAttribute("aria-selected", "false");
+            });
+
+            options[index].setAttribute("aria-selected", "true");
+
+            selectedIndex = index;
+        }
+
+        function openSelect() {
+            closeAllSelect(customSelect);
+
+            listbox.classList.remove("select-hide");
+            combobox.setAttribute("aria-expanded", "true");
+
+            if (selectedIndex >= 0) {
+                activeIndex = selectedIndex;
+            } else {
+                activeIndex = 0;
+            }
+
+            /*
+             * Move focus to the currently selected option.
+             * If nothing is selected, focus the first option.
+             */
+            setActiveOption(activeIndex);
+        }
+
+        function closeSelect(restoreFocus) {
+            listbox.classList.add("select-hide");
+            combobox.setAttribute("aria-expanded", "false");
+            combobox.removeAttribute("aria-activedescendant");
+
+            activeIndex = selectedIndex;
+
+            if (restoreFocus) {
+                combobox.focus();
+            }
+        }
+
+        function selectOption(index) {
+            if (index < 0 || index >= options.length) {
+                return;
+            }
+
+            var option = options[index];
+            var value = option.getAttribute("data-value");
+
+            if (!value) {
+                return;
+            }
+
+            select.value = value;
+
+            combobox.textContent = option.textContent.trim();
+
+            setSelectedOption(index);
+
+            activeIndex = index;
+
+            select.dispatchEvent(
+                new Event("change", {
+                    bubbles: true
+                })
+            );
+
+            /*
+             * Return focus to combobox after selection.
+             */
+            closeSelect(true);
+        }
+
+        function moveActiveOption(direction) {
+            var nextIndex = activeIndex + direction;
+
+            if (activeIndex === -1) {
+                nextIndex = direction > 0
+                    ? 0
+                    : options.length - 1;
+            }
+
+            if (nextIndex < 0) {
+                nextIndex = options.length - 1;
+            }
+
+            if (nextIndex >= options.length) {
+                nextIndex = 0;
+            }
+
+            setActiveOption(nextIndex);
+        }
+
+        function toggleSelect() {
+            var isOpen =
+                combobox.getAttribute("aria-expanded") === "true";
+
+            if (isOpen) {
+                closeSelect(true);
+            } else {
+                openSelect();
+            }
+        }
+
+        combobox.addEventListener("click", function (event) {
+            event.stopPropagation();
+            toggleSelect();
+        });
+
+        combobox.addEventListener("keydown", function (event) {
+            var isOpen =
+                combobox.getAttribute("aria-expanded") === "true";
+
+            switch (event.key) {
+                case "Enter":
+                case " ":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else if (activeIndex >= 0) {
+                        selectOption(activeIndex);
+                    }
+
+                    break;
+
+                case "ArrowDown":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else {
+                        moveActiveOption(1);
+                    }
+
+                    break;
+
+                case "ArrowUp":
+                    event.preventDefault();
+
+                    if (!isOpen) {
+                        openSelect();
+                    } else {
+                        moveActiveOption(-1);
+                    }
+
+                    break;
+
+                case "Home":
+                    if (isOpen) {
+                        event.preventDefault();
+                        setActiveOption(0);
+                    }
+                    break;
+
+                case "End":
+                    if (isOpen) {
+                        event.preventDefault();
+                        setActiveOption(options.length - 1);
+                    }
+                    break;
+
+                case "Escape":
+                    if (isOpen) {
+                        event.preventDefault();
+                        closeSelect(true);
+                    }
+                    break;
+
+                case "Tab":
+                    if (isOpen) {
+                        closeSelect(false);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        });
+
+        options.forEach(function (option, index) {
+            option.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                selectOption(index);
+            });
+
+            option.addEventListener("keydown", function (event) {
+                switch (event.key) {
+                    case "ArrowDown":
+                        event.preventDefault();
+                        moveActiveOption(1);
+                        break;
+
+                    case "ArrowUp":
+                        event.preventDefault();
+                        moveActiveOption(-1);
+                        break;
+
+                    case "Home":
+                        event.preventDefault();
+                        setActiveOption(0);
+                        break;
+
+                    case "End":
+                        event.preventDefault();
+                        setActiveOption(options.length - 1);
+                        break;
+
+                    case "Enter":
+                    case " ":
+                        event.preventDefault();
+                        selectOption(index);
+                        break;
+
+                    case "Escape":
+                        event.preventDefault();
+                        closeSelect(true);
+                        break;
+
+                    case "Tab":
+                        closeSelect(false);
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+
+            option.addEventListener("mousemove", function () {
+                activeIndex = index;
+
+                if (option.id) {
+                    combobox.setAttribute(
+                        "aria-activedescendant",
+                        option.id
+                    );
+                }
+            });
+        });
+    });
+
+    document.addEventListener("click", function () {
+        closeAllSelect(null);
+    });
+})();
+
+
+
+
+
+
+
+
+/////////////////////////////// Disability Popover ///////////////////////////////
+
+(function () {
+    "use strict";
+
+    var checkbox = document.getElementById("ckyc_disability");
+    var popover = document.getElementById("disability_popover");
+    var closeButton = document.getElementById("close_disability_popover");
+
+    var proceedButton = document.getElementById(
+        "ckyc_kin_disability_options_proceed"
+    );
+
+    var impairmentSelect = document.getElementById(
+        "disability-1-add-type"
+    );
+
+    var customCombobox = document.getElementById(
+        "disability-1-add-type-combobox"
+    );
+
+    var percentageInput = document.getElementById(
+        "disability-1-impairment-percentage"
+    );
+
+    var udidInput = document.getElementById(
+        "disability-2-udid-number"
+    );
+
+    var listbox = document.getElementById(
+        "disability-1-add-type-listbox"
+    );
+
+    var summaryBlock = document.querySelector(
+        ".disability-selected-values-block"
+    );
+
+    var summaryType = document.getElementById(
+        "disability-summary-type"
+    );
+
+    var summaryPercentage = document.getElementById(
+        "disability-summary-percentage"
+    );
+
+    var summaryUdid = document.getElementById(
+        "disability-summary-udid"
+    );
+
+    var editButtons = document.querySelectorAll(
+        ".disability-selected-values-block .edit-popover-values"
+    );
+
+    // Stop if the required elements are missing.
+    if (
+        !checkbox ||
+        !popover ||
+        !closeButton ||
+        !proceedButton ||
+        !impairmentSelect ||
+        !customCombobox ||
+        !percentageInput ||
+        !udidInput ||
+        !summaryBlock ||
+        !summaryType ||
+        !summaryPercentage ||
+        !summaryUdid
+    ) {
+        return;
+    }
+
+    var isOpen = false;
+    var hasConfirmedDetails = false;
+    var previousFocus = checkbox;
+
+    // Create the validation error message if it does not exist.
+    var errorMessage = document.getElementById(
+        "disability_popover_error"
+    );
+
+    if (!errorMessage) {
+        errorMessage = document.createElement("p");
+        errorMessage.id = "disability_popover_error";
+        errorMessage.className = "disability-error-message";
+        errorMessage.setAttribute("role", "alert");
+        errorMessage.setAttribute("aria-atomic", "true");
+        errorMessage.hidden = true;
+
+        proceedButton.parentNode.insertBefore(
+            errorMessage,
+            proceedButton
+        );
+    }
+
+    // Show a validation error.
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.hidden = false;
+    }
+
+    // Clear the validation error.
+    function clearError() {
+        errorMessage.textContent = "";
+        errorMessage.hidden = true;
+    }
+
+    // Read the selected impairment value.
+    function getImpairmentValue() {
+        var value = impairmentSelect.value;
+
+        if (value !== "") {
+            return value;
+        }
+
+        if (listbox) {
+            var selectedOption = listbox.querySelector(
+                '[role="option"][aria-selected="true"]'
+            );
+
+            if (selectedOption) {
+                value = selectedOption.getAttribute("data-value");
+
+                if (value) {
+                    impairmentSelect.value = value;
+                    return value;
+                }
+            }
+        }
+
+        return "";
+    }
+
+    // Get the selected impairment's visible text.
+    function getImpairmentText() {
+        var selectedValue = getImpairmentValue();
+
+        if (!selectedValue) {
+            return "";
+        }
+
+        var selectedNativeOption = impairmentSelect.options[
+            impairmentSelect.selectedIndex
+        ];
+
+        if (
+            selectedNativeOption &&
+            selectedNativeOption.value === selectedValue
+        ) {
+            return selectedNativeOption.textContent.trim();
+        }
+
+        if (listbox) {
+            var selectedCustomOption = listbox.querySelector(
+                '[role="option"][aria-selected="true"]'
+            );
+
+            if (
+                selectedCustomOption &&
+                selectedCustomOption.getAttribute("data-value") ===
+                    selectedValue
+            ) {
+                return selectedCustomOption.textContent.trim();
+            }
+
+            var matchingOption = listbox.querySelector(
+                '[role="option"][data-value="' + selectedValue + '"]'
+            );
+
+            if (matchingOption) {
+                return matchingOption.textContent.trim();
+            }
+        }
+
+        return "";
+    }
+
+    // Update the Confirm button's enabled state.
+    function updateProceedButtonState() {
+        var impairmentValue = getImpairmentValue();
+        var percentage = percentageInput.value.trim();
+        var udid = udidInput.value.trim();
+
+        var isFormValid =
+            impairmentValue !== "" &&
+            percentage !== "" &&
+            udid !== "";
+
+        proceedButton.classList.toggle(
+            "gray-btn",
+            !isFormValid
+        );
+
+        proceedButton.disabled = !isFormValid;
+
+        proceedButton.setAttribute(
+            "aria-disabled",
+            String(!isFormValid)
+        );
+    }
+
+    // Validate the fields when Confirm is activated.
+    function validateFields() {
+        if (!getImpairmentValue()) {
+            showError("Please select a type of impairment.");
+            customCombobox.focus();
+            return false;
+        }
+
+        var percentage = percentageInput.value.trim();
+        var percentageValue = Number(percentage);
+
+        if (
+            percentage === "" ||
+            !Number.isFinite(percentageValue) ||
+            percentageValue < 0 ||
+            percentageValue > 100
+        ) {
+            showError(
+                "Please enter a valid impairment percentage between 0 and 100."
+            );
+
+            percentageInput.focus();
+            return false;
+        }
+
+        if (!udidInput.value.trim()) {
+            showError("Please enter your UDID number.");
+            udidInput.focus();
+            return false;
+        }
+
+        if (!getImpairmentText()) {
+            showError("Please select a valid type of impairment.");
+            customCombobox.focus();
+            return false;
+        }
+
+        clearError();
+        return true;
+    }
+
+    // Update the three summary values after successful validation.
+    function updateDisabilitySummary() {
+        var impairmentText = getImpairmentText();
+        var percentage = percentageInput.value.trim();
+        var udid = udidInput.value.trim();
+
+        if (!impairmentText || !percentage || !udid) {
+            return false;
+        }
+
+        summaryType.textContent = impairmentText;
+        summaryPercentage.textContent = percentage + "%";
+        summaryUdid.textContent = udid;
+
+        // Reveal the summary only after successful confirmation.
+        summaryBlock.classList.remove("d-none");
+
+        hasConfirmedDetails = true;
+
+        return true;
+    }
+
+    // Open the popover and remember which element opened it.
+    function openPopover(triggerElement) {
+        if (isOpen) {
+            return;
+        }
+
+        previousFocus = triggerElement || checkbox;
+        isOpen = true;
+
+        popover.classList.remove("d-none");
+
+        checkbox.checked = true;
+        checkbox.setAttribute("aria-expanded", "true");
+
+        clearError();
+        updateProceedButtonState();
+
+        customCombobox.focus();
+    }
+
+    // Close the popover and optionally restore focus.
+    function closePopover(restoreFocus) {
+        isOpen = false;
+
+        popover.classList.add("d-none");
+
+        checkbox.setAttribute("aria-expanded", "false");
+
+        // Keep the checkbox checked after details are confirmed.
+        // If no details have been confirmed, closing cancels the selection.
+        if (!hasConfirmedDetails) {
+            checkbox.checked = false;
+        }
+
+        clearError();
+
+        if (restoreFocus && previousFocus) {
+            previousFocus.focus();
+        }
+    }
+
+    // Update Confirm state when the native select changes.
+    impairmentSelect.addEventListener(
+        "change",
+        function () {
+            clearError();
+            updateProceedButtonState();
+        }
+    );
+
+    // Update Confirm state when the percentage changes.
+    percentageInput.addEventListener("input", function () {
+        clearError();
+        updateProceedButtonState();
+    });
+
+    // Update Confirm state when the UDID changes.
+    udidInput.addEventListener("input", function () {
+        clearError();
+        updateProceedButtonState();
+    });
+
+    // Synchronize custom-select option clicks with the native select.
+    if (listbox) {
+        listbox.addEventListener(
+            "click",
+            function (event) {
+                var option = event.target.closest('[role="option"]');
+
+                if (!option || !listbox.contains(option)) {
+                    return;
+                }
+
+                var value = option.getAttribute("data-value");
+
+                if (value === null) {
+                    return;
+                }
+
+                impairmentSelect.value = value;
+
+                clearError();
+                updateProceedButtonState();
+            },
+            true
+        );
+    }
+
+    // Recalculate Confirm state after keyboard interaction with the combobox.
+    customCombobox.addEventListener("keydown", function (event) {
+        if (
+            event.key === "Enter" ||
+            event.key === " " ||
+            event.key === "ArrowDown" ||
+            event.key === "ArrowUp"
+        ) {
+            window.setTimeout(function () {
+                clearError();
+                updateProceedButtonState();
+            }, 0);
+        }
+    });
+
+    // Open the popover when the checkbox is selected.
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            openPopover(checkbox);
+            return;
+        }
+
+        // Explicitly unchecking the checkbox clears the confirmed summary.
+        hasConfirmedDetails = false;
+        summaryBlock.classList.add("d-none");
+
+        summaryType.textContent = "";
+        summaryPercentage.textContent = "";
+        summaryUdid.textContent = "";
+
+        previousFocus = checkbox;
+        closePopover(true);
+    });
+
+    // Open the popover from any Edit button.
+    editButtons.forEach(function (editButton) {
+        editButton.addEventListener("click", function () {
+            if (!isOpen) {
+                openPopover(editButton);
+            }
+        });
+    });
+
+    // Close the popover with its close button.
+    closeButton.addEventListener("click", function () {
+        closePopover(true);
+    });
+
+    // Return the focusable elements inside the popover.
+    function getFocusableElements() {
+        return Array.prototype.slice.call(
+            popover.querySelectorAll(
+                'a[href], button:not([disabled]), ' +
+                'input:not([disabled]), select:not([disabled]), ' +
+                'textarea:not([disabled]), ' +
+                '[tabindex]:not([tabindex="-1"])'
+            )
+        ).filter(function (element) {
+            return (
+                !element.closest(".d-none") &&
+                element.getAttribute("aria-hidden") !== "true" &&
+                element.getClientRects().length > 0
+            );
+        });
+    }
+
+    // Keep keyboard focus inside the open popover.
+    // Escape closes it and returns focus to the trigger.
+    popover.addEventListener("keydown", function (event) {
+        if (!isOpen) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            event.stopPropagation();
+
+            closePopover(true);
+            return;
+        }
+
+        if (event.key !== "Tab") {
+            return;
+        }
+
+        var focusableElements = getFocusableElements();
+
+        if (!focusableElements.length) {
+            event.preventDefault();
+            closeButton.focus();
+            return;
+        }
+
+        var firstElement = focusableElements[0];
+        var lastElement = focusableElements[
+            focusableElements.length - 1
+        ];
+
+        if (event.shiftKey) {
+            if (
+                document.activeElement === firstElement ||
+                !popover.contains(document.activeElement)
+            ) {
+                event.preventDefault();
+                lastElement.focus();
+            }
+        } else if (
+            document.activeElement === lastElement ||
+            !popover.contains(document.activeElement)
+        ) {
+            event.preventDefault();
+            firstElement.focus();
+        }
+    });
+
+    // Prevent focus from moving outside while the popover is open.
+    document.addEventListener("focusin", function (event) {
+        if (!isOpen || popover.contains(event.target)) {
+            return;
+        }
+
+        customCombobox.focus();
+    });
+
+    // Close on outside click.
+    document.addEventListener("click", function (event) {
+        if (
+            !isOpen ||
+            popover.contains(event.target) ||
+            checkbox.contains(event.target) ||
+            (
+                event.target.closest &&
+                event.target.closest(
+                    ".disability-selected-values-block .edit-popover-values"
+                )
+            )
+        ) {
+            return;
+        }
+
+        closePopover(true);
+    });
+
+    // Confirm details, update the summary, and close the popover.
+    proceedButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        updateProceedButtonState();
+
+        if (!validateFields()) {
+            return;
+        }
+
+        if (!updateDisabilitySummary()) {
+            return;
+        }
+
+        closePopover(true);
+    });
+
+    // Set the initial Confirm button state.
+    updateProceedButtonState();
+
+})();
+
+
+
+
+
 
 
 

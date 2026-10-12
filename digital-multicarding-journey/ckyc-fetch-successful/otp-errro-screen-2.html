@@ -2030,33 +2030,53 @@
                                 <div class="collapse-content address-collpse-block">
                                         <div class="stpper-view-block">
                                             <div class="stepper-main-wrap">
-                                                <div class="steppers kyc-kin-3-steps" id="key_kin_steppers">
-                                                    <div class="steper-block kyc-kin-stepper kyc-kin-stepper-1 active">
-                                                        <div>
-                                                            <span class="stpper-number-block">1</span> <span class="stpper-filled-img-block"><img src="../img/white-tickmark-steps.svg" alt="" aria-hidden="true"></span> <div class="stpper-title">PAN<br> Verification/Upload</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="steper-block kyc-kin-stepper kyc-kin-stepper-2">
-                                                        <div>
-                                                            <span class="stpper-number-block">2</span> <span class="stpper-filled-img-block"><img src="../img/white-tickmark-steps.svg" alt="" aria-hidden="true"></span> <div class="stpper-title">CKYC <br>Verification</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="steper-block kyc-kin-stepper kyc-kin-stepper-3">
-                                                        <div>
-                                                            <span class="stpper-number-block">3</span> <span class="stpper-filled-img-block"><img src="../img/white-tickmark-steps.svg" alt="" aria-hidden="true"></span> <div class="stpper-title">Address/<br>Upload</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="steper-block kyc-kin-stepper kyc-kin-stepper-4 d-none">
-                                                        <div>
-                                                            <span class="stpper-number-block">4</span> <span class="stpper-filled-img-block"><img src="../img/white-tickmark-steps.svg" alt="" aria-hidden="true"></span> <div class="stpper-title">Photo<br> Upload</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="steper-block kyc-kin-stepper kyc-kin-stepper-5 d-none">
-                                                        <div>
-                                                            <span class="stpper-number-block">5</span> <span class="stpper-filled-img-block"><img src="../img/white-tickmark-steps.svg" alt="" aria-hidden="true"></span> <div class="stpper-title">eKYC</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <ol class="steppers kyc-kin-3-steps" id="key_kin_steppers" aria-label="KYC progress" style="list-style:none;margin:0;padding:0">
+
+    <li class="steper-block kyc-kin-stepper kyc-kin-stepper-1 active" aria-current="step">
+        <div>
+            <span class="stpper-number-block" aria-hidden="true">1</span>
+            <span class="stpper-filled-img-block" aria-hidden="true"><img src="../img/white-tickmark-steps.svg" alt=""></span>
+            <div class="stpper-title"><span class="sr-only">Step 1: </span>PAN<br> Verification/Upload</div>
+            <span class="sr-only kyc-stepper-state">(current step)</span>
+        </div>
+    </li>
+
+    <li class="steper-block kyc-kin-stepper kyc-kin-stepper-2">
+        <div>
+            <span class="stpper-number-block" aria-hidden="true">2</span>
+            <span class="stpper-filled-img-block" aria-hidden="true"><img src="../img/white-tickmark-steps.svg" alt=""></span>
+            <div class="stpper-title"><span class="sr-only">Step 2: </span>CKYC <br>Verification</div>
+            <span class="sr-only kyc-stepper-state">(not started)</span>
+        </div>
+    </li>
+
+    <li class="steper-block kyc-kin-stepper kyc-kin-stepper-3">
+        <div>
+            <span class="stpper-number-block" aria-hidden="true">3</span>
+            <span class="stpper-filled-img-block" aria-hidden="true"><img src="../img/white-tickmark-steps.svg" alt=""></span>
+            <div class="stpper-title"><span class="sr-only">Step 3: </span>Address/<br>Upload</div>
+            <span class="sr-only kyc-stepper-state">(not started)</span>
+        </div>
+    </li>
+
+    <li class="steper-block kyc-kin-stepper kyc-kin-stepper-4 d-none">
+        <div>
+            <span class="stpper-number-block" aria-hidden="true">4</span>
+            <span class="stpper-filled-img-block" aria-hidden="true"><img src="../img/white-tickmark-steps.svg" alt=""></span>
+            <div class="stpper-title"><span class="sr-only">Step 4: </span>Photo<br> Upload</div>
+            <span class="sr-only kyc-stepper-state">(not started)</span>
+        </div>
+    </li>
+
+    <li class="steper-block kyc-kin-stepper kyc-kin-stepper-5 d-none">
+        <div>
+            <span class="stpper-number-block" aria-hidden="true">5</span>
+            <span class="stpper-filled-img-block" aria-hidden="true"><img src="../img/white-tickmark-steps.svg" alt=""></span>
+            <div class="stpper-title"><span class="sr-only">Step 5: </span>eKYC</div>
+            <span class="sr-only kyc-stepper-state">(not started)</span>
+        </div>
+    </li>
+</ol>
                                                 <div class="stepper-content-block">
                                                     <div class="pan-upload-screen" id="pan_upload_screen">
                                                         <div class="ckyc-error-block mt-30">
@@ -2111,8 +2131,9 @@
             class="small"
             id="pan_upload_requirements"
         >
-            File should be in PDF, JPG, TIF, TIFF, GIF or PNG format
-            and the file size should not exceed 5 MB.
+            File should be in .pdf, .jpg, .tif .tiff, gif<br>
+or .png format & upload, size should not<br>
+exceed 5 MB each. 
         </div>
     </div>
 
@@ -2197,7 +2218,7 @@
     <span class="check" aria-hidden="true"></span>
 
     <span class="ckyc-consent-text">
-        By clicking on confirm, you authorize SBI Card to use your above address across all your associated card(s).
+        I hereby give my consent to verify my details as provided in the copy of PAN Card.
     </span>
 </label>
 
@@ -2209,8 +2230,7 @@
     id="ckyc_address_proceed"
     class="blue-btn gray-btn multicarding-primary-btn"
     aria-disabled="true"
-    aria-describedby="ckyc_address_error"
-    tabindex="-1"
+    disabled
     data-switch-screen
     data-hide-screen="pan_upload_screen"
     data-show-screen="verfiy_ckyc_kin_screen"
@@ -2229,31 +2249,219 @@
 
     </div>
 </div>
+                                                    </div>
+                                                    </div>
 
-<div
-    id="ckyc_address_error"
-    class="sr-only ckyc-kin-alert-message"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-></div>
-                                                    </div>
-                                                    </div>
+                                                    
+
+
+
                                                     <div class="verify-ckyc-kin-screen mt-68 d-none" id="verfiy_ckyc_kin_screen">
                                                         <div class="verify-kin-card">
-                                                            <div class="verify-screen-block" id="verify_ckyc_kin_checkbox">
+
+
+
+                                                            
+                                                            <div class="verify-screen-block" id="verify_ckyc_kin_disability">
                                                             <div class="ckyc-kin-contnet-block">
                                                                 <div>
-                                                                    <h3 class="mb-22 text-center">Verify Your CKYC/KIN Number</h3>
+                                                                    <h3 class="mb-22 text-center">Proceed To Verify Your
+CKYC/KIN Number</h3>
                                                                     <div class="ckyc-kin-img-block mb-10 text-center">
                                                                         <img src="../img/ckyc-kin.png" alt="" aria-hidden="true">
                                                                     </div>
-                                                                    <div class="ckyc-kin-subline text-center">Please proceed with CKYC verification.</div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="ckyc-kin-checkbox-block relative">
     <div>
-        <label class="ckyc-consent-label mt-0">
+                                    <label class="ckyc-consent-label differently-abled mb-10" for="ckyc_disability"> 
+                                        <input type="checkbox" id="ckyc_disability" class="differently-abled-checkbox" aria-controls="disability_popover" aria-expanded="false" > 
+                                        <span class="check" aria-hidden="true"></span> 
+                                        <span class="ckyc-consent-text"> I identify as a person with Disability </span> 
+                                    </label>
+                                    
+                                    <div class="disability-selected-values-block d-none" aria-live="polite">
+                                        <ul class="relative">
+                                            <li>
+                                                <span id="disability-summary-type"></span>
+                                            </li>
+                                            <li>
+                                                Percentage: <span id="disability-summary-percentage"></span>
+                                            </li>
+                                            <li>
+                                                UDID No.: <span id="disability-summary-udid"></span>
+                                            </li>
+                                            <button type="button" class="edit-popover-values" aria-label="Edit impairment type">
+                                                    <img src="../img/edit.svg" alt="">
+                                                </button>
+                                        </ul>
+                                    </div>
+
+                                    <div class="disabiity-popuop d-none" id="disability_popover" role="dialog" aria-labelledby="disability_popover_title" aria-describedby="disability_popover_description">
+                                    <div class="relative">
+                                        <button type="button" class="close-disability-popover" id="close_disability_popover" aria-label="Close disability details"> <img src="../img/close.svg" alt="" aria-hidden="true"> </button>
+                                        <h2 id="disability_popover_title" class="sr-only"> Disability details </h2>
+                                            <div class="impairement-block lg">
+
+    <div class="d-flex form-group justify-between">
+
+        <div class="impairement-field col-md-4">
+
+            <span id="disability-1-add-type-label">
+                Type of Impairment
+            </span>
+
+            <div
+                class="custom-select"
+                id="disability-1-add-type-wrapper"
+            >
+
+                <select
+                    id="disability-1-add-type"
+                    name="disability-1-add-type"
+                    class="form-control"
+                    tabindex="-1"
+                    aria-hidden="true"
+                >
+                    <option value="" selected>Select Impairment</option>
+                    <option value="Option1">Speech & Language Difficulty</option>
+                    <option value="Option2">Visual Impairment</option>
+                    <option value="Option3">Hearing Impairment</option>
+                    <option value="Option4">Locomotor Disability</option>
+                </select>
+
+                <div
+                    class="select-selected"
+                    id="disability-1-add-type-combobox"
+                    role="combobox"
+                    tabindex="0"
+                    aria-labelledby="disability-1-add-type-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-controls="disability-1-add-type-listbox"
+                >
+                    Select Impairment
+                </div>
+
+                <div
+                    class="select-items select-hide"
+                    id="disability-1-add-type-listbox"
+                    role="listbox"
+                    aria-labelledby="disability-1-add-type-label"
+                >
+                    <div
+                        id="disability-1-add-type-option-1"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option1"
+                    >
+                        Speech & Language Difficulty
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-2"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option2"
+                    >
+                        Visual Impairment
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-3"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option3"
+                    >
+                        Hearing Impairment
+                    </div>
+
+                    <div
+                        id="disability-1-add-type-option-4"
+                        role="option"
+                        tabindex="-1"
+                        aria-selected="false"
+                        data-value="Option4"
+                    >
+                        Locomotor Disability
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="impairement-field col-md-4">
+            <label for="disability-1-impairment-percentage">
+                Percentage of Impairment
+            </label>
+
+            <input
+                type="text"
+                id="disability-1-impairment-percentage"
+                name="disability-1-impairment-percentage"
+                placeholder="Enter Percentage"
+            >
+        </div>
+
+        <div class="impairement-field col-md-4">
+            <label for="disability-2-udid-number">
+                UDID Number
+            </label>
+
+            <input
+                type="text"
+                id="disability-2-udid-number"
+                name="disability-2-udid-number"
+                placeholder="Enter UDID Number"
+            >
+        </div>
+
+    </div>
+
+                                            </div>
+                                            <div class="popover-btn-block text-center">
+                                                <button type="button" class="blue-btn gray-btn" id="ckyc_kin_disability_options_proceed" aria-disabled="true" disabled> Confirm</button> 
+                                            </div>
+                                        </div> 
+                                    </div>
+
+        <div class="ckyc-kin-card-button-block">
+            <button
+                type="button"
+                class="blue-btn w-100"
+                id="ckyc_kin_disability_proceed"
+                aria-disabled="false"
+    tabindex="0"
+    data-switch-screen
+    data-hide-screen="verify_ckyc_kin_disability"
+    data-show-screen="verify_ckyc_kin_checkbox"
+            >
+                Proceed
+            </button>
+        </div>
+
+        
+    </div>
+                                                            </div>
+                                                            </div>
+
+
+
+
+
+                                                            <div class="verify-screen-block d-none" id="verify_ckyc_kin_checkbox">
+                                                            <div class="ckyc-kin-contnet-block">
+                                                                <div>
+                                                                    <h3 class="mb-22 text-center">Please Provide Consent</h3>
+                                                                    <!-- <div class="ckyc-kin-img-block mb-10 text-center">
+                                                                        <img src="../img/ckyc-kin.png" alt="" aria-hidden="true">
+                                                                    </div>
+                                                                    <div class="ckyc-kin-subline text-center">Please proceed with CKYC verification.</div> -->
+                                                                    <label class="ckyc-consent-label mt-0">
             <input type="checkbox" id="ckyc_kin_constant_1">
             <span class="check" aria-hidden="true"></span>
             <span class="ckyc-consent-text">
@@ -2261,14 +2469,14 @@
             </span>
         </label>
 
-        <div class="ckyc-kin-card-button-block">
+        <div class="ckyc-kin-card-button-block mt-120">
             <button
                 type="button"
                 class="blue-btn gray-btn w-100"
                 id="ckyc_kin_proceed"
                 aria-disabled="true"
+                disabled
     aria-describedby="ckyc_kin_error"
-    tabindex="0"
     data-switch-screen
     data-hide-screen="verify_ckyc_kin_checkbox"
     data-show-screen="verify_ckyc_kin_otp"
@@ -2276,181 +2484,132 @@
                 Proceed
             </button>
         </div>
-
-        <div
-            id="ckyc_kin_error"
-            class="sr-only ckyc-kin-alert-message"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-        ></div>
-    </div>
-                                                            </div>
-                                                            </div>
-                                                            <div class="verify-ckyc-kin-otp-block sky-blue-bg relative d-none" id="verify_ckyc_kin_otp">
-                                                                <div class="ckyc-kin-contnet-block mb-14">
-                                                                    <div>
-                                                                        <h3 class="mb-8 text-center blue-color">Enter One Time Password</h3>
-                                                                        <div class="ckyc-kin-subline text-center">Please enter the OTP send on your<br> Registered Mobile Number<br> XXXXXXX1558 and email ID:<br>PHXXXXXXXXXXXXXXXX@gmail.com</div>
-                                                                    </div>
                                                                 </div>
-                                                                <fieldset class="ckyc-kin-otp-wrap">
-    <legend class="blue-color text-15 font-bold text-center">
-        Enter OTP
-    </legend>
-<div class="ckyc-kin-otp-block">
-    <div class="otp-field-wrapper invalid-otp">
+                                                            </div>
+                                                            
+                                                            </div>
 
-        <div class="otp-fields">
 
-            <input
-                type="password"
-                id="otp-1"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="one-time-code"
-                aria-label="OTP digit 1 of 6"
-            >
 
-            <input
-                type="password"
-                id="otp-2"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="off"
-                aria-label="OTP digit 2 of 6"
-            >
 
-            <input
-                type="password"
-                id="otp-3"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="off"
-                aria-label="OTP digit 3 of 6"
-            >
 
-            <input
-                type="password"
-                id="otp-4"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="off"
-                aria-label="OTP digit 4 of 6"
-            >
 
-            <input
-                type="password"
-                id="otp-5"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="off"
-                aria-label="OTP digit 5 of 6"
-            >
 
-            <input
-                type="password"
-                id="otp-6"
-                class="otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                value="1"
-                autocomplete="off"
-                aria-label="OTP digit 6 of 6"
-            >
-<span
-                class="otp-error-icon"
-                id="otp-error-icon"
-                aria-hidden="true"
-            >
-                <img
-                    src="../img/red-cross.svg"
-                    alt=""
-                >
-            </span>
-        </div>
 
-        <p
-            class="otp-status sr-only"
-            id="otp-status"
-            aria-live="polite"
-            aria-atomic="true"
-        ></p>
+                                                            
+<div class="verify-ckyc-kin-otp-block sky-blue-bg relative d-none" id="verify_ckyc_kin_otp">
 
-        <p
-            class="otp-error-message"
-            id="otp-error-message"
-            role="alert"
-        >
-            OTP request limit exceeded. Please try again shortly.
+    <div class="ckyc-kin-contnet-block mb-14">
+        <h3 class="mb-8 text-center blue-color" id="otp-heading" tabindex="-1">Enter One Time Password</h3>
+
+        <!-- Masked values: visual text is hidden from AT, readable equivalent provided.
+             Replace the "1558" / "PH" parts with your server-rendered values. -->
+        <p class="ckyc-kin-subline text-center" id="otp-description">
+            We have sent a 6-digit OTP to your registered mobile number
+            <span aria-hidden="true">XXXXXXX1558</span><span class="sr-only">ending in 1 5 5 8</span>
+            and email address
+            <span aria-hidden="true">PHXXXXXXXXXXXXXXXX@gmail.com</span><span class="sr-only">starting with P H</span>.
+        </p>
+    </div>
+
+    <fieldset class="ckyc-kin-otp-wrap pb-0" aria-describedby="otp-instructions otp-error-message otp-error">
+        <legend class="blue-color text-15 font-bold text-center">Enter OTP</legend>
+
+        <p class="sr-only" id="otp-instructions">
+            Enter one digit in each of the six boxes. Focus moves to the next box automatically.
+            You can also paste the full code into any box.
         </p>
 
-        <a
-            href="#"
-            class="otp-resend-link"
-            id="otp-resend-link"
-            aria-describedby="otp-resend-status"
-        >
-            Resend OTP
-        </a>
+        <div class="ckyc-kin-otp-block">
+            <div class="otp-field-wrapper invalid-otp">
+                <div class="otp-fields">
+                    <label class="sr-only" for="otp-1">Digit 1 of 6</label>
+                    <input type="text" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="6" autocomplete="one-time-code" required aria-required="true" aria-invalid="true">
 
-        <span
-            id="otp-resend-status"
-            class="sr-only"
-            aria-live="polite"
-            aria-atomic="true"
-        ></span>
+                    <label class="sr-only" for="otp-2">Digit 2 of 6</label>
+                    <input type="text" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
+                    <label class="sr-only" for="otp-3">Digit 3 of 6</label>
+                    <input type="text" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
+
+                    <label class="sr-only" for="otp-4">Digit 4 of 6</label>
+                    <input type="text" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
+
+                    <label class="sr-only" for="otp-5">Digit 5 of 6</label>
+                    <input type="text" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
+
+                    <label class="sr-only" for="otp-6">Digit 6 of 6</label>
+                    <input type="text" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
+
+                    <!-- Error icon: shown in the success icon's place. Decorative, because the
+                         message text below already says what is wrong (not colour/icon alone). -->
+                    <span class="otp-error-icon" id="otp-error-icon" aria-hidden="true">
+                        <img src="../img/red-cross.svg" alt="">
+                    </span>
+
+                    <!-- Success icon: keep in markup, hidden; the script reveals it after the user corrects the OTP -->
+                    <span class="otp-success-icon" id="otp-success-icon" aria-hidden="true" hidden>
+                        <img src="../img/green-tick.svg" alt="" width="24" height="24">
+                    </span>
+                </div>
+
+                <!-- Error message. "Error:" is read by screen readers only; the red text + icon + border
+                     cover sighted users. role="alert" announces it if the backend injects it dynamically. -->
+                <p class="otp-error-message" id="otp-error-message" role="alert">
+                    <span class="sr-only">Error: </span>OTP request limit exceeded. Please try again shortly.
+                </p>
+
+                <!-- Polite live region: announces only when all digits are entered / OTP resent -->
+                <p class="otp-status sr-only" id="otp-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+                <div class="otp-resend-row">
+                    <button type="button" class="otp-resend-link" id="otp-resend-link" aria-describedby="otp-resend-status">Resend OTP</button>
+                    <span class="otp-resend-timer" id="otp-resend-timer" aria-hidden="true"></span>
+                </div>
+                <span id="otp-resend-status" class="otp-resend-status sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Client-side validation message (e.g. "enter all 6 digits"); separate from the server error above -->
+    <div id="otp-error" class="ckyc-kin-alert-message" role="alert" aria-atomic="true"></div>
+
+    <div class="ckyc-kin-card-button-block ckyc-kin-otp-card-button-block">
+        <button type="button"
+                class="blue-btn gray-btn w-100 mt-26"
+                id="ckyc_kin_otp_submit"
+                aria-disabled="true"
+                aria-describedby="otp-error"
+                data-switch-screen
+                data-hide-screen="verfiy_ckyc_kin_screen"
+                data-show-screen="address_suceesfully_retrieved_screen">
+            Submit
+        </button>
     </div>
 </div>
-
-<div class="ckyc-kin-card-button-block">
-    <button
-        type="button"
-        class="blue-btn gray-btn w-100 mt-26"
-        id="ckyc_kin_otp_submit"
-        aria-disabled="true"
-        aria-describedby="otp-error-message"
-        data-switch-screen
-        data-hide-screen="verfiy_ckyc_kin_screen"
-        data-show-screen="address_suceesfully_retrieved_screen"
-    >
-        Submit
-    </button>
-</div>
-
-</fieldset>
-
-                                                                <div
-                                                                        id="ckyc_kin_otp_error"
-                                                                        class="sr-only ckyc-kin-alert-message"
-                                                                        role="alert"
-                                                                        aria-live="assertive"
-                                                                        aria-atomic="true"
-                                                                    ></div>
-                                                            </div>
                                                             
                                                         </div>
                                                         <div class="stpper-cancel-btn-block">
                                                             <button type="button" class="blue-btn with-outline mb-0 mt-0" onclick="cancelStepes();">Cancel</button>
                                                         </div>
                                                     </div>
+
+
+
+
+
+
+
+
+
+
+
                                                     <div class="added-successfully-block d-none" id="address_suceesfully_retrieved_screen">
                                                         <img src="../img/tick-success.svg" alt="">
                                                         <div class="added-successfully-title-block">
@@ -2462,11 +2621,11 @@
     <fieldset class="select-address-fieldset">
 
         <legend class="select-address-title">
-            Please select the correct address below:
+            Please select the correct address below <span class="sr-only">Required</span>:
         </legend>
 
         <div class="seclet-address-radio-wrap relative">
-                <div id="kyc_kin_radio_checkbox_proceed_error" class="ckyc-kin-alert-message sr-only" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" ></div>
+
             <div class="select-address-radio-block">
                 <div class="address-radio-block">
                     <input
@@ -2474,6 +2633,8 @@
                         name="kyc-kin-select-radio"
                         id="kyc_kin_radio_1"
                         class="select-radio-input"
+                        aria-labelledby="kyc_kin_radio_1_title"
+                        aria-describedby="kyc_kin_radio_1_desc"
                     >
                     <label for="kyc_kin_radio_1">
                         <span></span>
@@ -2482,11 +2643,11 @@
 
                 <div class="select-radio-cnt-block">
                     <div class="sd-cnt">
-                        <div class="select-radio-title">
+                        <div class="select-radio-title" id="kyc_kin_radio_1_title">
                             Permanent Address
                         </div>
 
-                        <div class="seclect-radio-description-block">
+                        <div class="seclect-radio-description-block" id="kyc_kin_radio_1_desc">
                             1917/19, Govind Puri Extension Kalkaji, Street Number - 9,
                             Near Geeta Aashram New Delhi - 110019
                         </div>
@@ -2510,6 +2671,8 @@
                         name="kyc-kin-select-radio"
                         id="kyc_kin_radio_2"
                         class="select-radio-input"
+                        aria-labelledby="kyc_kin_radio_2_title"
+                        aria-describedby="kyc_kin_radio_2_desc"
                     >
                     <label for="kyc_kin_radio_2">
                         <span></span>
@@ -2518,11 +2681,11 @@
 
                 <div class="select-radio-cnt-block">
                     <div class="sd-cnt">
-                        <div class="select-radio-title">
+                        <div class="select-radio-title" id="kyc_kin_radio_2_title">
                             Current Address:
                         </div>
 
-                        <div class="seclect-radio-description-block">
+                        <div class="seclect-radio-description-block" id="kyc_kin_radio_2_desc">
                             195/23 Tower - R, RC Ashram Marg, Near Metro Station
                             Opposite Inter City Lounge New Delhi - 110019
                         </div>
@@ -2546,6 +2709,8 @@
                         name="kyc-kin-select-radio"
                         id="kyc_kin_radio_3"
                         class="select-radio-input"
+                        aria-labelledby="kyc_kin_radio_3_title"
+                        aria-describedby="kyc_kin_radio_3_desc"
                     >
                     <label for="kyc_kin_radio_3">
                         <span></span>
@@ -2554,11 +2719,11 @@
 
                 <div class="select-radio-cnt-block">
                     <div class="sd-cnt">
-                        <div class="select-radio-title">
+                        <div class="select-radio-title" id="kyc_kin_radio_3_title">
                             Add New Address
                         </div>
 
-                        <div class="seclect-radio-description-block">
+                        <div class="seclect-radio-description-block" id="kyc_kin_radio_3_desc">
                             No, I want to add another address.
                         </div>
                     </div>
@@ -2574,19 +2739,7 @@
             </div>
 
 
-            <!-- <label class="sbi-input-checkbox m-0 address-selection-checkbox-block">
-                I hereby share my consent to update the above-mentioned address
-                as my current residence address on my SBI Credit Card and all
-                other associated credit card(s) with number ending as mentioned:
-                XXXX-XXXX-XXXX-2332
 
-                <input
-                    type="checkbox"
-                    id="select_address_checkbox_from_three"
-                >
-
-                <span class="checkmark"></span>
-            </label> -->
             <label class="ckyc-consent-label mt-35 mb-0">
     <input type="checkbox" id="select_address_checkbox_from_three">
 
@@ -2598,15 +2751,17 @@
 </label>
 
 
-            <div class="select-address-proceed-btn-block relative">
+            <div class="select-address-proceed-btn-block">
                 <button
                     type="button"
                     class="blue-btn m-0 gray-btn mt-0"
                     aria-disabled="true"
+                    disabled
                     id="kyc_kin_radio_checkbox_proceed"
                 >
                     Proceed
                 </button>
+
             </div>
 
         </div>
@@ -2617,161 +2772,95 @@
                                                     <div class="verify-ckyc-kin-screen mt-68 d-none mt-68" id="verify_ckyc_kin_address_otp">
                                                         <div class="verify-kin-card">
                                                             <div class="verify-ckyc-kin-otp-block sky-blue-bg relative" id="verify_ckykin_otp">
-                                                                <div class="ckyc-kin-contnet-block mb-14">
-                                                                    <div>
-                                                                        <h3 class="mb-8 text-center blue-color">
-                                                                            Enter One Time Password
-                                                                        </h3>
 
-                                                                        <div class="ckyc-kin-subline text-center">
-                                                                            Please enter the OTP send on your<br>
-                                                                            Registered Mobile Number<br>
-                                                                            XXXXXXX1558 and email ID:<br>
-                                                                            PHXXXXXXXXXXXXXXXX@gmail.com
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+    <div class="ckyc-kin-contnet-block mb-14">
+        <h3 class="mb-8 text-center blue-color" id="address-otp-heading" tabindex="-1">Enter One Time Password</h3>
 
-                                                                <fieldset class="ckyc-kin-otp-wrap">
-    <legend class="blue-color text-15 font-bold text-center">
-        Enter OTP
-    </legend>
-<div class="ckyc-kin-otp-block">
-    <div class="otp-field-wrapper">
+        <!-- Masked values: visual text is hidden from AT, readable equivalent provided.
+             Replace the "1558" / "PH" parts with your server-rendered values. -->
+        <p class="ckyc-kin-subline text-center" id="address-otp-description">
+            We have sent a 6-digit OTP to your registered mobile number
+            <span aria-hidden="true">XXXXXXX1558</span><span class="sr-only">ending in 1 5 5 8</span>
+            and email address
+            <span aria-hidden="true">PHXXXXXXXXXXXXXXXX@gmail.com</span><span class="sr-only">starting with P H</span>.
+        </p>
+    </div>
 
-        <div class="otp-fields">
+    <fieldset class="ckyc-kin-otp-wrap pb-0" aria-describedby="address-otp-instructions ckyc_kin_address_otp_error">
+        <legend class="blue-color text-15 font-bold text-center">Enter OTP</legend>
 
-            <input
-                type="password"
-                id="address-otp-1"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="one-time-code"
-                aria-label="OTP digit 1 of 6"
-            >
+        <p class="sr-only" id="address-otp-instructions">
+            Enter one digit in each of the six boxes. Focus moves to the next box automatically.
+            You can also paste the full code into any box.
+        </p>
 
-            <input
-                type="password"
-                id="address-otp-2"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="off"
-                aria-label="OTP digit 2 of 6"
-            >
+        <div class="ckyc-kin-otp-block">
+            <div class="otp-field-wrapper">
+                <div class="otp-fields">
+                    <!-- type="text" (not password): avoids "protected field" announcements and
+                         lets users verify what they typed. Box 1 has maxlength="6" so SMS autofill
+                         is not truncated; the script spreads the digits across all boxes. -->
+                    <label class="sr-only" for="address-otp-1">Digit 1 of 6</label>
+                    <input type="text" id="address-otp-1" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required aria-required="true">
 
-            <input
-                type="password"
-                id="address-otp-3"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="off"
-                aria-label="OTP digit 3 of 6"
-            >
+                    <label class="sr-only" for="address-otp-2">Digit 2 of 6</label>
+                    <input type="text" id="address-otp-2" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
-            <input
-                type="password"
-                id="address-otp-4"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="off"
-                aria-label="OTP digit 4 of 6"
-            >
+                    <label class="sr-only" for="address-otp-3">Digit 3 of 6</label>
+                    <input type="text" id="address-otp-3" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
-            <input
-                type="password"
-                id="address-otp-5"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="off"
-                aria-label="OTP digit 5 of 6"
-            >
+                    <label class="sr-only" for="address-otp-4">Digit 4 of 6</label>
+                    <input type="text" id="address-otp-4" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
-            <input
-                type="password"
-                id="address-otp-6"
-                class="otp-input address-otp-input"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                maxlength="1"
-                autocomplete="off"
-                aria-label="OTP digit 6 of 6"
-            >
+                    <label class="sr-only" for="address-otp-5">Digit 5 of 6</label>
+                    <input type="text" id="address-otp-5" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
-            <span
-                class="otp-success-icon"
-                id="address-otp-success-icon"
-                aria-hidden="true"
-                hidden
-            >
-                <img
-                    src="../img/green-tick.svg"
-                    alt=""
-                >
-            </span>
+                    <label class="sr-only" for="address-otp-6">Digit 6 of 6</label>
+                    <input type="text" id="address-otp-6" class="otp-input address-otp-input" inputmode="numeric"
+                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
+                    <span class="otp-success-icon" id="address-otp-success-icon" aria-hidden="true" hidden>
+                        <img src="../img/green-tick.svg" alt="" width="24" height="24">
+                    </span>
+                </div>
+
+                <!-- Polite live region: announces only when all digits are entered -->
+                <p class="otp-status sr-only" id="address-otp-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+                <div class="otp-resend-row">
+                    <button type="button" class="otp-resend-link" id="address-otp-resend-link"
+                            aria-describedby="address-otp-resend-status">Resend OTP</button>
+                    <!-- Visible for sighted users: countdown only (e.g. 00:30) -->
+                    <span class="otp-resend-timer" id="address-otp-resend-timer" aria-hidden="true"></span>
+                </div>
+                <!-- Screen-reader-only sentence, announced once at start / end of the countdown -->
+                <span id="address-otp-resend-status" class="otp-resend-status sr-only"
+                      role="status" aria-live="polite" aria-atomic="true"></span>
+            </div>
         </div>
+    </fieldset>
 
-        <p
-            class="otp-status sr-only"
-            id="address-otp-status"
-            aria-live="polite"
-            aria-atomic="true"
-        ></p>
+    <!-- Visible, persistent error (not sr-only, not auto-dismissed) -->
+    <div id="ckyc_kin_address_otp_error" class="ckyc-kin-alert-message" role="alert" aria-atomic="true"></div>
 
-        <a
-            href="#"
-            class="otp-resend-link"
-            id="address-otp-resend-link"
-            aria-describedby="address-otp-resend-status"
-        >
-            Resend OTP
-        </a>
-
-        <span
-            id="address-otp-resend-status"
-            class="sr-only"
-            aria-live="polite"
-            aria-atomic="true"
-        ></span>
-
+    <div class="ckyc-kin-card-button-block ckyc-kin-otp-card-button-block">
+        <button type="button"
+                class="blue-btn gray-btn w-100 mt-26"
+                id="ckyc_kin_address_otp_submit"
+                aria-disabled="true"
+                aria-describedby="ckyc_kin_address_otp_error"
+                data-switch-screen
+                data-hide-screen="multicarding_journey"
+                data-show-screen="success_screen">
+            Submit
+        </button>
     </div>
 </div>
-
-<div class="ckyc-kin-card-button-block">
-    <button
-        type="button"
-        class="blue-btn gray-btn w-100 mt-26"
-        id="ckyc_kin_address_otp_submit"
-        aria-disabled="true"
-        aria-describedby="ckyc_kin_address_otp_error"
-        data-switch-screen
-        data-hide-screen="multicarding_journey"
-        data-show-screen="success_screen"
-    >
-        Submit
-    </button>
-</div>
-
-                                                                </fieldset>
-
-                                                                <div
-                                                                    id="ckyc_kin_address_otp_error"
-                                                                    class="sr-only ckyc-kin-alert-message"
-                                                                    role="alert"
-                                                                    aria-live="assertive"
-                                                                    aria-atomic="true"
-                                                                ></div>
-                                                            </div>
                                                             <div id="verify_ckykin_upload" class="d-none verify-kin-card">
                                                               
 <!-- Photo Upload Section -->
@@ -2838,16 +2927,6 @@
             aria-atomic="true"
         ></div>
 
-        <!-- Upload error -->
-        <!-- <div
-            id="photo-upload-error"
-            class="sr-only"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-        ></div> -->
-        <div id="photo-upload-error" class="ckyc-kin-alert-message sr-only" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" ></div>
-
     </div>
 
     <div class="stepper-submit-btn-block">
@@ -2858,6 +2937,7 @@
             id="kyc_kin_upload_photo_card"
             
             aria-disabled="true"
+            disabled
             data-switch-screen data-hide-screen="verify_ckykin_upload" data-show-screen="verify_ckykin_using_aadhar"
         >
             Proceed
@@ -2914,6 +2994,7 @@ CKYCR (Central KYC registry)
             id="kyc_kin_aadhar_submit"
             
             aria-disabled="true"
+            disabled
             
         >
             Proceed
@@ -3876,89 +3957,7 @@ $(document).on("click", ".toggle", function(){
         
         
         
-        <script>
-//            =========Custom Select box ===============================
-            var x, i, j, l, ll, selElmnt, a, b, c;
-            /* Look for any elements with the class "custom-select": */
-            x = document.getElementsByClassName("custom-select");
-            l = x.length;
-            for (i = 0; i < l; i++) {
-                selElmnt = x[i].getElementsByTagName("select")[0];
-                ll = selElmnt.length;
-                /* For each element, create a new DIV that will act as the selected item: */
-                a = document.createElement("DIV");
-                a.setAttribute("class", "select-selected");
-                a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-                x[i].appendChild(a);
-                /* For each element, create a new DIV that will contain the option list: */
-                b = document.createElement("DIV");
-                b.setAttribute("class", "select-items select-hide");
-                for (j = 1; j < ll; j++) {
-                    /* For each option in the original select element,
-                     create a new DIV that will act as an option item: */
-                    c = document.createElement("DIV");
-                    c.innerHTML = selElmnt.options[j].innerHTML;
-                    c.addEventListener("click", function (e) {
-                        /* When an item is clicked, update the original select box,
-                         and the selected item: */
-                        var y, i, k, s, h, sl, yl;
-                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                        sl = s.length;
-                        h = this.parentNode.previousSibling;
-                        for (i = 0; i < sl; i++) {
-                            if (s.options[i].innerHTML == this.innerHTML) {
-                                s.selectedIndex = i;
-                                h.innerHTML = this.innerHTML;
-                                y = this.parentNode.getElementsByClassName("same-as-selected");
-                                yl = y.length;
-                                for (k = 0; k < yl; k++) {
-                                    y[k].removeAttribute("class");
-                                }
-                                this.setAttribute("class", "same-as-selected");
-                                break;
-                            }
-                        }
-                        h.click();
-                    });
-                    b.appendChild(c);
-                }
-                x[i].appendChild(b);
-                a.addEventListener("click", function (e) {
-                    /* When the select box is clicked, close any other select boxes,
-                     and open/close the current select box: */
-                    e.stopPropagation();
-                    closeAllSelect(this);
-                    this.nextSibling.classList.toggle("select-hide");
-                    this.classList.toggle("select-arrow-active");
-                });
-            }
-
-            function closeAllSelect(elmnt) {
-                /* A function that will close all select boxes in the document,
-                 except the current select box: */
-                var x, y, i, xl, yl, arrNo = [];
-                x = document.getElementsByClassName("select-items");
-                y = document.getElementsByClassName("select-selected");
-                xl = x.length;
-                yl = y.length;
-                for (i = 0; i < yl; i++) {
-                    if (elmnt == y[i]) {
-                        arrNo.push(i)
-                    } else {
-                        y[i].classList.remove("select-arrow-active");
-                    }
-                }
-                for (i = 0; i < xl; i++) {
-                    if (arrNo.indexOf(i)) {
-                        x[i].classList.add("select-hide");
-                    }
-                }
-            }
-
-            /* If the user clicks anywhere outside the select box,
-             then close all select boxes: */
-            document.addEventListener("click", closeAllSelect);
-        </script>
+        
 
         <!--[if IE 8]>
             <script type="text/javascript" src="/creditcards/resources/concat-../js/ie.all.js"></script>
