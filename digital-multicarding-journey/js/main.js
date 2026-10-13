@@ -574,6 +574,33 @@ function initRadioConsentButton(options) {
     "use strict";
 
     var RESEND_SECONDS = 30;
+    var SENT_REGION_ID = "kyc_kin_otp_sent_announcer";
+    var sentRegion = null;
+    var sentTimer = null;
+
+    function getSentRegion() {
+        if (sentRegion) { return sentRegion; }
+
+        sentRegion = document.getElementById(SENT_REGION_ID);
+        if (!sentRegion) {
+            sentRegion = document.createElement("div");
+            sentRegion.id = SENT_REGION_ID;
+            sentRegion.className = "sr-only";
+            sentRegion.setAttribute("role", "status");
+            sentRegion.setAttribute("aria-live", "polite");
+            sentRegion.setAttribute("aria-atomic", "true");
+            document.body.appendChild(sentRegion);
+        }
+        return sentRegion;
+    }
+
+    function announceSent(message) {
+        var region = getSentRegion();
+        window.clearTimeout(sentTimer);
+        region.textContent = "";
+        // Short delay so the screen reader has finished reacting to the screen change.
+        sentTimer = window.setTimeout(function () { region.textContent = message; }, 500);
+    }
 
     Array.prototype.slice
         .call(document.querySelectorAll(".verify-ckyc-kin-otp-block"))
@@ -667,6 +694,9 @@ function initRadioConsentButton(options) {
                 // The error icon takes the success icon's place while the server error is showing.
                 if (successIcon) { successIcon.hidden = !complete || invalid; }
                 submitBtn.classList.toggle("gray-btn", !complete);
+                // Real "disabled": the button cannot be clicked and is skipped by Tab until the OTP is complete.
+                // (aria-disabled is kept in sync for any CSS or script that reads it.)
+                submitBtn.disabled = !complete;
                 submitBtn.setAttribute("aria-disabled", complete ? "false" : "true");
 
                 // Announce only on state change, not on every digit (avoids screen-reader noise).
@@ -805,6 +835,52 @@ function initRadioConsentButton(options) {
             });
 
             update();
+
+            // ---- Announce "OTP sent" when this step appears ----
+            // Uses the block's own description text, so it always matches what is on screen:
+            // the masked values are aria-hidden and replaced by their readable sr-only versions.
+            function sentMessage() {
+                var desc = block.querySelector(".ckyc-kin-subline");
+                var text = "";
+
+                if (desc) {
+                    var clone = desc.cloneNode(true);
+                    Array.prototype.forEach.call(clone.querySelectorAll('[aria-hidden="true"]'), function (n) {
+                        n.parentNode.removeChild(n);
+                    });
+                    Array.prototype.forEach.call(clone.querySelectorAll("br"), function (br) {
+                        br.parentNode.replaceChild(document.createTextNode(" "), br);
+                    });
+                    text = clone.textContent.replace(/\s+/g, " ").trim();
+                }
+
+                return text || "An OTP has been sent to your registered mobile number and email address.";
+            }
+
+            var wasShown = false;
+
+            function checkShown() {
+                // getClientRects is empty when the block or any parent is display:none.
+                var shown = block.getClientRects().length > 0;
+
+                // Not after a wrong OTP: the error message takes over then.
+                if (shown && !wasShown && !hasServerError()) {
+                    announceSent(sentMessage());
+                }
+                wasShown = shown;
+            }
+
+            getSentRegion(); // create the region now, before it is needed
+            checkShown();
+
+            if (typeof MutationObserver === "function") {
+                // Watches show/hide done by your code (class, hidden, inline style) anywhere above the block.
+                new MutationObserver(checkShown).observe(document.body, {
+                    attributes: true,
+                    attributeFilter: ["class", "hidden", "style"],
+                    subtree: true
+                });
+            }
 
             // Server-rendered error state: move focus to the first box so the error is read out
             // (only when the block is visible; a hidden block must not steal focus).
@@ -2412,6 +2488,10 @@ function initRadioConsentButton(options) {
         ".disability-selected-values-block"
     );
 
+    var summaryBlockWrap = document.getElementById(
+        "disability_options_visibility_not_visibility"
+    );
+
     var summaryType = document.getElementById(
         "disability-summary-type"
     );
@@ -2441,7 +2521,8 @@ function initRadioConsentButton(options) {
         !summaryBlock ||
         !summaryType ||
         !summaryPercentage ||
-        !summaryUdid
+        !summaryUdid ||
+        !summaryBlockWrap
     ) {
         return;
     }
@@ -2583,23 +2664,6 @@ function initRadioConsentButton(options) {
             return false;
         }
 
-        var percentage = percentageInput.value.trim();
-        var percentageValue = Number(percentage);
-
-        if (
-            percentage === "" ||
-            !Number.isFinite(percentageValue) ||
-            percentageValue < 0 ||
-            percentageValue > 100
-        ) {
-            showError(
-                "Please enter a valid impairment percentage between 0 and 100."
-            );
-
-            percentageInput.focus();
-            return false;
-        }
-
         if (!udidInput.value.trim()) {
             showError("Please enter your UDID number.");
             udidInput.focus();
@@ -2632,6 +2696,7 @@ function initRadioConsentButton(options) {
 
         // Reveal the summary only after successful confirmation.
         summaryBlock.classList.remove("d-none");
+        summaryBlockWrap.classList.remove("disablity-options-not-visible");
 
         hasConfirmedDetails = true;
 
@@ -2647,10 +2712,14 @@ function initRadioConsentButton(options) {
         previousFocus = triggerElement || checkbox;
         isOpen = true;
 
+        if (triggerElement && triggerElement.classList.contains("edit-popover-values")) {
+    triggerElement.setAttribute("aria-expanded", "true");
+}
+
         popover.classList.remove("d-none");
 
         checkbox.checked = true;
-        checkbox.setAttribute("aria-expanded", "true");
+        //checkbox.setAttribute("aria-expanded", "true");
 
         clearError();
         updateProceedButtonState();
@@ -2661,10 +2730,13 @@ function initRadioConsentButton(options) {
     // Close the popover and optionally restore focus.
     function closePopover(restoreFocus) {
         isOpen = false;
+        editButtons.forEach(function (editButton) {
+    editButton.setAttribute("aria-expanded", "false");
+});
 
         popover.classList.add("d-none");
 
-        checkbox.setAttribute("aria-expanded", "false");
+        //checkbox.setAttribute("aria-expanded", "false");
 
         // Keep the checkbox checked after details are confirmed.
         // If no details have been confirmed, closing cancels the selection.

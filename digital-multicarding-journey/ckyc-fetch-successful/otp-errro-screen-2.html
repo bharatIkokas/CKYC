@@ -2273,16 +2273,16 @@ CKYC/KIN Number</h3>
                                                                     
                                                                 </div>
                                                             </div>
-                                                            <div class="ckyc-kin-checkbox-block relative">
+                                                            <div class="ckyc-kin-checkbox-block relative disablity-options-not-visible" id="disability_options_visibility_not_visibility">
     <div>
                                     <label class="ckyc-consent-label differently-abled mb-10" for="ckyc_disability"> 
-                                        <input type="checkbox" id="ckyc_disability" class="differently-abled-checkbox" aria-controls="disability_popover" aria-expanded="false" > 
+                                        <input type="checkbox" id="ckyc_disability" class="differently-abled-checkbox"> 
                                         <span class="check" aria-hidden="true"></span> 
                                         <span class="ckyc-consent-text"> I identify as a person with Disability </span> 
                                     </label>
                                     
-                                    <div class="disability-selected-values-block d-none" aria-live="polite">
-                                        <ul class="relative">
+                                    <div class="disability-selected-values-block d-none relative" aria-live="polite">
+                                        <ul>
                                             <li>
                                                 <span id="disability-summary-type"></span>
                                             </li>
@@ -2292,16 +2292,23 @@ CKYC/KIN Number</h3>
                                             <li>
                                                 UDID No.: <span id="disability-summary-udid"></span>
                                             </li>
-                                            <button type="button" class="edit-popover-values" aria-label="Edit impairment type">
-                                                    <img src="../img/edit.svg" alt="">
-                                                </button>
+                                            
                                         </ul>
+<button
+    type="button"
+    class="edit-popover-values"
+    aria-label="Edit impairment details"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="disability_popover">
+    <img src="../img/edit.svg" alt="" aria-hidden="true">
+</button>
                                     </div>
 
                                     <div class="disabiity-popuop d-none" id="disability_popover" role="dialog" aria-labelledby="disability_popover_title" aria-describedby="disability_popover_description">
                                     <div class="relative">
                                         <button type="button" class="close-disability-popover" id="close_disability_popover" aria-label="Close disability details"> <img src="../img/close.svg" alt="" aria-hidden="true"> </button>
-                                        <h2 id="disability_popover_title" class="sr-only"> Disability details </h2>
+                                        <h4 id="disability_popover_title" class="font-bold"> Disability Details </h4>
                                             <div class="impairement-block lg">
 
     <div class="d-flex form-group justify-between">
@@ -2454,7 +2461,7 @@ CKYC/KIN Number</h3>
 
 
                                                             <div class="verify-screen-block d-none" id="verify_ckyc_kin_checkbox">
-                                                            <div class="ckyc-kin-contnet-block">
+                                                            <div class="ckyc-kin-contnet-block border-bottom-0">
                                                                 <div>
                                                                     <h3 class="mb-22 text-center">Please Provide Consent</h3>
                                                                     <!-- <div class="ckyc-kin-img-block mb-10 text-center">
@@ -2524,33 +2531,33 @@ CKYC/KIN Number</h3>
             <div class="otp-field-wrapper invalid-otp">
                 <div class="otp-fields">
                     <label class="sr-only" for="otp-1">Digit 1 of 6</label>
-                    <input type="text" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="6" autocomplete="one-time-code" required aria-required="true" aria-invalid="true">
 
                     <label class="sr-only" for="otp-2">Digit 2 of 6</label>
-                    <input type="text" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
                     <label class="sr-only" for="otp-3">Digit 3 of 6</label>
-                    <input type="text" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
                     <label class="sr-only" for="otp-4">Digit 4 of 6</label>
-                    <input type="text" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
                     <label class="sr-only" for="otp-5">Digit 5 of 6</label>
-                    <input type="text" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
                     <label class="sr-only" for="otp-6">Digit 6 of 6</label>
-                    <input type="text" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                    <input type="password" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*"
                            maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
 
                     <!-- Error icon: shown in the success icon's place. Decorative, because the
                          message text below already says what is wrong (not colour/icon alone). -->
                     <span class="otp-error-icon" id="otp-error-icon" aria-hidden="true">
-                        <img src="../img/red-cross.svg" alt="">
+                        <img src="../img/red-cross.svg" alt="" width="24" height="24">
                     </span>
 
                     <!-- Success icon: keep in markup, hidden; the script reveals it after the user corrects the OTP -->
@@ -2585,6 +2592,7 @@ CKYC/KIN Number</h3>
                 class="blue-btn gray-btn w-100 mt-26"
                 id="ckyc_kin_otp_submit"
                 aria-disabled="true"
+                disabled
                 aria-describedby="otp-error"
                 data-switch-screen
                 data-hide-screen="verfiy_ckyc_kin_screen"
@@ -2786,8 +2794,8 @@ CKYC/KIN Number</h3>
         </p>
     </div>
 
-    <fieldset class="ckyc-kin-otp-wrap pb-0" aria-describedby="address-otp-instructions ckyc_kin_address_otp_error">
-        <legend class="blue-color text-15 font-bold text-center">Enter OTP</legend>
+    <fieldset class="ckyc-kin-otp-wrap" aria-describedby="address-otp-instructions ckyc_kin_address_otp_error">
+        <legend class="blue-color text-15 font-bold text-center">Enter 6-digit OTP</legend>
 
         <p class="sr-only" id="address-otp-instructions">
             Enter one digit in each of the six boxes. Focus moves to the next box automatically.
@@ -2797,31 +2805,30 @@ CKYC/KIN Number</h3>
         <div class="ckyc-kin-otp-block">
             <div class="otp-field-wrapper">
                 <div class="otp-fields">
-                    <!-- type="text" (not password): avoids "protected field" announcements and
-                         lets users verify what they typed. Box 1 has maxlength="6" so SMS autofill
-                         is not truncated; the script spreads the digits across all boxes. -->
+                    <!-- type="password": the digits are masked as they are typed. autocomplete="one-time-code" on box 1 and
+                         paste are still allowed, so SMS autofill and pasting a code work (WCAG 3.3.8). -->
                     <label class="sr-only" for="address-otp-1">Digit 1 of 6</label>
-                    <input type="text" id="address-otp-1" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-1" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required aria-required="true">
 
                     <label class="sr-only" for="address-otp-2">Digit 2 of 6</label>
-                    <input type="text" id="address-otp-2" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-2" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
                     <label class="sr-only" for="address-otp-3">Digit 3 of 6</label>
-                    <input type="text" id="address-otp-3" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-3" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
                     <label class="sr-only" for="address-otp-4">Digit 4 of 6</label>
-                    <input type="text" id="address-otp-4" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-4" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
                     <label class="sr-only" for="address-otp-5">Digit 5 of 6</label>
-                    <input type="text" id="address-otp-5" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-5" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
                     <label class="sr-only" for="address-otp-6">Digit 6 of 6</label>
-                    <input type="text" id="address-otp-6" class="otp-input address-otp-input" inputmode="numeric"
+                    <input type="password" id="address-otp-6" class="otp-input address-otp-input" inputmode="numeric"
                            pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
 
                     <span class="otp-success-icon" id="address-otp-success-icon" aria-hidden="true" hidden>
@@ -2853,6 +2860,7 @@ CKYC/KIN Number</h3>
                 class="blue-btn gray-btn w-100 mt-26"
                 id="ckyc_kin_address_otp_submit"
                 aria-disabled="true"
+                disabled
                 aria-describedby="ckyc_kin_address_otp_error"
                 data-switch-screen
                 data-hide-screen="multicarding_journey"
@@ -3028,15 +3036,20 @@ CKYCR (Central KYC registry)
                         <section class="main-wrap my-profile active pt-3">
                             <div>
                             <div class="card-view-holder message-seccess-view mt-sm-0 mt-0 card-view-holder-p-full-block">
-                                <div class="list-container-selectbox flex-row align-item-center cong-message">
-                                    <h2 class="trans-style d-inline-block m-0 mr-5 font-600">Thank you!
-                                    </h2>
-                                    <p>We have received your request for KYC renewal.</p>
-                                    <p class="black">Your Service Request Number is 28379708900.</p>
-                                    <p>Your request will be processed in next 10 working days post validation of the KYC document(s).<br> In case of a name mismatch, your name will be updated in our records basis KYC documents provided by you.</p>
-                                    <p><a href="#">Click here</a> to track the status of your request.</p>
-                                </div>
-                            </div>
+    <div class="list-container-selectbox flex-row align-item-center cong-message">
+        <h2 class="trans-style d-inline-block m-0 mr-5 font-600">Thank you!
+        </h2>
+        <p>We have received your request for KYC renewal.</p>
+        <p class="black">Your Service Request Number is 28379708900.</p>
+        <p>Your request will be processed in next 10 working days post validation of the KYC document(s).<br> In case of a name mismatch, your name will be updated in our records basis KYC documents provided by you.</p>
+
+        
+        <p>
+            <a href="#" id="kyc_track_status_link" aria-labelledby="kyc_track_status_link kyc_track_status_text">Click here</a>
+            <span id="kyc_track_status_text">to track the status of your request.</span>
+        </p>
+    </div>
+</div>
                             </div>
                         </section>
                     </section>
