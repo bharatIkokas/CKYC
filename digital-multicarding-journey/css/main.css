@@ -2484,7 +2484,7 @@ span.sr-only.kyc-stepper-state {
 .accessbility-handled-wrap .failed-to-fetch-ckyc-details .added-successfully-title-block {color: #E00D0D;}
 .steper-f-uload-btn {cursor: pointer;}
 
-.multicarding-verification-and-upload-wrap .otp-error-message {color: #E00D0D; margin-bottom: 5px; margin-top: 10px; font-size: 12px;}
+.multicarding-verification-and-upload-wrap .otp-error-message {color: #E00D0D; margin-bottom: 5px; margin-top: 5px; font-size: 12px;}
 .multicarding-verification-and-upload-wrap .invalid-otp .otp-resend-link {margin-top: 0;}
 
 .ckyc-kin-card-button-block .blue-btn {margin-bottom: 0; margin-top: 26px;}
@@ -2683,9 +2683,26 @@ padding-right: 35px;
     margin-left: 2px;
     position: absolute;
     top: 50%;
-    right: -22px;
+    right: -26px;
     transform: translateY(-50%);
 }
+
+.otp-error-icon {
+  display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 2px;
+    position: absolute;
+    top: 50%;
+    right: -26px;
+    transform: translateY(-50%);
+}
+
+.otp-error-icon img {width: 15px; height: 15px;}
+
+.d-block {display: block !important;}
 
 .otp-success-icon[hidden] {
     display: none;
@@ -2823,6 +2840,12 @@ button.ckyc-upload-link:focus-visible,
   outline-offset: 2px;
 }
 
+.address-radio-block:has(input:focus-visible) {
+    outline: 2px solid #0077af !important;
+    outline-offset: 2px;
+    border-radius: 100%;
+}
+
 .steper-f-uload-btn:focus-visible {outline: 0;}
 
 .accessbility-handled-wrap .differently-abled .ckyc-consent-text {color: #0077af !important;}
@@ -2914,80 +2937,123 @@ button.ckyc-upload-link:focus-visible,
 .otp-resend-link.is-disabled {pointer-events: none; color: #666666;}
 .otp-resend-link:focus {background-color: transparent;}
 
+.verify-ckyc-kin-otp-block .otp-input-wrapper {
+    --otp-box-w: 38px;
+    --otp-box-h: 48px;
+    --otp-box-gap: 16px;
+    --otp-line: #1a1a1a;        /* slot underline */
+    --otp-ring: #0b57d0;        /* focus ring on the slot being typed into */
+    --otp-error: #b3261e;
+    --otp-dot: #1a1a1a;
+    --otp-dot-size: 10px;
 
-/* OTP container */
-.otp-single-input {
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
-/* Six visual boxes */
-.otp-visual-boxes {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 8px;
-    width: 100%;
-    pointer-events: none;
-}
-
-.otp-visual-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    height: 48px;
-    border: 1px solid #b8c7d8;
-    border-radius: 6px;
-    background: #fff;
-    color: #172b4d;
-    font-size: 22px;
-    font-weight: 600;
-    box-sizing: border-box;
-}
-
-/* One real, accessible input covers the visual boxes */
-.otp-accessible-input {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    cursor: text;
-}
-
-/* Keyboard focus remains visually obvious */
-.otp-single-input:focus-within .otp-visual-box {
-    border-color: #1266b1;
-}
-
-.otp-single-input:focus-within .otp-visual-box.is-active {
-    border: 2px solid #1266b1;
-    background: #f0f7ff;
-}
-
-/* Invalid OTP */
-.otp-single-input:has(.otp-accessible-input[aria-invalid="true"])
-.otp-visual-box {
-    border-color: #c62828;
-}
-
-/* Mobile */
+/* Small screens: slightly narrower slots so six slots + icon fit at 320px / 400% zoom (WCAG 1.4.10) */
 @media (max-width: 360px) {
-    .otp-single-input,
-    .otp-visual-boxes {
-        gap: 5px;
+    .verify-ckyc-kin-otp-block .otp-input-wrapper {
+        --otp-box-w: 34px;
+        --otp-box-gap: 6px;
     }
+}
 
-    .otp-visual-box {
-        height: 44px;
-        font-size: 18px;
-    }
+/* ---- The six decorative slots ---- */
+.verify-ckyc-kin-otp-block .otp-input-wrapper .otp-boxes {
+    display: flex;
+    gap: var(--otp-box-gap);
+}
+
+.verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box {
+    position: relative;
+    box-sizing: border-box !important;
+    width: var(--otp-box-w) !important;
+    height: var(--otp-box-h) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 2px solid var(--otp-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* The mask dot, drawn inside a slot once its digit is typed */
+.verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box.otp-box-filled::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    width: var(--otp-dot-size);
+    height: var(--otp-dot-size);
+    margin: calc(var(--otp-dot-size) / -2) 0 0 calc(var(--otp-dot-size) / -2);
+    border-radius: 50%;
+    background: var(--otp-dot);
+}
+
+/* The slot being typed into (set by the script while the field has focus): clearly visible focus (2.4.7) */
+.verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box.otp-box-active {
+    border-bottom-color: #0077af !important;
+    outline: 3px solid #0077af;
+    outline-offset: 2px;
+}
+
+/* ---- The one real input, laid invisibly over the slots ---- */
+.verify-ckyc-kin-otp-block .otp-input-wrapper input.otp-input {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    /* The typed text is invisible; the dots above are what the user sees (masking). */
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+    caret-color: transparent !important;
+    letter-spacing: normal !important;
+    text-indent: 0 !important;
+    font-size: 1.25rem !important;   /* 16px or more: stops iOS zooming the page on focus */
+}
+
+.verify-ckyc-kin-otp-block .otp-input-wrapper input.otp-input::selection {
+    background: transparent;
+    color: transparent;
+}
+
+/* Browser autofill would otherwise paint a pale box over the whole row */
+.verify-ckyc-kin-otp-block .otp-input-wrapper input.otp-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: transparent !important;
+    transition: background-color 600000s 0s;
+}
+
+
+
+
+/* ---- Wrong-OTP state: backend adds .invalid-otp to .otp-field-wrapper ---- */
+.verify-ckyc-kin-otp-block .invalid-otp .otp-input-wrapper .otp-box {
+    border-bottom-color: var(--otp-error) !important;
+}
+.verify-ckyc-kin-otp-block .invalid-otp .otp-input-wrapper .otp-box.otp-box-active {
+    outline-color: var(--otp-error);
+}
+
+/* ---- Windows High Contrast / forced colors ---- */
+@media (forced-colors: active) {
+    .verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box { border-bottom-color: CanvasText !important; }
+    .verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box.otp-box-filled::after { background: CanvasText; }
+    .verify-ckyc-kin-otp-block .otp-input-wrapper .otp-box.otp-box-active { outline-color: Highlight; border-bottom-color: Highlight !important; }
 }
 
 

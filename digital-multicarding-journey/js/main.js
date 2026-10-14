@@ -1,3 +1,4 @@
+
 (function () {
     "use strict";
 
@@ -9,12 +10,51 @@
         return;
     }
 
+    function focusFirstElement(container) {
+        var focusableSelector = [
+            "a[href]",
+            "button:not([disabled])",
+            "input:not([disabled]):not([type='hidden'])",
+            "select:not([disabled])",
+            "textarea:not([disabled])",
+            "[tabindex]:not([tabindex='-1'])"
+        ].join(",");
+
+        var elements = container.querySelectorAll(focusableSelector);
+
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+
+            if (
+                element.disabled ||
+                element.getAttribute("aria-hidden") === "true" ||
+                element.closest("[hidden], .d-none, [inert]") ||
+                element.getClientRects().length === 0
+            ) {
+                continue;
+            }
+
+            element.focus();
+            return;
+        }
+
+        // Fallback if the container has no focusable elements.
+        container.setAttribute("tabindex", "-1");
+        container.focus();
+    }
+
     confirmAddress.addEventListener("click", function () {
         confirmEditAddress.classList.remove("active");
         verificationAndUpload.classList.add("active");
         confirmEditAddress.classList.add("filled");
+
+        // Move focus after the next section becomes visible.
+        requestAnimationFrame(function () {
+            focusFirstElement(verificationAndUpload);
+        });
     });
 })();
+
 
 
 // Upload PAN front
@@ -524,6 +564,71 @@ function initRadioConsentButton(options) {
 (function () {
     "use strict";
 
+    var FOCUSABLE_SELECTOR = [
+        "a[href]",
+        "area[href]",
+        "button:not([disabled])",
+        "input:not([disabled]):not([type='hidden'])",
+        "select:not([disabled])",
+        "textarea:not([disabled])",
+        "iframe",
+        "[contenteditable='true']",
+        "[tabindex]:not([tabindex='-1'])"
+    ].join(",");
+
+    /*
+     * Find the first focusable element in the newly visible screen.
+     */
+    function getFirstFocusableElement(screen) {
+        var focusableElements = screen.querySelectorAll(
+            FOCUSABLE_SELECTOR
+        );
+
+        for (var i = 0; i < focusableElements.length; i++) {
+            var element = focusableElements[i];
+
+            // Skip disabled or hidden elements.
+            if (
+                element.disabled ||
+                element.getAttribute("aria-hidden") === "true" ||
+                element.closest("[hidden], .d-none, [inert]") ||
+                element.getClientRects().length === 0
+            ) {
+                continue;
+            }
+
+            return element;
+        }
+
+        return null;
+    }
+
+    /*
+     * Move focus to the first focusable element
+     * after the new screen becomes visible.
+     */
+    function focusFirstElement(screen) {
+        if (!screen) {
+            return;
+        }
+
+        var firstFocusable = getFirstFocusableElement(screen);
+
+        if (firstFocusable) {
+            firstFocusable.focus();
+            return;
+        }
+
+        // Fallback when the screen has no focusable elements.
+        // tabindex="-1" allows programmatic focus without
+        // adding the screen to the normal Tab sequence.
+        screen.setAttribute("tabindex", "-1");
+        screen.focus();
+    }
+
+    /*
+     * Hide the current screen and show the next screen.
+     */
     function switchScreen(hideScreenId, showScreenId) {
         var hideScreen = document.getElementById(hideScreenId);
         var showScreen = document.getElementById(showScreenId);
@@ -534,16 +639,31 @@ function initRadioConsentButton(options) {
 
         hideScreen.classList.add("d-none");
         showScreen.classList.remove("d-none");
+
+        // Move focus only after the new screen is visible.
+        requestAnimationFrame(function () {
+            focusFirstElement(showScreen);
+        });
     }
 
+    /*
+     * Common handler for all screen-switching buttons.
+     */
     document.addEventListener("click", function (event) {
-        var trigger = event.target.closest("[data-switch-screen]");
+        var target = event.target;
+
+        if (!target || typeof target.closest !== "function") {
+            return;
+        }
+
+        var trigger = target.closest("[data-switch-screen]");
 
         if (!trigger) {
             return;
         }
 
-        // Do not switch screen when the button is aria-disabled
+        // Do not switch screens when the button is disabled
+        // through aria-disabled.
         if (trigger.getAttribute("aria-disabled") === "true") {
             event.preventDefault();
             return;
@@ -569,11 +689,19 @@ function initRadioConsentButton(options) {
 
 
 
+
 ////////////////////////////////////OTP////////////////////////////////
 (function () {
     "use strict";
 
     var RESEND_SECONDS = 30;
+
+    /*
+     * "OTP sent" announcement.
+     * The OTP is already sent when the user lands on this step, and the block is revealed by removing
+     * d-none. Content that merely appears is not reliably announced, so the message is placed into ONE
+     * always-present, body-level live region at the moment the block becomes visible.
+     */
     var SENT_REGION_ID = "kyc_kin_otp_sent_announcer";
     var sentRegion = null;
     var sentTimer = null;
@@ -605,7 +733,12 @@ function initRadioConsentButton(options) {
     Array.prototype.slice
         .call(document.querySelectorAll(".verify-ckyc-kin-otp-block"))
         .forEach(function (block) {
-            var inputs = Array.prototype.slice.call(block.querySelectorAll(".otp-input"));
+            /*
+             * ONE real input (maxlength 6) holds the whole code. The .otp-box spans are decorative
+             * (aria-hidden) and only mirror its state through classes.
+             */
+            var input = block.querySelector(".otp-input");
+            var boxes = Array.prototype.slice.call(block.querySelectorAll(".otp-box"));
             var successIcon = block.querySelector(".otp-success-icon");
             var status = block.querySelector(".otp-status");
             var submitBtn = block.querySelector('button[id$="_otp_submit"]');
@@ -616,35 +749,42 @@ function initRadioConsentButton(options) {
 
             // Optional server-side error state (see otp-block-error.html)
             var wrapper = block.querySelector(".otp-field-wrapper");
-            var fieldset = block.querySelector("fieldset");
             var serverErrIcon = block.querySelector(".otp-error-icon");
             var serverErrMsg = block.querySelector(".otp-error-message");
 
-            // successIcon is optional (a template may omit it).
-            if (!inputs.length || !status || !submitBtn ||
+            // successIcon and boxes are optional (a template may omit them).
+            if (!input || !status || !submitBtn ||
                 !errorBox || !resendBtn || !resendTimerText || !resendStatus) {
                 return;
             }
 
-            var total = inputs.length;
+            var total = input.maxLength > 0 ? input.maxLength : 6;
             var timer = null;
 
             function isComplete() {
-                return inputs.every(function (i) { return i.value !== ""; });
+                return input.value.length === total;
             }
 
-            function firstEmptyIndex() {
-                for (var i = 0; i < total; i++) {
-                    if (inputs[i].value === "") { return i; }
-                }
-                return -1;
+            // Keep digits only, and never more than the OTP length.
+            function sanitize(raw) {
+                return String(raw).replace(/\D/g, "").slice(0, total);
             }
 
-            function focusInput(index) {
-                var el = inputs[index];
-                if (!el) { return; }
-                el.focus();
-                el.select();
+            // Boxes are positioned behind the text, so the caret must stay at the end of the value.
+            function moveCaretToEnd() {
+                var n = input.value.length;
+                try { input.setSelectionRange(n, n); } catch (err) { /* not supported: ignore */ }
+            }
+
+            // Decorative boxes mirror the state with classes (they are aria-hidden).
+            function syncBoxes() {
+                var len = input.value.length;
+                var focused = document.activeElement === input;
+
+                boxes.forEach(function (box, i) {
+                    box.classList.toggle("otp-box-filled", i < len);
+                    box.classList.toggle("otp-box-active", focused && i === Math.min(len, total - 1));
+                });
             }
 
             function hasServerError() {
@@ -659,11 +799,11 @@ function initRadioConsentButton(options) {
                 if (serverErrMsg) {
                     serverErrMsg.hidden = true;
                     // A hidden element is still read via aria-describedby, so drop the reference too.
-                    if (fieldset && serverErrMsg.id) {
-                        var ids = (fieldset.getAttribute("aria-describedby") || "")
+                    if (serverErrMsg.id) {
+                        var ids = (input.getAttribute("aria-describedby") || "")
                             .split(/\s+/)
                             .filter(function (id) { return id && id !== serverErrMsg.id; });
-                        fieldset.setAttribute("aria-describedby", ids.join(" "));
+                        input.setAttribute("aria-describedby", ids.join(" "));
                     }
                 }
             }
@@ -671,7 +811,7 @@ function initRadioConsentButton(options) {
             function clearError() {
                 errorBox.textContent = "";
                 errorBox.classList.remove("show");
-                inputs.forEach(function (i) { i.removeAttribute("aria-invalid"); });
+                input.removeAttribute("aria-invalid");
                 clearServerError();
             }
 
@@ -681,9 +821,7 @@ function initRadioConsentButton(options) {
                 errorBox.classList.add("show");
                 // Re-insert text on next frame so repeated identical errors are re-announced.
                 window.setTimeout(function () { errorBox.textContent = message; }, 50);
-                inputs.forEach(function (i) {
-                    if (i.value === "") { i.setAttribute("aria-invalid", "true"); }
-                });
+                input.setAttribute("aria-invalid", "true");
             }
 
             var wasComplete = false;
@@ -698,79 +836,54 @@ function initRadioConsentButton(options) {
                 // (aria-disabled is kept in sync for any CSS or script that reads it.)
                 submitBtn.disabled = !complete;
                 submitBtn.setAttribute("aria-disabled", complete ? "false" : "true");
+                syncBoxes();
 
-                // Announce only on state change, not on every digit (avoids screen-reader noise).
+                // Announce only on state change, not on every digit (the field itself echoes each digit).
                 if (complete && !wasComplete && !invalid) {
-                    status.textContent = "All 6 digits entered. You can now activate the Submit button.";
+                    status.textContent = "All " + total + " digits entered. You can now activate the Submit button.";
                 } else if (!complete && wasComplete) {
                     status.textContent = "";
                 }
                 wasComplete = complete;
             }
 
-            function fillFrom(index, raw) {
-                var digits = String(raw).replace(/\D/g, "");
-                if (!digits) { return; }
-                var i = index;
-                for (var d = 0; d < digits.length && i < total; d++, i++) {
-                    inputs[i].value = digits.charAt(d);
-                }
+            // Typing, autofill (one-time-code) and mobile keyboards all arrive here.
+            input.addEventListener("input", function () {
+                var cleaned = sanitize(input.value);
+                if (input.value !== cleaned) { input.value = cleaned; }
                 clearError();
                 update();
-                focusInput(Math.min(i, total - 1));
-            }
-
-            inputs.forEach(function (input, index) {
-                input.addEventListener("input", function () {
-                    var digits = input.value.replace(/\D/g, "");
-                    if (digits.length > 1) {
-                        // Autofill / multi-char input: distribute across boxes.
-                        input.value = "";
-                        fillFrom(index, digits);
-                        return;
-                    }
-                    input.value = digits;
-                    clearError();
-                    if (digits && index < total - 1) { focusInput(index + 1); }
-                    update();
-                });
-
-                input.addEventListener("keydown", function (e) {
-                    var key = e.key;
-
-                    if (key === "Backspace") {
-                        if (!input.value && index > 0) {
-                            e.preventDefault();
-                            inputs[index - 1].value = "";
-                            clearError();
-                            focusInput(index - 1);
-                            update();
-                        }
-                        return;
-                    }
-                    if (key === "ArrowLeft" && index > 0) { e.preventDefault(); focusInput(index - 1); return; }
-                    if (key === "ArrowRight" && index < total - 1) { e.preventDefault(); focusInput(index + 1); return; }
-                    if (key === "Home") { e.preventDefault(); focusInput(0); return; }
-                    if (key === "End") { e.preventDefault(); focusInput(total - 1); return; }
-
-                    // Block non-digit printable characters; never block shortcuts (Ctrl/Cmd+V etc.).
-                    if (key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !/[0-9]/.test(key)) {
-                        e.preventDefault();
-                    }
-                });
-
-                input.addEventListener("paste", function (e) {
-                    e.preventDefault();
-                    var text = (e.clipboardData && e.clipboardData.getData("text")) ||
-                               (window.clipboardData && window.clipboardData.getData("Text")) || "";
-                    fillFrom(0, text);
-                });
-
-                input.addEventListener("focus", function () { input.select(); });
             });
+
+            input.addEventListener("keydown", function (e) {
+                // Block non-digit printable characters; never block shortcuts (Ctrl/Cmd+V etc.).
+                if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            input.addEventListener("paste", function (e) {
+                e.preventDefault();
+                var text = (e.clipboardData && e.clipboardData.getData("text")) ||
+                           (window.clipboardData && window.clipboardData.getData("Text")) || "";
+                var digits = sanitize(text); // "123 456" or "G-123456" still gives 123456
+                if (!digits) { return; }
+                input.value = digits;
+                clearError();
+                update();
+                moveCaretToEnd();
+            });
+
+            input.addEventListener("focus", function () {
+                window.setTimeout(moveCaretToEnd, 0);
+                syncBoxes();
+            });
+            input.addEventListener("click", moveCaretToEnd);
+            input.addEventListener("blur", syncBoxes);
 
             // Submit: block the data-switch-screen handler unless the OTP is complete.
             // Capture phase on the container runs before handlers on/above the button.
+            // (The button is disabled until then, so this is only a safety net.)
             block.addEventListener("click", function (e) {
                 var target = e.target;
                 if (!(target === submitBtn || submitBtn.contains(target))) { return; }
@@ -780,9 +893,9 @@ function initRadioConsentButton(options) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
 
-                var idx = firstEmptyIndex();
-                showError("Error: Please enter all 6 digits of the OTP. Digit " + (idx + 1) + " is empty.");
-                focusInput(idx);
+                showError("Error: Please enter all " + total + " digits of the OTP. You have entered " +
+                          input.value.length + ".");
+                input.focus();
             }, true);
 
             // ---- Resend OTP ----
@@ -825,11 +938,11 @@ function initRadioConsentButton(options) {
                 e.preventDefault();
                 if (resendBtn.getAttribute("aria-disabled") === "true") { return; }
 
-                inputs.forEach(function (i) { i.value = ""; });
+                input.value = "";
                 clearError();
                 update();
                 startResendTimer();
-                focusInput(0);
+                input.focus();
 
                 /* TODO: call your real resend-OTP API here. */
             });
@@ -882,9 +995,9 @@ function initRadioConsentButton(options) {
                 });
             }
 
-            // Server-rendered error state: move focus to the first box so the error is read out
+            // Server-rendered error state: move focus to the field so the error is read out
             // (only when the block is visible; a hidden block must not steal focus).
-            if (hasServerError() && block.offsetParent !== null) { focusInput(0); }
+            if (hasServerError() && block.offsetParent !== null) { input.focus(); }
         });
 })();
 
@@ -1103,12 +1216,12 @@ function initRadioConsentButton(options) {
     var cameraStream = null;
     var uploadErrorTimer = null;
 
-    var MAX_FILE_SIZE = 5 * 1024 * 1024;
+    // var MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-    var allowedTypes = [
-        "image/png",
-        "image/jpeg"
-    ];
+    // var allowedTypes = [
+    //     "image/png",
+    //     "image/jpeg"
+    // ];
 
 
     /*
@@ -1411,29 +1524,29 @@ function initRadioConsentButton(options) {
         /*
          * Validate file type.
          */
-        if (allowedTypes.indexOf(file.type) === -1) {
-            announce(
-                modalError,
-                "Invalid file format. Please upload a PNG or JPG image."
-            );
+        // if (allowedTypes.indexOf(file.type) === -1) {
+        //     announce(
+        //         modalError,
+        //         "Invalid file format. Please upload a PNG or JPG image."
+        //     );
 
-            resetFileInput();
-            return;
-        }
+        //     resetFileInput();
+        //     return;
+        // }
 
 
         /*
          * Validate file size.
          */
-        if (file.size > MAX_FILE_SIZE) {
-            announce(
-                modalError,
-                "The selected file is larger than 5 megabytes. Please choose a smaller image."
-            );
+        // if (file.size > MAX_FILE_SIZE) {
+        //     announce(
+        //         modalError,
+        //         "The selected file is larger than 5 megabytes. Please choose a smaller image."
+        //     );
 
-            resetFileInput();
-            return;
-        }
+        //     resetFileInput();
+        //     return;
+        // }
 
 
         var fileReader = new FileReader();
@@ -1985,104 +2098,143 @@ function initRadioConsentButton(options) {
 })();
 
 //////////////////////////Step Announcement///////////////////////////
+
 (function () {
     "use strict";
 
-    var steppersWrapper = document.getElementById("key_kin_steppers");
+    var section = document.getElementById("verification_and_upload");
 
-    if (!steppersWrapper) {
+    if (!section) {
         return;
     }
 
-    /*
-     * Create screen-reader announcement element.
-     */
-    var stepperAnnouncement = document.getElementById(
-        "kyc-kin-stepper-announcement"
-    );
+    var stepper = section.querySelector("#key_kin_steppers");
+    var contentWrapper = section.querySelector(".stepper-content-block");
 
-    if (!stepperAnnouncement) {
-        stepperAnnouncement = document.createElement("div");
-        stepperAnnouncement.id = "kyc-kin-stepper-announcement";
-        stepperAnnouncement.className = "sr-only";
-        stepperAnnouncement.setAttribute("role", "status");
-        stepperAnnouncement.setAttribute("aria-live", "polite");
-        stepperAnnouncement.setAttribute("aria-atomic", "true");
-
-        steppersWrapper.parentNode.insertBefore(
-            stepperAnnouncement,
-            steppersWrapper
-        );
+    if (!stepper || !contentWrapper) {
+        return;
     }
 
-    /*
-     * Announce the currently active step.
-     */
-    function announceActiveStepper() {
-        var activeStep = steppersWrapper.querySelector(
-            ".kyc-kin-stepper.active"
-        );
+    var previousActiveStep = null;
+    var focusTimer = null;
 
-        if (!activeStep) {
-            return;
-        }
-
-        var stepNumberElement = activeStep.querySelector(
-            ".stpper-number-block"
-        );
-
-        var stepTitleElement = activeStep.querySelector(
-            ".stpper-title"
-        );
-
-        if (!stepNumberElement || !stepTitleElement) {
-            return;
-        }
-
-        var stepNumber = stepNumberElement.textContent.trim();
-        var stepTitle = stepTitleElement.textContent
-            .replace(/\s+/g, " ")
-            .trim();
-
-        /*
-         * Clear first so screen readers announce the
-         * message even when the same step becomes active again.
-         */
-        stepperAnnouncement.textContent = "";
-
-        window.setTimeout(function () {
-            stepperAnnouncement.textContent =
-                "Step " + stepNumber + " active. " + stepTitle;
-        }, 100);
+    function getActiveStep() {
+        return stepper.querySelector(".kyc-kin-stepper.active");
     }
 
-    /*
-     * Watch for active class changes on the stepper.
-     */
-    var stepperObserver = new MutationObserver(function (mutations) {
-        var activeClassChanged = mutations.some(function (mutation) {
-            return (
-                mutation.type === "attributes" &&
-                mutation.attributeName === "class"
-            );
+    function updateStepStatuses() {
+        var steps = stepper.querySelectorAll(".kyc-kin-stepper");
+
+        Array.prototype.forEach.call(steps, function (step) {
+            var status = step.querySelector(".kyc-stepper-state");
+            var isCurrent = step.classList.contains("active");
+            var isCompleted = step.classList.contains("filled");
+
+            if (status) {
+                if (isCurrent) {
+                    status.textContent = "(current step)";
+                } else if (isCompleted) {
+                    status.textContent = "(completed)";
+                } else {
+                    status.textContent = "(not started)";
+                }
+            }
+
+            if (isCurrent) {
+                step.setAttribute("aria-current", "step");
+            } else {
+                step.removeAttribute("aria-current");
+            }
         });
+    }
 
-        if (activeClassChanged) {
-            announceActiveStepper();
+    function isVisible(element) {
+        var current = element;
+
+        while (current && current !== section) {
+            if (
+                current.hidden ||
+                current.hasAttribute("inert") ||
+                current.getAttribute("aria-hidden") === "true"
+            ) {
+                return false;
+            }
+
+            var styles = window.getComputedStyle(current);
+
+            if (
+                styles.display === "none" ||
+                styles.visibility === "hidden"
+            ) {
+                return false;
+            }
+
+            current = current.parentElement;
         }
+
+        return (
+            current === section &&
+            element.getClientRects().length > 0
+        );
+    }
+
+    function focusFirstActionableItem() {
+        var candidates = contentWrapper.querySelectorAll(
+            'input:not([type="hidden"]):not(:disabled), ' +
+            'select:not(:disabled), ' +
+            'textarea:not(:disabled), ' +
+            'button:not(:disabled), ' +
+            'a[href], ' +
+            '[tabindex]:not([tabindex="-1"])'
+        );
+
+        for (var i = 0; i < candidates.length; i++) {
+            var candidate = candidates[i];
+
+            if (
+                !isVisible(candidate) ||
+                candidate.getAttribute("aria-disabled") === "true"
+            ) {
+                continue;
+            }
+
+            candidate.focus();
+            return;
+        }
+    }
+
+    function handleStepChanges() {
+        updateStepStatuses();
+
+        var activeStep = getActiveStep();
+
+        if (!activeStep || activeStep === previousActiveStep) {
+            return;
+        }
+
+        previousActiveStep = activeStep;
+
+        window.clearTimeout(focusTimer);
+
+        focusTimer = window.setTimeout(function () {
+            focusFirstActionableItem();
+        }, 0);
+    }
+
+    updateStepStatuses();
+    previousActiveStep = getActiveStep();
+
+    var observer = new MutationObserver(function () {
+        handleStepChanges();
     });
 
-    stepperObserver.observe(steppersWrapper, {
+    observer.observe(stepper, {
         subtree: true,
         attributes: true,
         attributeFilter: ["class"]
     });
-
-    /*
-     * Announce the initial active step.
-     */
-    announceActiveStepper();
 })();
+
 
 
 //////////////////////////////Add class on parent tag when address radio is selected////////////////////////////////////

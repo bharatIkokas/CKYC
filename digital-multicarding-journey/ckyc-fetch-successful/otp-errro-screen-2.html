@@ -2483,7 +2483,6 @@ CKYC/KIN Number</h3>
                 id="ckyc_kin_proceed"
                 aria-disabled="true"
                 disabled
-    aria-describedby="ckyc_kin_error"
     data-switch-screen
     data-hide-screen="verify_ckyc_kin_checkbox"
     data-show-screen="verify_ckyc_kin_otp"
@@ -2506,7 +2505,7 @@ CKYC/KIN Number</h3>
                                                             
 <div class="verify-ckyc-kin-otp-block sky-blue-bg relative d-none" id="verify_ckyc_kin_otp">
 
-    <div class="ckyc-kin-contnet-block mb-14">
+    <div class="ckyc-kin-contnet-block">
         <h3 class="mb-8 text-center blue-color" id="otp-heading" tabindex="-1">Enter One Time Password</h3>
 
         <!-- Masked values: visual text is hidden from AT, readable equivalent provided.
@@ -2519,48 +2518,40 @@ CKYC/KIN Number</h3>
         </p>
     </div>
 
-    <fieldset class="ckyc-kin-otp-wrap pb-0" aria-describedby="otp-instructions otp-error-message otp-error">
-        <legend class="blue-color text-15 font-bold text-center">Enter OTP</legend>
+    <!-- ONE labelled field. A fieldset/legend is not needed for a single control. -->
+    <div class="ckyc-kin-otp-wrap pb-0">
+        <label class="blue-color text-15 font-bold text-center d-block" for="otp-input">Enter OTP</label>
 
         <p class="sr-only" id="otp-instructions">
-            Enter one digit in each of the six boxes. Focus moves to the next box automatically.
-            You can also paste the full code into any box.
+            Enter the 6-digit code. You can type it or paste it.
         </p>
 
         <div class="ckyc-kin-otp-block">
             <div class="otp-field-wrapper invalid-otp">
-                <div class="otp-fields">
-                    <label class="sr-only" for="otp-1">Digit 1 of 6</label>
-                    <input type="password" id="otp-1" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="6" autocomplete="one-time-code" required aria-required="true" aria-invalid="true">
+                <div class="otp-input-wrapper">
+                    <!-- Decorative boxes: hidden from assistive technology. The script adds
+                         otp-box-filled / otp-box-active to them so your CSS can style the state. -->
+                    <div class="otp-boxes" aria-hidden="true">
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                    </div>
 
-                    <label class="sr-only" for="otp-2">Digit 2 of 6</label>
-                    <input type="password" id="otp-2" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
+                    <!-- The only real control. "masked" hides the digits visually (your CSS). -->
+                    <input type="text" id="otp-input" name="otp_id" maxlength="6" class="otp-input masked"
+                           inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code"
+                           required aria-required="true" aria-invalid="true"
+                           aria-describedby="otp-instructions otp-error-message otp-error">
 
-                    <label class="sr-only" for="otp-3">Digit 3 of 6</label>
-                    <input type="password" id="otp-3" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
-
-                    <label class="sr-only" for="otp-4">Digit 4 of 6</label>
-                    <input type="password" id="otp-4" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
-
-                    <label class="sr-only" for="otp-5">Digit 5 of 6</label>
-                    <input type="password" id="otp-5" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
-
-                    <label class="sr-only" for="otp-6">Digit 6 of 6</label>
-                    <input type="password" id="otp-6" class="otp-input" inputmode="numeric" pattern="[0-9]*"
-                           maxlength="1" autocomplete="off" required aria-required="true" aria-invalid="true">
-
-                    <!-- Error icon: shown in the success icon's place. Decorative, because the
-                         message text below already says what is wrong (not colour/icon alone). -->
+                    <!-- Error icon: shown in the success icon's place. Decorative, because the message
+                         below already says what is wrong (not colour or icon alone). -->
                     <span class="otp-error-icon" id="otp-error-icon" aria-hidden="true">
                         <img src="../img/red-cross.svg" alt="" width="24" height="24">
                     </span>
 
-                    <!-- Success icon: keep in markup, hidden; the script reveals it after the user corrects the OTP -->
                     <span class="otp-success-icon" id="otp-success-icon" aria-hidden="true" hidden>
                         <img src="../img/green-tick.svg" alt="" width="24" height="24">
                     </span>
@@ -2572,7 +2563,7 @@ CKYC/KIN Number</h3>
                     <span class="sr-only">Error: </span>OTP request limit exceeded. Please try again shortly.
                 </p>
 
-                <!-- Polite live region: announces only when all digits are entered / OTP resent -->
+                <!-- Polite live region: announces only when all digits are entered -->
                 <p class="otp-status sr-only" id="otp-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
                 <div class="otp-resend-row">
@@ -2582,9 +2573,9 @@ CKYC/KIN Number</h3>
                 <span id="otp-resend-status" class="otp-resend-status sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
             </div>
         </div>
-    </fieldset>
+    </div>
 
-    <!-- Client-side validation message (e.g. "enter all 6 digits"); separate from the server error above -->
+    <!-- Visible, persistent error (not sr-only, not auto-dismissed) -->
     <div id="otp-error" class="ckyc-kin-alert-message" role="alert" aria-atomic="true"></div>
 
     <div class="ckyc-kin-card-button-block ckyc-kin-otp-card-button-block">
@@ -2781,7 +2772,7 @@ CKYC/KIN Number</h3>
                                                         <div class="verify-kin-card">
                                                             <div class="verify-ckyc-kin-otp-block sky-blue-bg relative" id="verify_ckykin_otp">
 
-    <div class="ckyc-kin-contnet-block mb-14">
+    <div class="ckyc-kin-contnet-block">
         <h3 class="mb-8 text-center blue-color" id="address-otp-heading" tabindex="-1">Enter One Time Password</h3>
 
         <!-- Masked values: visual text is hidden from AT, readable equivalent provided.
@@ -2794,42 +2785,33 @@ CKYC/KIN Number</h3>
         </p>
     </div>
 
-    <fieldset class="ckyc-kin-otp-wrap" aria-describedby="address-otp-instructions ckyc_kin_address_otp_error">
-        <legend class="blue-color text-15 font-bold text-center">Enter 6-digit OTP</legend>
+    <!-- ONE labelled field. A fieldset/legend is not needed for a single control. -->
+    <div class="ckyc-kin-otp-wrap pb-0">
+        <label class="blue-color text-15 font-bold text-center d-block" for="address-otp-input">Enter OTP</label>
 
         <p class="sr-only" id="address-otp-instructions">
-            Enter one digit in each of the six boxes. Focus moves to the next box automatically.
-            You can also paste the full code into any box.
+            Enter the 6-digit code. You can type it or paste it.
         </p>
 
         <div class="ckyc-kin-otp-block">
             <div class="otp-field-wrapper">
-                <div class="otp-fields">
-                    <!-- type="password": the digits are masked as they are typed. autocomplete="one-time-code" on box 1 and
-                         paste are still allowed, so SMS autofill and pasting a code work (WCAG 3.3.8). -->
-                    <label class="sr-only" for="address-otp-1">Digit 1 of 6</label>
-                    <input type="password" id="address-otp-1" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required aria-required="true">
+                <div class="otp-input-wrapper">
+                    <!-- Decorative boxes: hidden from assistive technology. The script adds
+                         otp-box-filled / otp-box-active to them so your CSS can style the state. -->
+                    <div class="otp-boxes" aria-hidden="true">
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                        <span class="otp-box"></span>
+                    </div>
 
-                    <label class="sr-only" for="address-otp-2">Digit 2 of 6</label>
-                    <input type="password" id="address-otp-2" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
-
-                    <label class="sr-only" for="address-otp-3">Digit 3 of 6</label>
-                    <input type="password" id="address-otp-3" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
-
-                    <label class="sr-only" for="address-otp-4">Digit 4 of 6</label>
-                    <input type="password" id="address-otp-4" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
-
-                    <label class="sr-only" for="address-otp-5">Digit 5 of 6</label>
-                    <input type="password" id="address-otp-5" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
-
-                    <label class="sr-only" for="address-otp-6">Digit 6 of 6</label>
-                    <input type="password" id="address-otp-6" class="otp-input address-otp-input" inputmode="numeric"
-                           pattern="[0-9]*" maxlength="1" autocomplete="off" required aria-required="true">
+                    <!-- The only real control. "masked" hides the digits visually (your CSS). -->
+                    <input type="text" id="address-otp-input" name="otp_id" maxlength="6" class="otp-input masked"
+                           inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code"
+                           required aria-required="true"
+                           aria-describedby="address-otp-instructions ckyc_kin_address_otp_error">
 
                     <span class="otp-success-icon" id="address-otp-success-icon" aria-hidden="true" hidden>
                         <img src="../img/green-tick.svg" alt="" width="24" height="24">
@@ -2840,17 +2822,13 @@ CKYC/KIN Number</h3>
                 <p class="otp-status sr-only" id="address-otp-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
                 <div class="otp-resend-row">
-                    <button type="button" class="otp-resend-link" id="address-otp-resend-link"
-                            aria-describedby="address-otp-resend-status">Resend OTP</button>
-                    <!-- Visible for sighted users: countdown only (e.g. 00:30) -->
+                    <button type="button" class="otp-resend-link" id="address-otp-resend-link" aria-describedby="address-otp-resend-status">Resend OTP</button>
                     <span class="otp-resend-timer" id="address-otp-resend-timer" aria-hidden="true"></span>
                 </div>
-                <!-- Screen-reader-only sentence, announced once at start / end of the countdown -->
-                <span id="address-otp-resend-status" class="otp-resend-status sr-only"
-                      role="status" aria-live="polite" aria-atomic="true"></span>
+                <span id="address-otp-resend-status" class="otp-resend-status sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
             </div>
         </div>
-    </fieldset>
+    </div>
 
     <!-- Visible, persistent error (not sr-only, not auto-dismissed) -->
     <div id="ckyc_kin_address_otp_error" class="ckyc-kin-alert-message" role="alert" aria-atomic="true"></div>
@@ -2915,6 +2893,7 @@ CKYC/KIN Number</h3>
             id="openModalBtn"
             aria-haspopup="dialog"
             aria-controls="upload_modal"
+            aria-describedby="photo-info"
         >
             Share Photo
         </button>
@@ -3247,7 +3226,7 @@ CKYCR (Central KYC registry)
                     type="file"
                     id="fileInput"
                     class="steper-file-input-block sr-only"
-                    accept=".png,.jpg,.jpeg"
+                    accept="*/*"
                     aria-describedby="photo-info upload-file-description"
                 >
 
