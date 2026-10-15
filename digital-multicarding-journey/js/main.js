@@ -1,4 +1,5 @@
 
+
 (function () {
     "use strict";
 
@@ -9,6 +10,29 @@
     if (!confirmAddress || !confirmEditAddress || !verificationAndUpload) {
         return;
     }
+
+    var keyboardUser = false;
+
+    // Detect keyboard interaction.
+    document.addEventListener("keydown", function (event) {
+        if (
+            event.key === "Tab" ||
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+            keyboardUser = true;
+        }
+    });
+
+    // Detect mouse interaction.
+    document.addEventListener("mousedown", function () {
+        keyboardUser = false;
+    });
+
+    // Detect touch interaction.
+    document.addEventListener("touchstart", function () {
+        keyboardUser = false;
+    }, { passive: true });
 
     function focusFirstElement(container) {
         var focusableSelector = [
@@ -44,16 +68,23 @@
     }
 
     confirmAddress.addEventListener("click", function () {
+        // Save the interaction method before the next event.
+        var shouldMoveFocus = keyboardUser;
+
         confirmEditAddress.classList.remove("active");
         verificationAndUpload.classList.add("active");
         confirmEditAddress.classList.add("filled");
 
-        // Move focus after the next section becomes visible.
-        requestAnimationFrame(function () {
-            focusFirstElement(verificationAndUpload);
-        });
+        if (shouldMoveFocus) {
+            requestAnimationFrame(function () {
+                focusFirstElement(verificationAndUpload);
+            });
+        }
+
+        keyboardUser = false;
     });
 })();
+
 
 
 
@@ -432,10 +463,44 @@ function initRadioConsentButton(options) {
         var radio2 = radios[1];
         var radio3 = radios[2];
 
-        if (radio1.checked || radio2.checked) {
-            showOTPAddressVerify();
+        
+if (radio1.checked || radio2.checked) {
+    showOTPAddressVerify();
+
+    requestAnimationFrame(function () {
+        var nextStep = document.getElementById("verify_ckyc_kin_address_otp");
+
+        if (!nextStep) {
             return;
         }
+
+        var focusableElements = nextStep.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+
+        for (var i = 0; i < focusableElements.length; i++) {
+            var element = focusableElements[i];
+
+            if (
+                element.getAttribute("aria-hidden") === "true" ||
+                element.closest("[hidden], .d-none, [inert]") ||
+                element.getClientRects().length === 0
+            ) {
+                continue;
+            }
+
+            element.focus();
+            return;
+        }
+
+        // Fallback if no focusable element exists.
+        nextStep.setAttribute("tabindex", "-1");
+        nextStep.focus();
+    });
+
+    return;
+}
+
 
         if (radio3.checked) {
             showAddNewAddress();
@@ -911,28 +976,35 @@ function initRadioConsentButton(options) {
             }
 
             function startResendTimer() {
-                stopTimer();
-                var remaining = RESEND_SECONDS;
+    stopTimer();
+    var remaining = RESEND_SECONDS;
 
-                resendBtn.setAttribute("aria-disabled", "true");
-                resendBtn.classList.add("is-disabled");
-                // Sighted users: timer only. Screen readers: full sentence below (sr-only, announced once).
-                resendTimerText.textContent = formatTime(remaining);
-                resendStatus.textContent = "A new OTP has been sent. Resend will be available in " + remaining + " seconds.";
+    resendBtn.setAttribute("aria-disabled", "true");
+    resendBtn.classList.add("is-disabled");
+    resendBtn.setAttribute("tabindex", "-1");
 
-                timer = window.setInterval(function () {
-                    remaining--;
-                    if (remaining > 0) {
-                        resendTimerText.textContent = formatTime(remaining);
-                        return;
-                    }
-                    stopTimer();
-                    resendBtn.removeAttribute("aria-disabled");
-                    resendBtn.classList.remove("is-disabled");
-                    resendTimerText.textContent = "";
-                    resendStatus.textContent = "You can now resend the OTP.";
-                }, 1000);
-            }
+    // Update timer and screen reader status.
+    resendTimerText.textContent = formatTime(remaining);
+    resendStatus.textContent = "A new OTP has been sent. Resend will be available in " + remaining + " seconds.";
+
+    timer = window.setInterval(function () {
+        remaining--;
+
+        if (remaining > 0) {
+            resendTimerText.textContent = formatTime(remaining);
+            return;
+        }
+
+        stopTimer();
+
+        resendBtn.removeAttribute("aria-disabled");
+        resendBtn.classList.remove("is-disabled");
+        resendBtn.removeAttribute("tabindex");
+
+        resendTimerText.textContent = "";
+        resendStatus.textContent = "You can now resend the OTP.";
+    }, 1000);
+}
 
             resendBtn.addEventListener("click", function (e) {
                 e.preventDefault();

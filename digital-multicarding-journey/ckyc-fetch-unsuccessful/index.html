@@ -2305,7 +2305,7 @@ CKYC/KIN Number</h3>
 </button>
                                     </div>
 
-                                    <div class="disabiity-popuop d-none" id="disability_popover" role="dialog" aria-labelledby="disability_popover_title" aria-describedby="disability_popover_description">
+                                    <div class="disabiity-popuop d-none" id="disability_popover" role="dialog" aria-labelledby="disability_popover_title">
                                     <div class="relative">
                                         <button type="button" class="close-disability-popover" id="close_disability_popover" aria-label="Close disability details"> <img src="../img/close.svg" alt="" aria-hidden="true"> </button>
                                         <h4 id="disability_popover_title" class="font-bold"> Disability Details </h4>
@@ -2555,7 +2555,7 @@ CKYC/KIN Number</h3>
                 <p class="otp-status sr-only" id="otp-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
                 <div class="otp-resend-row">
-                    <button type="button" class="otp-resend-link" id="otp-resend-link" aria-describedby="otp-resend-status">Resend OTP</button>
+                    <button type="button" class="otp-resend-link" id="otp-resend-link">Resend OTP</button>
                     <span class="otp-resend-timer" id="otp-resend-timer" aria-hidden="true"></span>
                 </div>
                 <span id="otp-resend-status" class="otp-resend-status sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
@@ -2574,8 +2574,7 @@ CKYC/KIN Number</h3>
                 disabled
                 aria-describedby="otp-error"
                 data-switch-screen
-                data-hide-screen="verfiy_ckyc_kin_screen"
-                data-show-screen="address_suceesfully_retrieved_screen">
+                data-hide-screen="verfiy_ckyc_kin_screen" data-show-screen="failed_to_fetch_ckyc">
             Submit
         </button>
     </div>

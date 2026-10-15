@@ -2825,7 +2825,7 @@ padding-right: 35px;
 .accessbility-handled-wrap a:focus-visible,
 .accessbility-handled-wrap .file-upload-wrapper:focus-within,
 .accessbility-handled-wrap .select-selected:focus-within,
-.accessbility-handled-wrap input:focus-within, 
+.accessbility-handled-wrap input:focus-visible, 
 body.ckyc-popup-open input:focus-within,
 .accessbility-handled-wrap .custom-select .select-selected:focus-visible,
 button.ckyc-upload-link:focus-visible,
@@ -3024,6 +3024,7 @@ button.ckyc-upload-link:focus-visible,
     letter-spacing: normal !important;
     text-indent: 0 !important;
     font-size: 1.25rem !important;   /* 16px or more: stops iOS zooming the page on focus */
+    opacity: 0 !important;
 }
 
 .verify-ckyc-kin-otp-block .otp-input-wrapper input.otp-input::selection {
@@ -3047,6 +3048,38 @@ button.ckyc-upload-link:focus-visible,
 }
 .verify-ckyc-kin-otp-block .invalid-otp .otp-input-wrapper .otp-box.otp-box-active {
     outline-color: var(--otp-error);
+}
+
+.address-radio-block input[type=radio] + span {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address-radio-block input[type=radio] + span > span {
+    display: none;
+    width: 11px;
+    height: 11px;
+    border-radius: 100%;
+}
+
+.address-radio-block input[type=radio]:checked + span > span {
+    display: block;
+}
+
+.accessbility-handled-wrap .address-radio-block input[type=radio] + span > span {
+    background-color: #0077af;
+}
+
+.accessbility-handled-wrap .address-radio-block input[type=radio] + span {
+    border: 1px solid #0077af;
+}
+
+.accessbility-handled-wrap .select-radio-title {
+    display: block;
 }
 
 /* ---- Windows High Contrast / forced colors ---- */
